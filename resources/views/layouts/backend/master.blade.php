@@ -22,7 +22,7 @@
     </head>
 
 
-    <body data-sidebar="dark">
+    <body >
 
     <!-- <body data-layout="horizontal" data-topbar="colored"> -->
         <div id="app">
