@@ -31,20 +31,10 @@
         <div id="layout-wrapper">
 
 
-            {{-- @include('layouts.backend.components.header')
-
-
-            <!-- ========== Left Sidebar Start ========== -->
-            @include('layouts.backend.components.sidebarmenu')
-            <!-- Left Sidebar End --> --}}
             @yield('content')
 
 
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->
-
-            <!-- end main content-->
+     
 
         </div>
         <!-- END layout-wrapper -->
