@@ -15,8 +15,8 @@ function setSingleLink($title,$icon,$v_can=null,$v_route=null){
     return [
         "title"=>$title,
         "icon"=>$icon,
-        "v-can"=>$v_can,
-        "v-route"=>$v_route,
+        "can"=>$v_can,
+        "route"=>$v_route,
     ];
 }
 function singleImgUpload($request, $path)
@@ -32,7 +32,7 @@ function setSubMenu($title,$icon,$v_can=null,$v_route=null){
     return [
         "title"=>$title,
         "icon"=>$icon,
-        "v-can"=>$v_can,
-        "v-route"=>$v_route,
+        "can"=>$v_can,
+        "route"=>$v_route,
     ];
  }

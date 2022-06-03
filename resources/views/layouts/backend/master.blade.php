@@ -34,7 +34,7 @@
             @yield('content')
 
 
-     
+
 
         </div>
         <!-- END layout-wrapper -->
@@ -168,7 +168,17 @@
 
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
-
+        <script>
+            window.primarycolor="#1e204f";
+  // window.appname={!! json_encode(config('app.name'),true)!!};
+       @auth
+            window.user = [];
+           window.permissions = ['dispatch-view','grn-view','dashboard-view','user-management-dropdown','users-view','container-dropdown','receives-view','stuffing-view'];
+       @else
+           window.user = [];
+           window.permissions = [];
+       @endauth
+       </script>
         <!-- JAVASCRIPT -->
         <script src="{{ mix('js/app.js') }}" ></script>
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
