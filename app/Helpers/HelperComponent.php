@@ -8,24 +8,23 @@ class HelperComponent
     public static function SideBar()
     {
         $prefix="portal";
-        return (object)[
+        return [
             [
                 "heading" => "Analytics",
 
             ],
-            [
-                "single_link" => setSingleLink("Dashboard", "uil-home-alt", "dashboard-view","/dashboard"),
-            ],
+
+                 setSingleLink("Dashboard", "uil-home-alt", "dashboard-view","/dashboard"),
             [
                 "heading" => "Management",
 
             ],
-            [
+         [
 
-                "menu" => [
                     "title" => 'User Management',
                     'can'=>'user-management-dropdown',
                     "icon" => "uil-users-alt",
+                    'type'=>'multi',
                     "sub_menu" => [
                         setSubMenu(
                             "Users",
@@ -48,51 +47,78 @@ class HelperComponent
 
                     ]
 
-                ],
+            ],
+
+            [
+                "heading" => "Leads Management",
 
             ],
             [
 
-                "menu" => [
-                    "title" => 'Test Management',
-                    'can'=>'user-management-dropdown',
-                    "icon" => "uil-users-alt",
-                    "sub_menu" => [
-                        setSubMenu(
-                            "Users",
-                            null,
-                            "users-view",
-                            "/users",
-                        ),
-                        setSubMenu(
-                            "Roles",
-                            null,
-                            "roles-view",
-                            "/roles",
-                        ),
-                        setSubMenu(
-                            "Permissions",
-                            null,
-                            "permissions-view",
-                            "/permissions",
-                        ),
+                "title" => 'Leads Management',
+                'can'=>'user-management-dropdown',
+                "icon" => "uil-facebook-messenger",
+                'type'=>'multi',
+                "sub_menu" => [
+                    setSubMenu(
+                        "Users",
+                        null,
+                        "users-view",
+                        "/users",
+                    ),
+                    setSubMenu(
+                        "Roles",
+                        null,
+                        "roles-view",
+                        "/roles",
+                    ),
+                    setSubMenu(
+                        "Permissions",
+                        null,
+                        "permissions-view",
+                        "/permissions",
+                    ),
 
-                    ]
+                ]
 
-                ],
+        ],
+        [
 
-            ],
+            "title" => 'Leads Sys',
+            'can'=>'user-management-dropdown',
+            "icon" => "uil-facebook-messenger",
+            'type'=>'multi',
+            "sub_menu" => [
+                setSubMenu(
+                    "Users",
+                    null,
+                    "users-view",
+                    "/users",
+                ),
+                setSubMenu(
+                    "Roles",
+                    null,
+                    "roles-view",
+                    "/roles",
+                ),
+                setSubMenu(
+                    "Permissions",
+                    null,
+                    "permissions-view",
+                    "/permissions",
+                ),
 
+            ]
+
+    ],
             [
                 "heading" => "Tools",
 
             ],
-            [
-                "single_link" => setSingleLink("Settings", "ni-setting-alt-fill", "settings-view", "/settings"),
-            ],
-            [
-                "single_link" => setSingleLink("Log out", "ni-signout", "services-view", "/logout"),
-            ],
+
+          setSingleLink("Settings","uil-cog", "settings-view", "/settings"),
+          setSingleLink("Log out","uil-sign-out-alt", "services-view", "/logout"),
+         
 
         ];
     }

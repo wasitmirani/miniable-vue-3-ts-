@@ -179,11 +179,13 @@
            window.permissions = [];
        @endauth
        </script>
-        <!-- JAVASCRIPT -->
-        <script src="{{ mix('js/app.js') }}" ></script>
+
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
+                     <!-- JAVASCRIPT -->
 
         <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{ mix('js/app.js') }}" ></script>
+
         <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
         <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
         <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>

@@ -11,12 +11,13 @@ function sideBarMenu(){
 }
 
 
-function setSingleLink($title,$icon,$v_can=null,$v_route=null){
+function setSingleLink($title,$icon,$v_can=null,$v_route=null, $prefix="/portal"){
     return [
         "title"=>$title,
+        'type'=> 'single_link',
         "icon"=>$icon,
         "can"=>$v_can,
-        "route"=>$v_route,
+        "route"=>$prefix.$v_route,
     ];
 }
 function singleImgUpload($request, $path)
@@ -28,11 +29,11 @@ function singleImgUpload($request, $path)
         $name = "";
     return $name;
 }
-function setSubMenu($title,$icon,$v_can=null,$v_route=null){
+function setSubMenu($title,$icon,$v_can=null,$v_route=null,$prefix="/portal"){
     return [
         "title"=>$title,
         "icon"=>$icon,
         "can"=>$v_can,
-        "route"=>$v_route,
+        "route"=>$prefix.$v_route,
     ];
  }
