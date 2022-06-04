@@ -25,7 +25,8 @@ if(user){
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common['Authorization'] = `Bearer `+token ;
 window.axios.defaults.baseURL = window.location.origin + perfix;
-console.log("test");
+
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

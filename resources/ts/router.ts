@@ -34,8 +34,6 @@ const routes = [
         meta: { permissions: "users-list-view" }
     },
 
-
-
 ];
 
 

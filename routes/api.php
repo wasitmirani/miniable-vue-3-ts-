@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\backend\api\user\UserController;
 use App\Http\Controllers\backend\layout\LayoutController;
 
 /*
@@ -25,5 +26,5 @@ Route::prefix('config')->group(function () {
 // Ending Config Api Routes
 
 Route::prefix('backend')->group(function () {
-
+    Route::resource('user', UserController::class);
 });
