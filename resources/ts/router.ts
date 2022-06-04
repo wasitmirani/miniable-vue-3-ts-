@@ -29,6 +29,10 @@ const routes = [
         path: setPerfixRoute('/dashboard'), component:()=>getComponent("dashboard/MasterDashboard"), name: "master_dashboard",
         meta: { permissions: "dashboard-view" }
     },
+    {
+        path: setPerfixRoute('/users'), component:()=>getComponent("user/Users"), name: "users",
+        meta: { permissions: "users-list-view" }
+    },
 
 
 

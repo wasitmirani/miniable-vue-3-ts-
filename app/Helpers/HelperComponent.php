@@ -64,20 +64,9 @@ class HelperComponent
                         "Users",
                         null,
                         "users-view",
-                        "/users",
+                        "/leads-users",
                     ),
-                    setSubMenu(
-                        "Roles",
-                        null,
-                        "roles-view",
-                        "/roles",
-                    ),
-                    setSubMenu(
-                        "Permissions",
-                        null,
-                        "permissions-view",
-                        "/permissions",
-                    ),
+               
 
                 ]
 
@@ -90,23 +79,13 @@ class HelperComponent
             'type'=>'multi',
             "sub_menu" => [
                 setSubMenu(
-                    "Users",
+                    "Users Leads",
                     null,
                     "users-view",
-                    "/users",
+                    "/users-leads",
                 ),
-                setSubMenu(
-                    "Roles",
-                    null,
-                    "roles-view",
-                    "/roles",
-                ),
-                setSubMenu(
-                    "Permissions",
-                    null,
-                    "permissions-view",
-                    "/permissions",
-                ),
+
+
 
             ]
 
@@ -118,7 +97,7 @@ class HelperComponent
 
           setSingleLink("Settings","uil-cog", "settings-view", "/settings"),
           setSingleLink("Log out","uil-sign-out-alt", "services-view", "/logout"),
-         
+
 
         ];
     }

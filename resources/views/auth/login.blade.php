@@ -1,56 +1,94 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.backend.authmaster')
+@section('content')
+<div class="col-md-8 col-lg-6 col-xl-5">
+    <div class="card">
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <div class="card-body p-4">
+            <div class="text-center mt-2">
+                <h5 class="text-primary">Welcome Back !</h5>
+                <p class="text-muted">Sign in to continue to {{config('app.name')}}.</p>
+            </div>
+            <div class="mt-2">
+                <x-auth-session-status class="mb-4 text-danger" :status="session('status')" />
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
+        </div>
+            <div class="p-2 mt-4">
+                <form action="{{route('login')}}" method="post">
+                    @csrf
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username/Email</label>
+                        <input type="text"  class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" id="username" placeholder="Enter username/email">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+                    <div class="mb-3">
+                        <div class="float-end">
+                            <a href="#" class="text-muted">Forgot password?</a>
+                        </div>
+                        <label class="form-label" for="userpassword">Password</label>
+                        <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="userpassword" placeholder="Enter password">
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="auth-remember-check">
+                        <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                    </div>
+
+                    <div class="mt-3 text-end">
+                        <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Log In</button>
+                    </div>
+
+
+
+                    <div class="mt-4 text-center">
+                        <div class="signin-other-title">
+                            <h5 class="font-size-14 mb-3 title">Sign in with</h5>
+                        </div>
+
+
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
+                                    <i class="mdi mdi-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
+                                    <i class="mdi mdi-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
+                                    <i class="mdi mdi-google"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {{-- <div class="mt-4 text-center">
+                        <p class="mb-0">Don't have an account ? <a href="" class="fw-medium text-primary"> Signup now </a> </p>
+                    </div> --}}
+                </form>
             </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+        </div>
+    </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
+    <div class="mt-5 text-center">
+        <p>© <script>document.write(new Date().getFullYear())</script> Minible. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+    </div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+</div>
+@endsection

@@ -16,13 +16,15 @@ window._ = require('lodash');
 
 window.axios = require('axios');
 let token=null;
+let perfix="/api/";
 if(user){
     token= user ? user?.token : null;
+    perfix=perfix+"backend";
 }
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common['Authorization'] = `Bearer `+token ;
-window.axios.defaults.baseURL = window.location.origin + "/api/";
+window.axios.defaults.baseURL = window.location.origin + perfix;
 console.log("test");
 
 /**

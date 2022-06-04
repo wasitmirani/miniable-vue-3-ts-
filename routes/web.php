@@ -19,9 +19,11 @@ Route::get('/', function () {
 
 Route::get('/login',[AuthController::class,'login'])->name('login');
 
-Route::get('/portal/dashboard', function () {
+Route::get('/portal/{any?}', function () {
     return view('backend.index');
-})->where('any', '[\/\w\.-]*');
+})
+->middleware('auth')
+->where('any', '[\/\w\.-]*');
 
 
 require __DIR__.'/auth.php';

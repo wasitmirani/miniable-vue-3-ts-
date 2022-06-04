@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Starting Config Api Routes
 Route::prefix('config')->group(function () {
     Route::get('/sidebar-menu',[LayoutController::class,'getSideBarMenu']);
-    
 });
 // Ending Config Api Routes
 
+Route::prefix('backend')->group(function () {
+
+});

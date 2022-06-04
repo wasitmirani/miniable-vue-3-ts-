@@ -53,19 +53,7 @@ let sidebar_menu=[
           "title": "Users",
           "icon": null,
           "can": "users-view",
-          "route": "/portal/users"
-        },
-        {
-          "title": "Roles",
-          "icon": null,
-          "can": "roles-view",
-          "route": "/portal/roles"
-        },
-        {
-          "title": "Permissions",
-          "icon": null,
-          "can": "permissions-view",
-          "route": "/portal/permissions"
+          "route": "/portal/leads-users"
         }
       ]
     },
@@ -76,22 +64,10 @@ let sidebar_menu=[
       "type": "multi",
       "sub_menu": [
         {
-          "title": "Users",
+          "title": "Users Leads",
           "icon": null,
           "can": "users-view",
-          "route": "/portal/users"
-        },
-        {
-          "title": "Roles",
-          "icon": null,
-          "can": "roles-view",
-          "route": "/portal/roles"
-        },
-        {
-          "title": "Permissions",
-          "icon": null,
-          "can": "permissions-view",
-          "route": "/portal/permissions"
+          "route": "/portal/users-leads"
         }
       ]
     },
