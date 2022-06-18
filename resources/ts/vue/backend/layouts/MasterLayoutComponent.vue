@@ -7,6 +7,7 @@
                 <div class="page-content">
                     <div class="container-fluid">
                           <router-view></router-view>
+                           <notifications   class="mt-1 mr-1"/>  
                     </div>
                     <!-- container-fluid -->
                 </div>

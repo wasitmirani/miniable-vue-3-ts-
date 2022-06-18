@@ -27,10 +27,13 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "@aacassandra/vue3-progressbar": "^1.0.3",
+        "@kyvg/vue3-notification": "^2.3.4",
         "cross-env": "^7.0.3",
         "ts-loader": "^9.3.0",
         "typescript": "^4.6.4",
         "vue": "^3.2.31",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^4.0.15"
     }
 }

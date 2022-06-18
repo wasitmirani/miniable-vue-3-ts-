@@ -1,6 +1,596 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@kyvg/vue3-notification/dist/index.esm.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@kyvg/vue3-notification/dist/index.esm.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ index),
+/* harmony export */   "notify": () => (/* binding */ notify)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+function mitt(n){return {all:n=n||new Map,on:function(t,e){var i=n.get(t);i?i.push(e):n.set(t,[e]);},off:function(t,e){var i=n.get(t);i&&(e?i.splice(i.indexOf(e)>>>0,1):n.set(t,[]));},emit:function(t,e){var i=n.get(t);i&&i.slice().map(function(n){n(e);}),(i=n.get("*"))&&i.slice().map(function(n){n(t,e);});}}}
+
+const emitter = mitt();
+
+const params = new Map();
+
+const directions = {
+    x: ['left', 'center', 'right'],
+    y: ['top', 'bottom'],
+};
+/**
+  * Sequential ID generator
+  */
+const Id = (i => () => i++)(0);
+/**
+  * Splits space/tab separated string into array and cleans empty string items.
+  */
+const split = (value) => {
+    if (typeof value !== 'string') {
+        return [];
+    }
+    return value.split(/\s+/gi).filter(v => v);
+};
+/**
+  * Cleanes and transforms string of format "x y" into object {x, y}.
+  * Possible combinations:
+  *   x - left, center, right
+  *   y - top, bottom
+  */
+const listToDirection = (value) => {
+    if (typeof value === 'string') {
+        value = split(value);
+    }
+    let x = null;
+    let y = null;
+    value.forEach(v => {
+        if (directions.y.indexOf(v) !== -1) {
+            y = v;
+        }
+        if (directions.x.indexOf(v) !== -1) {
+            x = v;
+        }
+    });
+    return { x, y };
+};
+class Timer {
+    constructor(callback, delay, notifItem) {
+        this.remaining = delay;
+        this.callback = callback;
+        this.notifyItem = notifItem;
+        this.resume();
+    }
+    pause() {
+        clearTimeout(this.notifyItem.timer);
+        this.remaining -= Date.now() - this.start;
+    }
+    resume() {
+        this.start = Date.now();
+        clearTimeout(this.notifyItem.timer);
+        // @ts-ignore FIXME Node.js timer type
+        this.notifyItem.timer = setTimeout(this.callback, this.remaining);
+    }
+}
+
+var defaults = {
+    position: ['top', 'right'],
+    cssAnimation: 'vn-fade',
+    velocityAnimation: {
+        enter: (el) => {
+            const height = el.clientHeight;
+            return {
+                height: [height, 0],
+                opacity: [1, 0],
+            };
+        },
+        leave: {
+            height: 0,
+            opacity: [0, 1],
+        },
+    },
+};
+
+var script$2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'velocity-group',
+    emits: ['after-leave', 'leave', 'enter'],
+    methods: {
+        enter(el, complete) {
+            this.$emit('enter', { el, complete });
+        },
+        leave(el, complete) {
+            this.$emit('leave', { el, complete });
+        },
+        afterLeave() {
+            this.$emit('after-leave');
+        },
+    },
+});
+
+function render$2(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.TransitionGroup, {
+    tag: "span",
+    css: false,
+    onEnter: _ctx.enter,
+    onLeave: _ctx.leave,
+    onAfterLeave: _ctx.afterLeave
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")
+    ]),
+    _: 3 /* FORWARDED */
+  }, 8 /* PROPS */, ["onEnter", "onLeave", "onAfterLeave"]))
+}
+
+script$2.render = render$2;
+script$2.__file = "src/VelocityGroup.vue";
+
+var script$1 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'css-group',
+    inheritAttrs: false,
+    props: {
+        name: { type: String, required: true },
+    },
+});
+
+function render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.TransitionGroup, {
+    tag: "span",
+    name: _ctx.name
+  }, {
+    default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")
+    ]),
+    _: 3 /* FORWARDED */
+  }, 8 /* PROPS */, ["name"]))
+}
+
+script$1.render = render$1;
+script$1.__file = "src/CssGroup.vue";
+
+const floatRegexp = '[-+]?[0-9]*.?[0-9]+';
+const types = [
+    {
+        name: 'px',
+        regexp: new RegExp(`^${floatRegexp}px$`),
+    },
+    {
+        name: '%',
+        regexp: new RegExp(`^${floatRegexp}%$`),
+    },
+    /**
+     * Fallback option
+     * If no suffix specified, assigning "px"
+     */
+    {
+        name: 'px',
+        regexp: new RegExp(`^${floatRegexp}$`),
+    },
+];
+const getType = (value) => {
+    if (value === 'auto') {
+        return {
+            type: value,
+            value: 0,
+        };
+    }
+    for (let i = 0; i < types.length; i++) {
+        const type = types[i];
+        if (type.regexp.test(value)) {
+            return {
+                type: type.name,
+                value: parseFloat(value),
+            };
+        }
+    }
+    return {
+        type: '',
+        value,
+    };
+};
+const parse = (value) => {
+    switch (typeof value) {
+        case 'number':
+            return { type: 'px', value };
+        case 'string':
+            return getType(value);
+        default:
+            return { type: '', value };
+    }
+};
+
+const STATE = {
+    IDLE: 0,
+    DESTROYED: 2,
+};
+var script = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+    name: 'notifications',
+    components: {
+        VelocityGroup: script$2,
+        CssGroup: script$1,
+    },
+    props: {
+        group: {
+            type: String,
+            default: '',
+        },
+        width: {
+            type: [Number, String],
+            default: 300,
+        },
+        reverse: {
+            type: Boolean,
+            default: false,
+        },
+        position: {
+            type: [String, Array],
+            default: defaults.position,
+        },
+        classes: {
+            type: String,
+            default: 'vue-notification',
+        },
+        animationType: {
+            type: String,
+            default: 'css',
+        },
+        animation: {
+            type: Object,
+            default: defaults.velocityAnimation,
+        },
+        animationName: {
+            type: String,
+            default: defaults.cssAnimation,
+        },
+        speed: {
+            type: Number,
+            default: 300,
+        },
+        /* Todo */
+        cooldown: {
+            type: Number,
+            default: 0,
+        },
+        duration: {
+            type: Number,
+            default: 3000,
+        },
+        delay: {
+            type: Number,
+            default: 0,
+        },
+        max: {
+            type: Number,
+            default: Infinity,
+        },
+        ignoreDuplicates: {
+            type: Boolean,
+            default: false,
+        },
+        closeOnClick: {
+            type: Boolean,
+            default: true,
+        },
+        pauseOnHover: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['click', 'destroy'],
+    data() {
+        return {
+            list: [],
+            velocity: params.get('velocity'),
+            timerControl: null,
+        };
+    },
+    computed: {
+        actualWidth() {
+            return parse(this.width);
+        },
+        isVA() {
+            return this.animationType === 'velocity';
+        },
+        componentName() {
+            return this.isVA ? 'velocity-group' : 'css-group';
+        },
+        styles() {
+            const { x, y } = listToDirection(this.position);
+            const width = this.actualWidth.value;
+            const suffix = this.actualWidth.type;
+            const styles = {
+                width: width + suffix,
+            };
+            if (y) {
+                styles[y] = '0px';
+            }
+            if (x) {
+                if (x === 'center') {
+                    styles['left'] = `calc(50% - ${+width / 2}${suffix})`;
+                }
+                else {
+                    styles[x] = '0px';
+                }
+            }
+            return styles;
+        },
+        active() {
+            return this.list.filter(v => v.state !== STATE.DESTROYED);
+        },
+        botToTop() {
+            // eslint-disable-next-line no-prototype-builtins
+            return this.styles.hasOwnProperty('bottom');
+        },
+    },
+    mounted() {
+        emitter.on('add', this.addItem);
+        emitter.on('close', this.closeItem);
+    },
+    methods: {
+        destroyIfNecessary(item) {
+            this.$emit('click', item);
+            if (this.closeOnClick) {
+                this.destroy(item);
+            }
+        },
+        pauseTimeout() {
+            var _a;
+            if (this.pauseOnHover) {
+                (_a = this.timerControl) === null || _a === void 0 ? void 0 : _a.pause();
+            }
+        },
+        resumeTimeout() {
+            var _a;
+            if (this.pauseOnHover) {
+                (_a = this.timerControl) === null || _a === void 0 ? void 0 : _a.resume();
+            }
+        },
+        addItem(event = {}) {
+            event.group || (event.group = '');
+            event.data || (event.data = {});
+            if (this.group !== event.group) {
+                return;
+            }
+            if (event.clean || event.clear) {
+                this.destroyAll();
+                return;
+            }
+            const duration = typeof event.duration === 'number'
+                ? event.duration
+                : this.duration;
+            const speed = typeof event.speed === 'number'
+                ? event.speed
+                : this.speed;
+            const ignoreDuplicates = typeof event.ignoreDuplicates === 'boolean'
+                ? event.ignoreDuplicates
+                : this.ignoreDuplicates;
+            const { title, text, type, data, id } = event;
+            const item = {
+                id: id || Id(),
+                title,
+                text,
+                type,
+                state: STATE.IDLE,
+                speed,
+                length: duration + 2 * speed,
+                data,
+            };
+            if (duration >= 0) {
+                this.timerControl = new Timer(() => this.destroy(item), item.length, item);
+            }
+            const direction = this.reverse
+                ? !this.botToTop
+                : this.botToTop;
+            let indexToDestroy = -1;
+            const isDuplicate = this.active.some(i => {
+                return i.title === event.title && i.text === event.text;
+            });
+            const canAdd = ignoreDuplicates ? !isDuplicate : true;
+            if (!canAdd) {
+                return;
+            }
+            if (direction) {
+                this.list.push(item);
+                if (this.active.length > this.max) {
+                    indexToDestroy = 0;
+                }
+            }
+            else {
+                this.list.unshift(item);
+                if (this.active.length > this.max) {
+                    indexToDestroy = this.active.length - 1;
+                }
+            }
+            if (indexToDestroy !== -1) {
+                this.destroy(this.active[indexToDestroy]);
+            }
+        },
+        closeItem(id) {
+            this.destroyById(id);
+        },
+        notifyClass(item) {
+            var _a;
+            return [
+                'vue-notification-template',
+                this.classes,
+                (_a = item.type) !== null && _a !== void 0 ? _a : '',
+            ];
+        },
+        notifyWrapperStyle(item) {
+            return this.isVA
+                ? undefined
+                : { transition: `all ${item.speed}ms` };
+        },
+        destroy(item) {
+            clearTimeout(item.timer);
+            item.state = STATE.DESTROYED;
+            if (!this.isVA) {
+                this.clean();
+            }
+            this.$emit('destroy', item);
+        },
+        destroyById(id) {
+            const item = this.list.find(v => v.id === id);
+            if (item) {
+                this.destroy(item);
+            }
+        },
+        destroyAll() {
+            this.active.forEach(this.destroy);
+        },
+        getAnimation(index, el) {
+            var _a;
+            const animation = (_a = this.animation) === null || _a === void 0 ? void 0 : _a[index];
+            return typeof animation === 'function'
+                ? animation.call(this, el)
+                : animation;
+        },
+        enter(el, complete) {
+            if (!this.isVA) {
+                return;
+            }
+            const animation = this.getAnimation('enter', el);
+            this.velocity(el, animation, {
+                duration: this.speed,
+                complete,
+            });
+        },
+        leave(el, complete) {
+            if (!this.isVA) {
+                return;
+            }
+            const animation = this.getAnimation('leave', el);
+            this.velocity(el, animation, {
+                duration: this.speed,
+                complete,
+            });
+        },
+        clean() {
+            this.list = this.list.filter(v => v.state !== STATE.DESTROYED);
+        },
+    },
+});
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+    class: "vue-notification-group",
+    style: _ctx.styles
+  }, [
+    ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)((0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDynamicComponent)(_ctx.componentName), {
+      name: _ctx.animationName,
+      onEnter: _ctx.enter,
+      onLeave: _ctx.leave,
+      onAfterLeave: _ctx.clean
+    }, {
+      default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+        ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.active, (item) => {
+          return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+            key: item.id,
+            class: "vue-notification-wrapper",
+            style: _ctx.notifyWrapperStyle(item),
+            "data-id": item.id,
+            onMouseenter: _cache[1] || (_cache[1] = (...args) => (_ctx.pauseTimeout && _ctx.pauseTimeout(...args))),
+            onMouseleave: _cache[2] || (_cache[2] = (...args) => (_ctx.resumeTimeout && _ctx.resumeTimeout(...args)))
+          }, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "body", {
+              class: [_ctx.classes, item.type],
+              item: item,
+              close: () => _ctx.destroy(item)
+            }, () => [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Default slot template "),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+                class: _ctx.notifyClass(item),
+                onClick: $event => (_ctx.destroyIfNecessary(item))
+              }, [
+                (item.title)
+                  ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+                      key: 0,
+                      class: "notification-title",
+                      innerHTML: item.title
+                    }, null, 8 /* PROPS */, ["innerHTML"]))
+                  : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true),
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+                  class: "notification-content",
+                  innerHTML: item.text
+                }, null, 8 /* PROPS */, ["innerHTML"])
+              ], 10 /* CLASS, PROPS */, ["onClick"])
+            ])
+          ], 44 /* STYLE, PROPS, HYDRATE_EVENTS */, ["data-id"]))
+        }), 128 /* KEYED_FRAGMENT */))
+      ]),
+      _: 3 /* FORWARDED */
+    }, 8 /* PROPS */, ["name", "onEnter", "onLeave", "onAfterLeave"]))
+  ], 4 /* STYLE */))
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = "\n.vue-notification-group {\n  display: block;\n  position: fixed;\n  z-index: 5000;\n}\n.vue-notification-wrapper {\n  display: block;\n  overflow: hidden;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n}\n.notification-title {\n  font-weight: 600;\n}\n.vue-notification-template {\n  display: block;\n  box-sizing: border-box;\n  background: white;\n  text-align: left;\n}\n.vue-notification {\n  display: block;\n  box-sizing: border-box;\n  text-align: left;\n  font-size: 12px;\n  padding: 10px;\n  margin: 0 5px 5px;\n\n  color: white;\n  background: #44A4FC;\n  border-left: 5px solid #187FE7;\n}\n.vue-notification.warn {\n  background: #ffb648;\n  border-left-color: #f48a06;\n}\n.vue-notification.error {\n  background: #E54D42;\n  border-left-color: #B82E24;\n}\n.vue-notification.success {\n  background: #68CD86;\n  border-left-color: #42A85F;\n}\n.vn-fade-enter-active, .vn-fade-leave-active, .vn-fade-move  {\n  transition: all .5s;\n}\n.vn-fade-enter-from, .vn-fade-leave-to {\n  opacity: 0;\n}\n\n";
+styleInject(css_248z);
+
+script.render = render;
+script.__file = "src/Notifications.vue";
+
+const notify = (args) => {
+    if (typeof args === 'string') {
+        args = { title: '', text: args };
+    }
+    if (typeof args === 'object') {
+        emitter.emit('add', args);
+    }
+};
+notify.close = function (id) {
+    emitter.emit('close', id);
+};
+
+function install(app, args = {}) {
+    Object.entries(args).forEach((entry) => params.set(...entry));
+    const name = args.name || 'notify';
+    app.config.globalProperties['$' + name] = notify;
+    app.component(args.componentName || 'notifications', script);
+}
+
+var index = {
+    install,
+};
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@vue/compiler-core/dist/compiler-core.esm-bundler.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@vue/compiler-core/dist/compiler-core.esm-bundler.js ***!
@@ -19528,9 +20118,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/ts/router.ts");
 /* harmony import */ var _vue_backend_layouts_MasterLayoutComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/backend/layouts/MasterLayoutComponent.vue */ "./resources/ts/vue/backend/layouts/MasterLayoutComponent.vue");
+/* harmony import */ var _kyvg_vue3_notification__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @kyvg/vue3-notification */ "./node_modules/@kyvg/vue3-notification/dist/index.esm.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/ts/bootstrap.js");
 
 
+
+ // import {VueProgressBar}  from 'vue-progressbar'
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
@@ -19539,12 +20132,55 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
       host_url: 'test/'
     };
   },
+  methods: {
+    alertNotify: function alertNotify(status, title, type, response) {
+      switch (status) {
+        case 200:
+          this.$notify({
+            title: title,
+            type: type,
+            text: response.message
+          });
+          break;
+
+        case 201:
+          this.$notify({
+            title: title,
+            type: type,
+            text: response.message
+          });
+          break;
+
+        case 422:
+          this.$notify({
+            title: "Oops, Unprocessable Entity ".concat(status, " Error! "),
+            type: type,
+            text: response.message
+          });
+          break;
+
+        case 500:
+          this.$notify({
+            title: "Oops, Something Went Wrong ".concat(status, " Error! "),
+            type: type,
+            text: response.message
+          });
+          break;
+      }
+    }
+  },
   mounted: function mounted() {
     console.log("app mounted");
   }
-});
+}); // app.use(VueProgressBar, {
+//     color: 'rgb(143, 255, 199)',
+//     failedColor: 'red',
+//     height: '2px'
+//   })
+
 app.config.globalProperties.hosturl = window.location.origin;
 app.component('master-layout', _vue_backend_layouts_MasterLayoutComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.use(_kyvg_vue3_notification__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.use(_router__WEBPACK_IMPORTED_MODULE_1__["default"]).mount('#app');
 
 /***/ }),
@@ -19664,17 +20300,7 @@ var sidebar_menu = [{
     "title": "Users",
     "icon": null,
     "can": "users-view",
-    "route": "/portal/users"
-  }, {
-    "title": "Roles",
-    "icon": null,
-    "can": "roles-view",
-    "route": "/portal/roles"
-  }, {
-    "title": "Permissions",
-    "icon": null,
-    "can": "permissions-view",
-    "route": "/portal/permissions"
+    "route": "/portal/leads-users"
   }]
 }, {
   "title": "Leads Sys",
@@ -19682,20 +20308,10 @@ var sidebar_menu = [{
   "icon": "uil-facebook-messenger",
   "type": "multi",
   "sub_menu": [{
-    "title": "Users",
+    "title": "Users Leads",
     "icon": null,
     "can": "users-view",
-    "route": "/portal/users"
-  }, {
-    "title": "Roles",
-    "icon": null,
-    "can": "roles-view",
-    "route": "/portal/roles"
-  }, {
-    "title": "Permissions",
-    "icon": null,
-    "can": "permissions-view",
-    "route": "/portal/permissions"
+    "route": "/portal/users-leads"
   }]
 }, {
   "heading": "Tools"
@@ -19901,7 +20517,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_headermenu), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" container-fluid ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Page-content "), _hoisted_4])]);
+  var _component_notifications = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("notifications");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_headermenu), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_notifications, {
+    "class": "mt-1 mr-1"
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" container-fluid ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Page-content "), _hoisted_4])]);
 }
 
 /***/ }),
@@ -20020,14 +20640,12 @@ var _hoisted_20 = {
 };
 var _hoisted_21 = ["src"];
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"dropdown-menu dropdown-menu-end\"><!-- item--><a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\"><img src=\"assets/images/flags/spain.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Spanish</span></a><!-- item--><a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\"><img src=\"assets/images/flags/germany.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">German</span></a><!-- item--><a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\"><img src=\"assets/images/flags/italy.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Italian</span></a><!-- item--><a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\"><img src=\"assets/images/flags/russia.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Russian</span></a></div>", 1);
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"dropdown d-none d-lg-inline-block ms-1\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"uil-apps\"></i></button><div class=\"dropdown-menu dropdown-menu-lg dropdown-menu-end\"><div class=\"px-lg-2\"><div class=\"row g-0\"><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/github.png\" alt=\"Github\"><span>GitHub</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/bitbucket.png\" alt=\"bitbucket\"><span>Bitbucket</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/dribbble.png\" alt=\"dribbble\"><span>Dribbble</span></a></div></div><div class=\"row g-0\"><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/dropbox.png\" alt=\"dropbox\"><span>Dropbox</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/mail_chimp.png\" alt=\"mail_chimp\"><span>Mail Chimp</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/slack.png\" alt=\"slack\"><span>Slack</span></a></div></div></div></div></div><div class=\"dropdown d-none d-lg-inline-block ms-1\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" data-bs-toggle=\"fullscreen\"><i class=\"uil-minus-path\"></i></button></div><div class=\"dropdown d-inline-block\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" id=\"page-header-notifications-dropdown\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"uil-bell\"></i><span class=\"badge bg-danger rounded-pill\">3</span></button><div class=\"dropdown-menu dropdown-menu-lg dropdown-menu-end p-0\" aria-labelledby=\"page-header-notifications-dropdown\"><div class=\"p-3\"><div class=\"row align-items-center\"><div class=\"col\"><h5 class=\"m-0 font-size-16\"> Notifications </h5></div><div class=\"col-auto\"><a href=\"#!\" class=\"small\"> Mark all as read</a></div></div></div><div data-simplebar style=\"max-height:230px;\"><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><div class=\"avatar-xs\"><span class=\"avatar-title bg-primary rounded-circle font-size-16\"><i class=\"uil-shopping-basket\"></i></span></div></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Your order is placed</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">If several languages coalesce the grammar</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 3 min ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><img src=\"assets/images/users/avatar-3.jpg\" class=\"rounded-circle avatar-xs\" alt=\"user-pic\"></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">James Lemire</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">It will seem like simplified English.</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 1 hour ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><div class=\"avatar-xs\"><span class=\"avatar-title bg-success rounded-circle font-size-16\"><i class=\"uil-truck\"></i></span></div></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Your item is shipped</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">If several languages coalesce the grammar</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 3 min ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><img src=\"assets/images/users/avatar-4.jpg\" class=\"rounded-circle avatar-xs\" alt=\"user-pic\"></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Salena Layfield</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">As a skeptical Cambridge friend of mine occidental.</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 1 hours ago</p></div></div></div></a></div><div class=\"p-2 border-top\"><div class=\"d-grid\"><a class=\"btn btn-sm btn-link font-size-14 text-center\" href=\"javascript:void(0)\"><i class=\"uil-arrow-circle-right me-1\"></i> View More.. </a></div></div></div></div>", 3);
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"dropdown d-none d-lg-inline-block ms-1\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"uil-apps\"></i></button><div class=\"dropdown-menu dropdown-menu-lg dropdown-menu-end\"><div class=\"px-lg-2\"><div class=\"row g-0\"><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/github.png\" alt=\"Github\"><span>GitHub</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/bitbucket.png\" alt=\"bitbucket\"><span>Bitbucket</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/dribbble.png\" alt=\"dribbble\"><span>Dribbble</span></a></div></div><div class=\"row g-0\"><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/dropbox.png\" alt=\"dropbox\"><span>Dropbox</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/mail_chimp.png\" alt=\"mail_chimp\"><span>Mail Chimp</span></a></div><div class=\"col\"><a class=\"dropdown-icon-item\" href=\"#\"><img src=\"assets/images/brands/slack.png\" alt=\"slack\"><span>Slack</span></a></div></div></div></div></div><div class=\"dropdown d-none d-lg-inline-block ms-1\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" data-bs-toggle=\"fullscreen\"><i class=\"uil-minus-path\"></i></button></div><div class=\"dropdown d-inline-block\"><button type=\"button\" class=\"btn header-item noti-icon waves-effect\" id=\"page-header-notifications-dropdown\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"uil-bell\"></i><span class=\"badge bg-danger rounded-pill\">3</span></button><div class=\"dropdown-menu dropdown-menu-lg dropdown-menu-end p-0\" aria-labelledby=\"page-header-notifications-dropdown\"><div class=\"p-3\"><div class=\"row align-items-center\"><div class=\"col\"><h5 class=\"m-0 font-size-16\"> Notifications </h5></div><div class=\"col-auto\"><a href=\"#!\" class=\"small\"> Mark all as read</a></div></div></div><div data-simplebar style=\"max-height:230px;\"><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><div class=\"avatar-xs\"><span class=\"avatar-title bg-primary rounded-circle font-size-16\"><i class=\"uil-shopping-basket\"></i></span></div></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Your order is placed</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">If several languages coalesce the grammar</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 3 min ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><img src=\"assets/images/users/avatar-3.jpg\" class=\"rounded-circle avatar-xs\" alt=\"user-pic\"></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">James Lemire</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">It will seem like simplified English.</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 1 hour ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><div class=\"avatar-xs\"><span class=\"avatar-title bg-success rounded-circle font-size-16\"><i class=\"uil-truck\"></i></span></div></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Your item is shipped</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">If several languages coalesce the grammar</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 3 min ago</p></div></div></div></a><a href=\"javascript:void(0);\" class=\"text-reset notification-item\"><div class=\"d-flex align-items-start\"><div class=\"flex-shrink-0 me-3\"><img src=\"assets/images/users/avatar-4.jpg\" class=\"rounded-circle avatar-xs\" alt=\"user-pic\"></div><div class=\"flex-grow-1\"><h6 class=\"mb-1\">Salena Layfield</h6><div class=\"font-size-12 text-muted\"><p class=\"mb-1\">As a skeptical Cambridge friend of mine occidental.</p><p class=\"mb-0\"><i class=\"mdi mdi-clock-outline\"></i> 1 hours ago</p></div></div></div></a></div><div class=\"p-2 border-top\"><div class=\"d-grid\"><a class=\"btn btn-sm btn-link font-size-14 text-center\" href=\"javascript:void(0)\"><i class=\"uil-arrow-circle-right me-1\"></i> View More.. </a></div></div></div></div>", 3);
-
-var _hoisted_26 = {
+var _hoisted_25 = {
   "class": "dropdown d-inline-block"
 };
-var _hoisted_27 = {
+var _hoisted_26 = {
   type: "button",
   "class": "btn header-item waves-effect",
   id: "page-header-user-dropdown",
@@ -20035,23 +20653,23 @@ var _hoisted_27 = {
   "aria-haspopup": "true",
   "aria-expanded": "false"
 };
-var _hoisted_28 = ["src"];
+var _hoisted_27 = ["src"];
 
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "d-none d-xl-inline-block ms-1 fw-medium font-size-15"
 }, "Marcus", -1
 /* HOISTED */
 );
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil-angle-down d-none d-xl-inline-block font-size-15"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"dropdown-menu dropdown-menu-end\"><!-- item--><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-user-circle font-size-18 align-middle text-muted me-1\"></i> <span class=\"align-middle\">View Profile</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-wallet font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">My Wallet</span></a><a class=\"dropdown-item d-block\" href=\"#\"><i class=\"uil uil-cog font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Settings</span> <span class=\"badge bg-soft-success rounded-pill mt-1 ms-2\">03</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-lock-alt font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Lock screen</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Sign out</span></a></div>", 1);
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"dropdown-menu dropdown-menu-end\"><!-- item--><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-user-circle font-size-18 align-middle text-muted me-1\"></i> <span class=\"align-middle\">View Profile</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-wallet font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">My Wallet</span></a><a class=\"dropdown-item d-block\" href=\"#\"><i class=\"uil uil-cog font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Settings</span> <span class=\"badge bg-soft-success rounded-pill mt-1 ms-2\">03</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-lock-alt font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Lock screen</span></a><a class=\"dropdown-item\" href=\"#\"><i class=\"uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted\"></i> <span class=\"align-middle\">Sign out</span></a></div>", 1);
 
-var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "dropdown d-inline-block"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -20088,18 +20706,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , _hoisted_14)])])]), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" App Search"), _hoisted_16]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: "".concat(this.host_url, "/assets/images/flags/us.jpg"),
-    alt: "Header Language",
+    src: "".concat($data.url, "/assets/images/flags/us.jpg"),
+    alt: "English Language",
     height: "16"
   }, null, 8
   /* PROPS */
-  , _hoisted_21)]), _hoisted_22]), _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  , _hoisted_21)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"dropdown-menu dropdown-menu-end\">\n\n                    \n                    <a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\">\n                        <img src=\"assets/images/flags/spain.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Spanish</span>\n                    </a>\n\n\n                    <a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\">\n                        <img src=\"assets/images/flags/germany.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">German</span>\n                    </a>\n\n\n                    <a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\">\n                        <img src=\"assets/images/flags/italy.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Italian</span>\n                    </a>\n\n\n                    <a href=\"javascript:void(0);\" class=\"dropdown-item notify-item\">\n                        <img src=\"assets/images/flags/russia.jpg\" alt=\"user-image\" class=\"me-1\" height=\"12\"> <span class=\"align-middle\">Russian</span>\n                    </a>\n                </div> ")]), _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "rounded-circle header-profile-user",
     src: "".concat($data.url, "/assets/images/users/avatar-4.jpg"),
     alt: "Header Avatar"
   }, null, 8
   /* PROPS */
-  , _hoisted_28), _hoisted_29, _hoisted_30]), _hoisted_31]), _hoisted_32])])])]);
+  , _hoisted_27), _hoisted_28, _hoisted_29]), _hoisted_30]), _hoisted_31])])])]);
 }
 
 /***/ }),
@@ -20294,17 +20912,18 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 var token = null;
+var perfix = "/api/";
 
 if (user) {
   var _user;
 
   token = user ? (_user = user) === null || _user === void 0 ? void 0 : _user.token : null;
+  perfix = perfix + "backend";
 }
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-window.axios.defaults.baseURL = window.location.origin + "/api/";
-console.log("test");
+window.axios.defaults.baseURL = window.location.origin + perfix;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

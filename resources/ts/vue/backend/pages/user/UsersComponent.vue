@@ -7,7 +7,9 @@
                   <div class="row mb-2">
                      <div class="col-md-6">
                         <div class="mb-3">
-                           <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
+                           <a @click="openModal" role="button" class="btn btn-success waves-effect waves-light">
+                               <i class="mdi mdi-plus me-2"></i> Add New
+                            </a>
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -29,13 +31,29 @@
             </div>
          </div>
       </div>
+       <!--  Large modal example -->
+                                                <div class="modal fade modal-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="myLargeModalLabel"><strong>Create New User</strong></h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                               <user-form></user-form>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
    </div>
 </template>
 <script>
    import UserTable from "./UserTable.vue";
    import LoaderBox from "../../components/LoaderBoxComponent.vue";
+   import UserForm from "./UserForm.vue";
    export default {
-       components:{UserTable,LoaderBox},
+       components:{UserTable,LoaderBox,UserForm},
        data(){
            return{
                users:[],
@@ -43,6 +61,9 @@
            }
        },
      methods:{
+         openModal(){
+             $('.modal-form').modal('show')
+         },
          getUsers(){
              this.loading=true;
              axios.get('/user').then((res)=>{

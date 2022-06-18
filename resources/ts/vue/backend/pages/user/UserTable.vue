@@ -6,7 +6,7 @@
                                                   <tr>
                                                     <th scope="col" style="width: 50px;">
                                                         <div class="form-check font-size-16">
-                                                            <input type="checkbox" class="form-check-input" v-model="selected_users" id="contacusercheck">
+                                                            <input type="checkbox" class="form-check-input" @click="selectAllItems" v-model="selected_users" id="contacusercheck">
                                                             <label class="form-check-label" for="contacusercheck"></label>
                                                         </div>
                                                     </th>
@@ -23,7 +23,7 @@
                                                     <tr v-for="user in users.data" :key="user.id">
                                                         <th scope="row">
                                                             <div class="form-check font-size-16">
-                                                                <input type="checkbox" class="form-check-input" id="contacusercheck1">
+                                                                <input type="checkbox" :value="user.id" v-model="selected_users" class="form-check-input" id="contacusercheck1">
                                                                 <label class="form-check-label" for="contacusercheck1"></label>
                                                             </div>
                                                         </th>

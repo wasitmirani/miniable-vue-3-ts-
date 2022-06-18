@@ -11,7 +11,8 @@
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
-
+           <!-- dropzone css -->
+           <link href="{{asset('assets/libs/dropzone/min/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- Bootstrap Css -->
         <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
         <!-- Icons Css -->
@@ -196,6 +197,8 @@
         <script src="{{asset('assets/libs/apexcharts/apexcharts.min.js')}}"></script>
 
         <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
+               <!-- dropzone plugin -->
+        <script src="{{asset('assets/libs/dropzone/min/dropzone.min.js')}}"></script>
 
         <!-- App js -->
         <script src="{{asset('assets/js/app.js')}}"></script>
