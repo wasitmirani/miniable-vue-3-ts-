@@ -20,7 +20,7 @@ const routes = [
     // { path: "/:catchAll(.*)",
     // name: "NotFound",
     // component: () => getComponent("error/404") },
-    // { path: "/unauthorized/user", component: () => setComponent("error/401"),name: "unauthorized" },
+    { path: "/unauthorized/user", component: () => getComponent("errors/401"),name: "unauthorized" },
     {
         path: setPerfixRoute('/dashboard'),
         redirect: { name: 'master_dashboard' }
@@ -44,9 +44,37 @@ const routes = [
 
 ];
 
-
-export default createRouter({
+const router= createRouter({
     history: createWebHistory(),
     routes,
-    // linkExactActiveClass: "mm-active" ,
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            return {
+                selector: to.hash,
+                behavior: 'smooth',
+            }
+        }
+    },
 })
+
+let permissions=JSON.parse(`${localStorage.getItem('permissions')}`);
+
+router.beforeEach((to, from, next) => {
+    console.log(to.meta.permissions)
+
+    if (to.meta.permissions) {
+        if (permissions.indexOf(to.meta.permissions) !== -1) {
+
+            next()
+
+        }
+        else {
+            next({ path: '/unauthorized/user' })
+
+        }
+    }
+    next()
+
+});
+
+export default router;

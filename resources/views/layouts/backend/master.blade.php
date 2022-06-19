@@ -58,7 +58,7 @@
                 <hr class="m-0" />
 
                 <div class="p-4">
-                   
+
 
                     <h6 class="mt-4 mb-3 pt-2">Layout Mode</h6>
 
@@ -159,16 +159,16 @@
 
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
-        <script>
-            window.primarycolor="#1e204f";
-  // window.appname={!! json_encode(config('app.name'),true)!!};
-       @auth
-            window.user = [];
-           window.permissions = ['dispatch-view','grn-view','dashboard-view','user-management-dropdown','users-view','container-dropdown','receives-view','stuffing-view'];
-       @else
-           window.user = [];
-           window.permissions = [];
-       @endauth
+        <script >
+            @auth
+               window.user = {!! json_encode(Auth::user(), true) !!};
+               window.permissions = {!! json_encode(Auth::user()->getPermissionsViaRoles()->pluck('name'), true) !!};
+            @else
+               window.user = [];
+               window.permissions = [];
+           @endauth
+           localStorage.setItem('permissions', JSON.stringify(permissions))
+
        </script>
 
         <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>

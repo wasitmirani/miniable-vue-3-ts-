@@ -23,7 +23,11 @@ Route::get('/portal/{any?}', function () {
     return view('backend.index');
 })
 ->middleware('auth')
+->name('dashboard')
 ->where('any', '[\/\w\.-]*');
 
+Route::get('unauthorized/user',function(){
+return abort(401,'Unauthorized User');
+});
 
 require __DIR__.'/auth.php';

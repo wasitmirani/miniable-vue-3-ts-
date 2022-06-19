@@ -2,7 +2,8 @@
 
 let sidebar_menu=[
     {
-      "heading": "Analytics"
+      "heading": "Analytics",
+      "can":"analytics-heading-view"
     },
     {
       "title": "Dashboard",
@@ -12,7 +13,8 @@ let sidebar_menu=[
       "route": "/portal/dashboard"
     },
     {
-      "heading": "Management"
+      "heading": "Management",
+      "can":"management-heading-view"
     },
     {
       "title": "User Management",
@@ -23,13 +25,13 @@ let sidebar_menu=[
         {
           "title": "Users",
           "icon": null,
-          "can": "users-view",
+          "can": "users-list-view",
           "route": "/portal/users"
         },
         {
           "title": "Roles",
           "icon": null,
-          "can": "roles-view",
+          "can": "roles-list-view",
           "route": "/portal/roles"
         },
         {
@@ -41,12 +43,26 @@ let sidebar_menu=[
       ]
     },
     {
-        "heading": "Leads Management",
-        "can":"leads-management-heading",
+        "heading": "Utilitys",
+        "can":"utilitys-heading-view",
     },
     {
+        "title": "Utility Management",
+        "can": "utility-management-dropdown",
+        "icon": "uil-file-alt",
+        "type": "multi",
+        "sub_menu": [
+          {
+            "title": "Auditors",
+            "icon": null,
+            "can": "auditors-list-view",
+            "route": "/portal/auditors"
+          }
+        ]
+      },
+    {
       "heading": "Leads Management",
-      "can":"leads-management-heading",
+      "can":"leads-management-heading-view",
     },
     {
       "title": "Leads Management",
@@ -64,7 +80,8 @@ let sidebar_menu=[
     },
 
     {
-      "heading": "Tools"
+      "heading": "Tools",
+      "can":"tools-heading-view",
     },
     {
       "title": "Settings",
@@ -77,7 +94,7 @@ let sidebar_menu=[
       "title": "Log out",
       "type": "single_link",
       "icon": "uil-sign-out-alt",
-      "can": "services-view",
+      "can": "session-view",
       "route": "/portal/logout"
     }
   ];
