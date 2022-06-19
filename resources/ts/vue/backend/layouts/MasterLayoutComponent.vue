@@ -7,7 +7,7 @@
                 <div class="page-content">
                     <div class="container-fluid">
                           <router-view></router-view>
-                           <notifications   class="mt-1 mr-1"/>  
+                           <notifications   class="mt-1 mr-1"/>
                     </div>
                     <!-- container-fluid -->
                 </div>
@@ -26,7 +26,31 @@ export default {
 
 }
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style>
+.multiselect__tags {
+    min-height: 40px;
+    display: block;
+    padding: 8px 40px 0 8px;
+    border-radius: 5px;
+    border: 1px solid #e8e8e8;
+    background: #fff;
+    width: 100% !important;
+    font-size: 14px;
+}
+.multiselect__tag {
+    position: relative;
+    display: inline-block;
+    padding: 4px 26px 4px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #fff;
+    line-height: 1;
 
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
 </style>

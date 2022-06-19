@@ -37,9 +37,8 @@
 
 
 
-                                                        <td>Admin</td>
-                                                        <td><div class="badge bg-pill bg-soft-success font-size-12">
-                                                            active</div></td>
+                                                        <td><span class="badge bg-soft-primary font-size-12">{{role?.users?.length}}</span></td>
+
                                                               <td>{{role.created_at}}</td>
                                                         <td>
                                                             <ul class="list-inline mb-0">

@@ -44,5 +44,5 @@ const routes = [
 export default createRouter({
     history: createWebHistory(),
     routes,
-    linkExactActiveClass: "mm-active" ,
+    // linkExactActiveClass: "mm-active" ,
 })

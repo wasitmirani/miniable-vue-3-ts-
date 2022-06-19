@@ -1,6 +1,6 @@
 <template>
    <div>
-    <bread-crumb active_name="roles List"></bread-crumb>
+    <bread-crumb active_name="Roles List" :previous="[{name:'Users',link:'/portal/users'}]" ></bread-crumb>
       <div class="row">
          <div class="col-lg-12">
             <div class="card">
@@ -14,7 +14,7 @@
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <search-input label="Search By Name,Email,rolename" :apiurl="'/role?page=' +this.page_num" v-on:query="isQuery($event)" v-on:loading="loadingStart($event)" v-on:reload="getRoles()" v-on:filterData="filterData($event)" ></search-input>
+                        <search-input label="Search By Name" :apiurl="'/role?page=' +this.page_num" v-on:query="isQuery($event)" v-on:loading="loadingStart($event)" v-on:reload="getRoles()" v-on:filterData="filterData($event)" ></search-input>
                      </div>
                   </div>
                   <!-- end row -->
