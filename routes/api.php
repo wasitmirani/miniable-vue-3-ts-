@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\api\role\RoleController;
 use App\Http\Controllers\backend\api\user\UserController;
 use App\Http\Controllers\backend\layout\LayoutController;
+use App\Http\Controllers\backend\api\permission\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,5 @@ Route::prefix('config')->group(function () {
 Route::prefix('backend')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('role', RoleController::class);
+    Route::resource('permission', PermissionController::class);
 });

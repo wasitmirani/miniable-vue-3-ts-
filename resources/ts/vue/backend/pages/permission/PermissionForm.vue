@@ -9,8 +9,8 @@
                 <div class="col-lg-6">
 
                     <div class="mb-3">
-                        <label class="form-label" for="manufacturername">Role Name*</label>
-                        <input v-model="role.name" type="text" class="form-control" placeholder="Enter your Full Name"
+                        <label class="form-label" for="manufacturername">Permission Name*</label>
+                        <input v-model="permission.name" type="text" class="form-control" placeholder="Enter your Full Name"
                             required>
                     </div>
                 </div>
@@ -18,16 +18,39 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="manufacturerbrand">Users* </label>
-                        <VueMultiselect v-model="role.users" :options="users" :multiple="true" :taggable="true"
+                        <VueMultiselect v-model="permission.users" :options="users" :multiple="true" :taggable="true"
                             :limit="3" :close-on-select="true" tag-placeholder="Add this as new user"
                             placeholder="Type to search or add user" label="name" track-by="id" />
 
                     </div>
                 </div>
+                <div class="row">
+
+
+                                                <h5 class="font-size-14 mb-3">
+                                                   Roles  <i class="mdi mdi-arrow-right text-primary me-1"></i>
+
+                                                </h5>
+                                                <div class="row">
+
+                                                  <div class="col-2 vstack gap-2"  v-for="role in roles" :key="role.id">
+                                                        <div class="form-check form-check-left">
+                                                            <input class="form-check-input" type="checkbox" :value="role.id" v-model="selected_roles" :id="`formCheckRight${role.id}`">
+                                                            <label class="form-check-label" :for="`formCheckRight${role.id}`">
+                                                                {{role.name.toUpperCase()}}
+                                                            </label>
+                                                        </div>
+                                                </div>
+
+                                                </div>
+
+                </div>
+
                 <div class="row mb-4 mt-2">
+                    <hr/>
                     <div class="col ms-auto ">
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
-                            <a role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
+                            <a permission="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times"></i> Cancel </a>
                             <button type="submit" class="btn btn-primary"> <i class="uil uil-file-alt"></i> Submit
                             </button>
@@ -43,14 +66,15 @@
     import VueMultiselect from 'vue-multiselect'
     import Errors from "../../components/ErrorsComponent.vue";
     export default {
-        props: ['editmode', 'editForm', 'users'],
+        props: ['editmode', 'editForm', 'users','roles'],
         components: {
             VueMultiselect, Errors
         },
         data() {
             return {
-                role: {},
+                permission: {},
                 errors: [],
+                selected_roles:[],
             }
         },
         watch: {
@@ -62,8 +86,7 @@
                 }
                 if (collection) {
                     // this.errors = "";
-
-                    return this.role = collection;
+                    return this.permission = collection;
                 } else {
 
                     this.restForm();
@@ -78,13 +101,15 @@
         },
         methods: {
             restForm() {
-                this.role = {};
+                this.permission = {};
                 this.errors = []
             },
             async onSubmit() {
                 if (!this.editmode) {
-                    await axios.post('/role', this.role).then((res) => {
-                        this.$emit("created", this.role);
+                    this.permission={roles:this.selected_roles,...this.permission};
+                    console.log(this.permission);
+                    await axios.post('/permission', this.permission).then((res) => {
+                        this.$emit("created", this.permission);
                         this.$root.alertNotify(res.status, 'Created Successfuly', 'success', res.data);
                         this.restForm();
                     }).catch((err) => {
@@ -92,9 +117,9 @@
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
                     })
                 } else {
-                    await axios.put('/role/' + this.editForm.id, this.role).then((res) => {
-                        console.log(this.role);
-                        this.$emit("updated", this.role);
+                    await axios.put('/permission/' + this.editForm.id, this.permission).then((res) => {
+                        console.log(this.permission);
+                        this.$emit("updated", this.permission);
                         this.$root.alertNotify(res.status, 'Updated Successfuly', 'success', res.data);
                         //   this.restForm();
                     }).catch((err) => {
