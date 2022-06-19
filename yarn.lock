@@ -3669,6 +3669,13 @@
     "webpackbar" "^5.0.0-3"
     "yargs" "^17.2.1"
 
+"laravel-vue-pagination@^3.0.0":
+  "integrity" "sha512-kskpo+1Ciz1uo1VWjgnwdeBv6M6sF3Hus/VnwFvPOUSpfsR/WVaE+nCN2QOE0FBcV5e32o/Nel5397Q8pgWQQg=="
+  "resolved" "https://registry.npmjs.org/laravel-vue-pagination/-/laravel-vue-pagination-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "vue" "^3.2.25"
+
 "lilconfig@^2.0.3", "lilconfig@^2.0.5":
   "integrity" "sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg=="
   "resolved" "https://registry.npmjs.org/lilconfig/-/lilconfig-2.0.5.tgz"
@@ -5376,6 +5383,11 @@
     "picocolors" "^1.0.0"
     "stable" "^0.1.8"
 
+"sweetalert2@^11.4.18":
+  "integrity" "sha512-BZPTQI54NYdjIVe2tmsS5JVU7E623P3Sv4ce3BO8V6PdeIdGPGmQm43ojr1cnpGJ1xYhbdwsHIH+t5tICvZ6ZA=="
+  "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.4.18.tgz"
+  "version" "11.4.18"
+
 "tailwindcss@^3.0.18", "tailwindcss@>=3.0.0 || >= 3.0.0-alpha.1":
   "integrity" "sha512-H3uMmZNWzG6aqmg9q07ZIRNIawoiEcNFKDfL+YzOPuPsXuDXxJxB9icqzLgdzKNwjG3SAro2h9SYav8ewXNgig=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.0.24.tgz"
@@ -5623,6 +5635,11 @@
     "hash-sum" "^2.0.0"
     "loader-utils" "^2.0.0"
 
+"vue-multiselect@^3.0.0-alpha.2":
+  "integrity" "sha512-Xp9fGJECns45v+v8jXbCIsAkCybYkEg0lNwr7Z6HDUSMyx2TEIK2giipPE+qXiShEc1Ipn+ZtttH2iq9hwXP4Q=="
+  "resolved" "https://registry.npmjs.org/vue-multiselect/-/vue-multiselect-3.0.0-alpha.2.tgz"
+  "version" "3.0.0-alpha.2"
+
 "vue-progressbar@^0.7.5":
   "integrity" "sha512-VeNG/inMsFbvdCTS7lJ1gjDAKSUZdqkhW9gS1tb0we1rqFKxR+BCEiVUgw5C84vODKb14M2GWHTw0WVdpoVg6g=="
   "resolved" "https://registry.npmjs.org/vue-progressbar/-/vue-progressbar-0.7.5.tgz"
@@ -5643,7 +5660,7 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
-"vue@^3.0.0", "vue@^3.2.0", "vue@^3.2.31", "vue@3.2.31":
+"vue@^3.0.0", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.31", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"

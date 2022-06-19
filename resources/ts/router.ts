@@ -33,6 +33,10 @@ const routes = [
         path: setPerfixRoute('/users'), component:()=>getComponent("user/Users"), name: "users",
         meta: { permissions: "users-list-view" }
     },
+    {
+        path: setPerfixRoute('/roles'), component:()=>getComponent("role/Roles"), name: "roles",
+        meta: { permissions: "roles-list-view" }
+    },
 
 ];
 

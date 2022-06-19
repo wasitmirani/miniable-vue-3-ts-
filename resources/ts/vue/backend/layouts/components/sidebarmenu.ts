@@ -57,20 +57,7 @@ let sidebar_menu=[
         }
       ]
     },
-    {
-      "title": "Leads Sys",
-      "can": "user-management-dropdown",
-      "icon": "uil-facebook-messenger",
-      "type": "multi",
-      "sub_menu": [
-        {
-          "title": "Users Leads",
-          "icon": null,
-          "can": "users-view",
-          "route": "/portal/users-leads"
-        }
-      ]
-    },
+  
     {
       "heading": "Tools"
     },

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
         'token'
     ];
 
@@ -44,12 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getUsers($request){
+    public function getUsers($request,$ispaginate=true){
         $q=request('query');
         $users=User::latest()
         ->where('name', 'like', '%' . $q . '%')
-        ->Orwhere('email', 'like', '%' . $q. '%')
-        ->paginate((int)env('PER_PAGE'));
+        ->Orwhere('username', 'like', '%' . $q. '%')
+        ->Orwhere('email', 'like', '%' . $q. '%');
+        if($ispaginate){
+            $users=$users->paginate((int)env('PER_PAGE'));
+        }else {
+            $users=$users->get();
+        }
+
       return $users;
     }
 }

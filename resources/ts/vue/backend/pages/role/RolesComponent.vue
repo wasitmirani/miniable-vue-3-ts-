@@ -1,6 +1,6 @@
 <template>
    <div>
-    <bread-crumb active_name="Users List"></bread-crumb>
+    <bread-crumb active_name="roles List"></bread-crumb>
       <div class="row">
          <div class="col-lg-12">
             <div class="card">
@@ -9,17 +9,17 @@
                      <div class="col-md-6">
                         <div class="mb-3">
                            <a @click="openModal" role="button" class="btn btn-success waves-effect waves-light">
-                               <i class="mdi mdi-plus me-2"></i> Add User
+                               <i class="mdi mdi-plus me-2"></i> Add Role
                             </a>
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <search-input label="Search By Name,Email,Username" :apiurl="'/user?page=' +this.page_num" v-on:query="isQuery($event)" v-on:loading="loadingStart($event)" v-on:reload="getUsers()" v-on:filterData="filterData($event)" ></search-input>
+                        <search-input label="Search By Name,Email,rolename" :apiurl="'/role?page=' +this.page_num" v-on:query="isQuery($event)" v-on:loading="loadingStart($event)" v-on:reload="getRoles()" v-on:filterData="filterData($event)" ></search-input>
                      </div>
                   </div>
                   <!-- end row -->
                   <loader-box v-if="loading"></loader-box>
-                  <user-table :users="users" v-else  :query="query" :getUsers="getUsers" v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></user-table>
+                  <role-table :roles="roles" v-else  :query="query" :getRoles="getRoles" v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></role-table>
 
                </div>
             </div>
@@ -32,13 +32,13 @@
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="myLargeModalLabel">
                                                                 <strong>
-                                                                    {{editmode ? 'Update User' : 'Create New User'}}
+                                                                    {{editmode ? 'Update Role' : 'Create New Role'}}
                                                                 </strong></h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                               <user-form  :roles="roles"  :editmode="editmode" :editForm="user" v-on:created="closeModal($event)" v-on:updated="closeModal($event)"></user-form>
+                                                               <role-form  :users="users"  :editmode="editmode" :editForm="role" v-on:created="closeModal($event)" v-on:updated="closeModal($event)"></role-form>
                                                             </div>
                                                         </div><!-- /.modal-content -->
                                                     </div><!-- /.modal-dialog -->
@@ -46,20 +46,20 @@
    </div>
 </template>
 <script>
-   import UserTable from "./UserTable.vue";
+   import RoleTable from "./RoleTable.vue";
    import LoaderBox from "../../components/LoaderBoxComponent.vue";
    import BreadCrumb from "../../components/BreadcrumbComponent.vue";
    import SearchInput from "../../components/SearchBoxComponent.vue";
-   import UserForm from "./UserForm.vue";
+   import RoleForm from "./RoleForm.vue";
    export default {
-       components:{UserTable,LoaderBox,UserForm,BreadCrumb,SearchInput},
+       components:{RoleTable,LoaderBox,RoleForm,BreadCrumb,SearchInput},
        data(){
            return{
-               users:[],
+               roles:[],
                loading:false,
-                user:{},
+                role:{},
                 errors:[],
-                roles:[],
+                users:[],
                 query:"",
                 editmode:false,
                 page_num:1,
@@ -73,12 +73,12 @@
              $('.modal-form').modal('show')
          },
          resetForm(){
-            this.user={},
+            this.role={},
             this.errors=[];
          },
         closeModal(item) {
                if (item) {
-                   this.getUsers();
+                   this.getRoles();
                     $('.modal-form').modal("hide");
                }
                else {
@@ -90,14 +90,14 @@
                return (this.query = query);
             },
             filterData(data){
-                this.users = data.users;
+                this.roles = data.roles;
             },
             loadingStart(value) {
                this.loading = value;
             },
            editItem(item) {
                 this.editmode = true;
-                this.user = item;
+                this.role = item;
                  $('.modal-form').modal('show')
            },
            deleteItem(item){
@@ -111,20 +111,21 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                       axios.delete(`user/${item.id}`).then((res)=>{
+                       axios.delete(`role/${item.id}`).then((res)=>{
 
 
                             this.$root.alertNotify(res.status,'Destroyed Successfuly','info',res.data);
-                            this.getUsers();
+                            this.getRoles();
                          })
                 }
                 })
 
            },
-         getUsers(page=1){
+         getRoles(page=1){
              this.loading=true;
              this.page_num=page;
-             axios.get('/user?page='+page).then((res)=>{
+             axios.get('/role?page='+page).then((res)=>{
+                 this.roles=res.data.roles;
                  this.users=res.data.users;
                  this.loading=false;
              }).catch((err)=>{
@@ -133,7 +134,8 @@
          }
      },
      mounted() {
-         this.getUsers();
+         this.getRoles();
      }
    }
 </script>
+

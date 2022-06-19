@@ -15,6 +15,8 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
+import Swal from 'sweetalert2';
+window.Swal=Swal;
 let token=null;
 let perfix="/api/";
 if(user){
