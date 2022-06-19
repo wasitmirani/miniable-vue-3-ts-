@@ -41,23 +41,28 @@ let sidebar_menu=[
       ]
     },
     {
-      "heading": "Leads Management"
+        "heading": "Leads Management",
+        "can":"leads-management-heading",
+    },
+    {
+      "heading": "Leads Management",
+      "can":"leads-management-heading",
     },
     {
       "title": "Leads Management",
-      "can": "user-management-dropdown",
-      "icon": "uil-facebook-messenger",
+      "can": "leads-management-dropdown",
+      "icon": "uil-invoice",
       "type": "multi",
       "sub_menu": [
         {
-          "title": "Users",
+          "title": "Audits",
           "icon": null,
-          "can": "users-view",
-          "route": "/portal/leads-users"
+          "can": "audits-view",
+          "route": "/portal/audits"
         }
       ]
     },
-  
+
     {
       "heading": "Tools"
     },
