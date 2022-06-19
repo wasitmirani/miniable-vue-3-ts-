@@ -29,8 +29,9 @@
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
                             <a role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times"></i> Cancel </a>
-                            <button type="submit" class="btn btn-primary"> <i class="uil uil-file-alt"></i> Submit
-                            </button>
+                                    <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
+                                        {{editmode ? 'Update' : 'Submit'}}
+                                        </button>
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row-->

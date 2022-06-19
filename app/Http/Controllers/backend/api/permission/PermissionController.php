@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend\api\permission;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,7 @@ class PermissionController extends Controller
     public function index(Request $request){
         $q=!empty(request('query')) ? request('query') : '';
         $permissions = Permission::latest()->where('name', 'LIKE', '%' . $q . '%')
-                                          ->with('roles:id,name')
+                                          ->with('roles:id,name','users:id,name')
                                           ->paginate(env('PAR_PAGE'));
         $users=User::select('id','name')->orderBy('name', 'ASC')->get();
         $roles=Role::select('id','name')->orderBy('name', 'ASC')->get();
@@ -37,7 +38,7 @@ class PermissionController extends Controller
 
         $users_ids=collect($request->users)->pluck('id');
         $users=User::WhereIn('id',   $users_ids)->get();
-        $permission = Permission::create(['name' => $request->name]);
+        $permission = Permission::create(['name' =>Str::slug( $request->name,'-')]);
         $permission->users()->attach($users);
         $permission->syncRoles($roles);
 
@@ -59,8 +60,8 @@ class PermissionController extends Controller
         $permission = Permission::find($request->id);
         $permission->name=$request->name;
         $permission->save();
-        $role_ids=collect($request->roles)->pluck('id');
-        $roles=Role::WhereIn('id',  $role_ids)->get();
+
+        $roles=Role::WhereIn('id',  $request->roles)->get();
 
         $users_ids=collect($request->users)->pluck('id');
         $users=User::WhereIn('id',   $users_ids)->get();

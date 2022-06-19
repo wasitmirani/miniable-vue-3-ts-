@@ -52,7 +52,8 @@
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
                             <a permission="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times"></i> Cancel </a>
-                            <button type="submit" class="btn btn-primary"> <i class="uil uil-file-alt"></i> Submit
+                            <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
+                            {{editmode ? 'Update' : 'Submit'}}
                             </button>
                         </div>
                     </div> <!-- end col -->
@@ -81,11 +82,15 @@
 
             editForm(collection) {
                 this.errors = [];
+                 this.selected_roles=[];
                 if (collection == null) {
                     return this.restForm();
                 }
                 if (collection) {
                     // this.errors = "";
+                    // console.log('tag',this.permission);
+                    if(this.editmode)
+                      this.selected_roles=collection?.roles?.map((role)=>role.id);
                     return this.permission = collection;
                 } else {
 
@@ -102,11 +107,14 @@
         methods: {
             restForm() {
                 this.permission = {};
+                this.selected_roles=[];
                 this.errors = []
             },
             async onSubmit() {
+               this.permission.roles=this.selected_roles;
+               console.log('tag', this.permission);
                 if (!this.editmode) {
-                    this.permission={roles:this.selected_roles,...this.permission};
+
                     console.log(this.permission);
                     await axios.post('/permission', this.permission).then((res) => {
                         this.$emit("created", this.permission);
