@@ -13,7 +13,7 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="manufacturername">Title*</label>
-                        <input v-model="audit.name" type="text" class="form-control" placeholder="Enter audit title"
+                        <input v-model="audit.title" type="text" class="form-control" placeholder="Enter audit title"
                             required>
                     </div>
                 </div>
@@ -33,7 +33,13 @@
                             placeholder="Type to search or add auditor" label="name" track-by="id" />
                     </div>
                 </div>
-                <div class="col-lg-12">
+                  <div class="col-lg-6">
+                <div class="mb-3">
+                        <label class="form-label">Location*</label>
+                    <textarea  class="form-control" v-model="audit.location" rows="3" placeholder="Enter audit location"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-6">
                 <div class="mb-3">
                         <label class="form-label">Description*</label>
                     <textarea  class="form-control" v-model="audit.description" rows="3" placeholder="Enter audit description"></textarea>
@@ -42,7 +48,7 @@
                 <div class="col-lg-12">
                 <div class="mb-3">
                         <label class="form-label">Audit Dates*</label>
-                           <Datepicker v-model="audit.dates" multiDates />
+                           <Datepicker v-model="audit.dates" multiDates   />
                     </div>
                 </div>
                 <hr/>
@@ -65,11 +71,13 @@
 <script>
     import VueMultiselect from 'vue-multiselect'
     import Errors from "../../components/ErrorsComponent.vue";
+
     export default {
         props: ['editmode', 'editForm', 'auditors'],
         components: {
             VueMultiselect, Errors
         },
+
         data() {
             return {
                 audit: {},
@@ -85,10 +93,8 @@
                 }
                 if (collection) {
                     // this.errors = "";
-
                     return this.audit = collection;
                 } else {
-
                     this.restForm();
                 }
             }
@@ -105,6 +111,7 @@
                 this.errors = []
             },
             async onSubmit() {
+                this.audit.dates=this.audit.dates.map(x=>moment(x).format());
                 if (!this.editmode) {
                     await axios.post('/audit', this.audit).then((res) => {
                         this.$emit("created", this.audit);

@@ -1,0 +1,112 @@
+<template>
+    <div>
+        <div class="table-responsive mb-4">
+            <table class="table table-centered table-nowrap mb-0">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Title</th>
+                        <th scope="col">DateTime</th>
+                        <th scope="col">Company</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Created</th>
+                        <th scope="col" style="width: 200px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="audits.data?.length < 1">
+                        <th colspan="7">
+                            <date-empty message="audits data not found" />
+                        </th>
+                    </tr>
+                    <tr v-for="audit in audits?.data" :key="audit.id" v-else>
+                        <td>
+                            <name-avatar :name="audit.title" class="avatar-xs rounded-circle me-2"></name-avatar>
+                            <a href="#" class="text-body">{{audit.title}}</a>
+                        </td>
+                           <div>
+                            <small class="badge rounded-pill bg-primary ml-2 mr-2" v-for="date in audit?.auditdates" style="margin-right:5px;">{{dateformat(date.audit_date)}}</small>
+                        </div>
+                         <td>{{audit.company}}</td>
+                 <td><p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> {{audit.location}}</p></td>
+
+                        <td><small >{{audit.description}}</small></td>
+
+                        <td>{{audit.created_at}}</td>
+                        <td>
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                    <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
+                                        <i class="uil uil-pen font-size-18"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a audit="button" @click="deleteItem(audit)" class="px-2 text-danger"><i
+                                            class="uil uil-trash-alt font-size-18"></i></a>
+                                </li>
+
+                            </ul>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <table-footer :rows="audits" :getData="getaudits"></table-footer>
+    </div>
+</template>
+
+<script>
+    import NameAvatar from "../../components/NameAvatarComponent.vue";
+    import TableFooter from "../../components/TableFooterComponent.vue";
+    import DateEmpty from "../../components/DataEmptyComponent.vue";
+    export default {
+        props: {
+            audits: {
+                type: Array,
+                required: true
+            },
+            getaudits: {
+                type: Function,
+                required: true
+            },
+
+        },
+        components: { NameAvatar, TableFooter, DateEmpty },
+        data() {
+            return {
+                selected_audits: [],
+            }
+
+        },
+
+        methods: {
+            dateformat(date){
+            return  moment.utc(String(date)).local().format("DD MMM YYYY h:mm a");
+            },
+            selectAllItems() {
+                if (this.selected_items.length > 0) {
+                    this.selected_items = [];
+                }
+                else {
+                    this.selected_items = this.audits.data.map(x => x.id);
+                }
+            },
+
+            deleteItem: function (item) {
+                return this.$emit("deleteItem", item);
+            },
+            editItem: function (item) {
+                console.log(item);
+                return this.$emit("editItem", item);
+            }
+
+        }
+
+    }
+</script>
+
+<style>
+
+</style>

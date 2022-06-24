@@ -136,8 +136,10 @@
                     this.auditors = res.data.auditors;
                     this.loading = false;
                 }).catch((err) => {
+                        this.errors = err.response.data;
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
 
-                })
+                    })
             }
         },
         mounted() {

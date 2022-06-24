@@ -11,6 +11,7 @@ import Notifications from '@kyvg/vue3-notification';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+
 const app =createApp({
     data(){
         return {

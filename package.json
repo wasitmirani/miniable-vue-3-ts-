@@ -32,6 +32,7 @@
         "@vuepic/vue-datepicker": "^3.2.2",
         "cross-env": "^7.0.3",
         "laravel-vue-pagination": "^3.0.0",
+        "moment": "^2.29.3",
         "sweetalert2": "^11.4.18",
         "ts-loader": "^9.3.0",
         "typescript": "^4.6.4",

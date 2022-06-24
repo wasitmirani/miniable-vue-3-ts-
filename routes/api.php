@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\api\role\RoleController;
 use App\Http\Controllers\backend\api\user\UserController;
 use App\Http\Controllers\backend\layout\LayoutController;
+use App\Http\Controllers\backend\api\audit\AuditController;
 use App\Http\Controllers\backend\api\auditor\AuditorController;
 use App\Http\Controllers\backend\api\permission\PermissionController;
 
@@ -33,4 +34,5 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('auditor', AuditorController::class);
+    Route::resource('audit', AuditController::class);
 });
