@@ -20214,8 +20214,13 @@ var setPerfixRoute = function setPerfixRoute(url) {
 var routes = [// { path: "/:catchAll(.*)",
 // name: "NotFound",
 // component: () => getComponent("error/404") },
-// { path: "/unauthorized/user", component: () => setComponent("error/401"),name: "unauthorized" },
 {
+  path: "/unauthorized/user",
+  component: function component() {
+    return getComponent("errors/401");
+  },
+  name: "unauthorized"
+}, {
   path: setPerfixRoute('/dashboard'),
   redirect: {
     name: 'master_dashboard'
@@ -20256,12 +20261,54 @@ var routes = [// { path: "/:catchAll(.*)",
   meta: {
     permissions: "permissions-list-view"
   }
+}, {
+  path: setPerfixRoute('/auditors'),
+  component: function component() {
+    return getComponent("auditor/Auditors");
+  },
+  name: "auditors",
+  meta: {
+    permissions: "auditors-list-view"
+  }
+}, {
+  path: setPerfixRoute('/audits'),
+  component: function component() {
+    return getComponent("audit/Audits");
+  },
+  name: "audits",
+  meta: {
+    permissions: "audits-list-view"
+  }
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
   history: (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createWebHistory)(),
-  routes: routes // linkExactActiveClass: "mm-active" ,
+  routes: routes,
+  scrollBehavior: function scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash,
+        behavior: 'smooth'
+      };
+    }
+  }
+});
+var permissions = JSON.parse("".concat(localStorage.getItem('permissions')));
+router.beforeEach(function (to, from, next) {
+  console.log(to.meta.permissions);
 
-}));
+  if (to.meta.permissions) {
+    if (permissions.indexOf(to.meta.permissions) !== -1) {
+      next();
+    } else {
+      next({
+        path: '/unauthorized/user'
+      });
+    }
+  }
+
+  next();
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
 
@@ -20277,7 +20324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var sidebar_menu = [{
-  "heading": "Analytics"
+  "heading": "Analytics",
+  "can": "analytics-heading-view"
 }, {
   "title": "Dashboard",
   "type": "single_link",
@@ -20285,7 +20333,8 @@ var sidebar_menu = [{
   "can": "dashboard-view",
   "route": "/portal/dashboard"
 }, {
-  "heading": "Management"
+  "heading": "Management",
+  "can": "management-heading-view"
 }, {
   "title": "User Management",
   "can": "user-management-dropdown",
@@ -20294,12 +20343,12 @@ var sidebar_menu = [{
   "sub_menu": [{
     "title": "Users",
     "icon": null,
-    "can": "users-view",
+    "can": "users-list-view",
     "route": "/portal/users"
   }, {
     "title": "Roles",
     "icon": null,
-    "can": "roles-view",
+    "can": "roles-list-view",
     "route": "/portal/roles"
   }, {
     "title": "Permissions",
@@ -20308,20 +20357,36 @@ var sidebar_menu = [{
     "route": "/portal/permissions"
   }]
 }, {
-  "heading": "Leads Management"
+  "heading": "Utilitys",
+  "can": "utilitys-heading-view"
 }, {
-  "title": "Leads Management",
-  "can": "user-management-dropdown",
-  "icon": "uil-facebook-messenger",
+  "title": "Utility Management",
+  "can": "utility-management-dropdown",
+  "icon": "uil-file-alt",
   "type": "multi",
   "sub_menu": [{
-    "title": "Users",
+    "title": "Auditors",
     "icon": null,
-    "can": "users-view",
-    "route": "/portal/leads-users"
+    "can": "auditors-list-view",
+    "route": "/portal/auditors"
   }]
 }, {
-  "heading": "Tools"
+  "heading": "Leads Management",
+  "can": "leads-management-heading-view"
+}, {
+  "title": "Leads Management",
+  "can": "leads-management-dropdown",
+  "icon": "uil-invoice",
+  "type": "multi",
+  "sub_menu": [{
+    "title": "Audits",
+    "icon": null,
+    "can": "audits-view",
+    "route": "/portal/audits"
+  }]
+}, {
+  "heading": "Tools",
+  "can": "tools-heading-view"
 }, {
   "title": "Settings",
   "type": "single_link",
@@ -20332,7 +20397,7 @@ var sidebar_menu = [{
   "title": "Log out",
   "type": "single_link",
   "icon": "uil-sign-out-alt",
-  "can": "services-view",
+  "can": "session-view",
   "route": "/portal/logout"
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sidebar_menu);
@@ -46900,9 +46965,21 @@ function compileToFunction(template, options) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./audit/AuditsComponent.vue": [
+		"./resources/ts/vue/backend/pages/audit/AuditsComponent.vue",
+		"resources_ts_vue_backend_pages_audit_AuditsComponent_vue"
+	],
+	"./auditor/AuditorsComponent.vue": [
+		"./resources/ts/vue/backend/pages/auditor/AuditorsComponent.vue",
+		"resources_ts_vue_backend_pages_auditor_AuditorsComponent_vue"
+	],
 	"./dashboard/MasterDashboardComponent.vue": [
 		"./resources/ts/vue/backend/pages/dashboard/MasterDashboardComponent.vue",
 		"resources_ts_vue_backend_pages_dashboard_MasterDashboardComponent_vue"
+	],
+	"./errors/401Component.vue": [
+		"./resources/ts/vue/backend/pages/errors/401Component.vue",
+		"resources_ts_vue_backend_pages_errors_401Component_vue"
 	],
 	"./permission/PermissionsComponent.vue": [
 		"./resources/ts/vue/backend/pages/permission/PermissionsComponent.vue",
@@ -47055,7 +47132,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_ts_vue_backend_pages_dashboard_MasterDashboardComponent_vue":1,"resources_ts_vue_backend_pages_permission_PermissionsComponent_vue":1,"resources_ts_vue_backend_pages_role_RolesComponent_vue":1,"resources_ts_vue_backend_pages_user_UsersComponent_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_ts_vue_backend_pages_audit_AuditsComponent_vue":1,"resources_ts_vue_backend_pages_auditor_AuditorsComponent_vue":1,"resources_ts_vue_backend_pages_dashboard_MasterDashboardComponent_vue":1,"resources_ts_vue_backend_pages_errors_401Component_vue":1,"resources_ts_vue_backend_pages_permission_PermissionsComponent_vue":1,"resources_ts_vue_backend_pages_role_RolesComponent_vue":1,"resources_ts_vue_backend_pages_user_UsersComponent_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

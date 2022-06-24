@@ -1,6 +1,7 @@
 <template>
     <div class="alert alert-warning" role="alert">
-       {{message}}
+       <!-- {{message}} -->
+       No matching records found
     </div>
 </template>
 

@@ -29,6 +29,7 @@
     "dependencies": {
         "@aacassandra/vue3-progressbar": "^1.0.3",
         "@kyvg/vue3-notification": "^2.3.4",
+        "@vuepic/vue-datepicker": "^3.2.2",
         "cross-env": "^7.0.3",
         "laravel-vue-pagination": "^3.0.0",
         "sweetalert2": "^11.4.18",

@@ -39,9 +39,9 @@ class PermissionController extends Controller
         $users_ids=collect($request->users)->pluck('id');
         $users=User::WhereIn('id',   $users_ids)->get();
         $permission = Permission::create(['name' =>Str::slug( $request->name,'-')]);
-        $permission->users()->attach($users);
-        $permission->syncRoles($roles);
-
+        $permission->users()->sync($users);
+        $permission->roles()->sync($roles);
+        
         return response()->json(['message'=>'Permission has been created successfully.','permission'=>$permission]);
     }
 

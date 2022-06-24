@@ -45,6 +45,10 @@ const routes = [
         path: setPerfixRoute('/auditors'), component:()=>getComponent("auditor/Auditors"), name: "auditors",
         meta: { permissions: "auditors-list-view" }
     },
+    {
+        path: setPerfixRoute('/audits'), component:()=>getComponent("audit/Audits"), name: "audits",
+        meta: { permissions: "audits-list-view" }
+    },
 
 ];
 

@@ -8,6 +8,8 @@ import router from "./router";
 import MasterLayout from "./vue/backend/layouts/MasterLayoutComponent.vue"
 // import {VueProgressBar}  from 'vue-progressbar'
 import Notifications from '@kyvg/vue3-notification';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const app =createApp({
     data(){
@@ -48,4 +50,5 @@ app.config.globalProperties.hosturl = window.location.origin ;
 app.component('master-layout',MasterLayout)
 app.use(Notifications)
 
+app.component('Datepicker', Datepicker);
 app.use(router).mount('#app');

@@ -87,7 +87,7 @@
     </div>
 
     <div class="mt-5 text-center">
-        <p>© <script>document.write(new Date().getFullYear())</script> Minible. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+        <p>© <script>document.write(new Date().getFullYear())</script> Halal CS. Crafted with <i class="mdi mdi-heart text-danger"></i> by Halal CS</p>
     </div>
 
 </div>
