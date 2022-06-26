@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\AuditDate;
 use App\Models\AuditStatus;
+use App\Models\AuditAuditor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,6 +22,10 @@ class Audit extends Model
     public function auditdates()
     {
         return $this->hasMany(AuditDate::class, 'audit_id', 'id');
+    }
+    public function auditors()
+    {
+        return $this->hasMany(AuditAuditor::class, 'audit_id', 'id');
     }
     /**
      * Get the user that owns the Audit

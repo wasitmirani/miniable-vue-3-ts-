@@ -17,7 +17,7 @@ class AuditController extends Controller
     public function index(Request $request){
         $q=request('query');
         $audits =Audit::latest()->where('title', 'like', '%' . $q . '%')
-                         ->with('auditdates','status:id,name')
+                         ->with('auditdates','status:id,name','auditors')
                          ->paginate((int)env('PER_PAGE'));
         $auditors =Auditor::orderBy('name','ASC')->get();
         return response()->json(['audits'=>$audits,'auditors'=>$auditors]);
@@ -67,5 +67,16 @@ try{
         // return $e->getMessage();
         return response()->json(['message'=>$e->getMessage()],422);
         }
+    }
+
+    public function destroy($id){
+        AuditDate::where('audit_id',$id)->delete();
+        AuditAuditor::where('audit_id',$id)->delete();
+        $audit=Audit::destroy($id);
+        if($audit)
+          return response()->json(['message' => 'Audit has been destroyed successfully'], 200);
+        else
+            return response()->json(['message' => 'Audit has not been not found'], 400);
+
     }
 }
