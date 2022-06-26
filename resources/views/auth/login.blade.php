@@ -30,7 +30,7 @@
 
                     <div class="mb-3">
                         <div class="float-end">
-                            <a href="#" class="text-muted">Forgot password?</a>
+                            <a href="{{ route('password.request')}}" class="text-muted">Forgot password?</a>
                         </div>
                         <label class="form-label" for="userpassword">Password</label>
                         <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="userpassword" placeholder="Enter password">
@@ -58,23 +58,6 @@
                         </div>
 
 
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
-                                    <i class="mdi mdi-facebook"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
-                                    <i class="mdi mdi-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
-                                    <i class="mdi mdi-google"></i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
 
                     {{-- <div class="mt-4 text-center">
@@ -87,7 +70,7 @@
     </div>
 
     <div class="mt-5 text-center">
-        <p>© <script>document.write(new Date().getFullYear())</script> Halal CS. Crafted with <i class="mdi mdi-heart text-danger"></i> by Halal CS</p>
+        <p>© Copyright <script>document.write(new Date().getFullYear())</script>   {{config('app.name')}}. All Rights Reserved </p>
     </div>
 
 </div>
