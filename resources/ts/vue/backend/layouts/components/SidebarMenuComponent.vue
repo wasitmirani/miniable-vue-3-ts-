@@ -3,22 +3,22 @@
       <div class="vertical-menu">
          <!-- LOGO -->
          <div class="navbar-brand-box">
-            <a href="index.html" class="logo logo-dark">
+            <router-link to="/portal/dashboard"  class="logo logo-dark">
             <span class="logo-sm">
             <img :src="`${url}/assets/images/logo-sm.png`" alt="" height="22">
             </span>
             <span class="logo-lg">
-            <img :src="`${url}/assets/images/logo-dark.png`" alt="" height="20">
+            <img :src="`${url}/assets/images/logo-dark.png`" alt="" height="70">
             </span>
-            </a>
-            <a href="index.html" class="logo logo-light">
+            </router-link>
+            <router-link to="/portal/dashboard"  class="logo logo-light">
             <span class="logo-sm">
             <img :src="`${url}/assets/images/logo-sm.png`" alt="" height="22">
             </span>
             <span class="logo-lg">
-            <img :src="`${url}/assets/images/logo-light.png`" alt="" height="20">
+            <img :src="`${url}/assets/images/logo-light.png`" alt="" height="70">
             </span>
-            </a>
+            </router-link>
          </div>
          <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
          <i class="fa fa-fw fa-bars"></i>

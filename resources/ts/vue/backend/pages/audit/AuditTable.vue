@@ -6,10 +6,10 @@
                     <tr>
 
                         <th scope="col">Title</th>
-                        <th scope="col">DateTime</th>
                         <th scope="col">Company</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Responses</th>
+                        <!-- <th scope="col">Description</th> -->
                         <th scope="col">Created</th>
                         <th scope="col" style="width: 200px;">Action</th>
                     </tr>
@@ -25,15 +25,16 @@
                             <name-avatar :name="audit.title" class="avatar-xs rounded-circle me-2"></name-avatar>
                             <a href="#" class="text-body">{{audit.title}}</a>
                         </td>
-                           <div>
-                            <small class="badge rounded-pill bg-primary ml-2 mr-2" v-for="date in audit?.auditdates" style="margin-right:5px;">{{dateformat(date.audit_date)}}</small>
-                        </div>
+
                          <td>{{audit.company}}</td>
-                 <td><p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> {{audit.location}}</p></td>
+                 <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td>
 
-                        <td><small >{{audit.description}}</small></td>
+                        <!-- <td><small ><description :value="audit.description"></description>  </small></td> -->
+                            <td > <span  style="font-size: 14px;" class="badge bg-dark">{{audit.response}}/1</span> |
+                            <button type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
 
-                        <td>{{audit.created_at}}</td>
+                                        </td>
+                        <td>{{$filters.DateTimeFormat(audit.created_at)}}</td>
                         <td>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
@@ -61,6 +62,8 @@
     import NameAvatar from "../../components/NameAvatarComponent.vue";
     import TableFooter from "../../components/TableFooterComponent.vue";
     import DateEmpty from "../../components/DataEmptyComponent.vue";
+    import Location from "../../components/LocationComponent.vue";
+    import Description from "../../components/DescriptionComponent.vue";
     export default {
         props: {
             audits: {
@@ -73,7 +76,7 @@
             },
 
         },
-        components: { NameAvatar, TableFooter, DateEmpty },
+        components: { NameAvatar, TableFooter, DateEmpty,Location ,Description},
         data() {
             return {
                 selected_audits: [],

@@ -39,7 +39,7 @@
                          <td>{{auditor.phone}}</td>
                         <td><span class="badge bg-soft-primary font-size-12">{{auditor.company}}</span></td>
                            <td><p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> {{auditor.location}}</p></td>
-                        <td>{{auditor.created_at}}</td>
+                        <td>{{$filters.DateTimeFormat(auditor.created_at)}}</td>
                         <td>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">

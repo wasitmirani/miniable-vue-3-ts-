@@ -5,23 +5,23 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.html" class="logo logo-dark">
+                <router-link to="/portal/dashboard"  class="logo logo-dark">
                     <span class="logo-sm">
                         <img :src="`${url}/assets/images/logo-sm.png`" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img :src="`${url}/assets/images/logo-dark.png`" alt="" height="20">
+                        <img :src="`${url}/assets/images/logo-dark.png`" alt="" height="70">
                     </span>
-                </a>
+                </router-link>
 
-                <a href="index.html" class="logo logo-light">
+                <router-link to="/portal/dashboard" class="logo logo-light">
                     <span class="logo-sm">
                         <img :src="`${url}/assets/images/logo-sm.png`" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img :src="`${url}/assets/images/logo-light.png`" alt="" height="20">
+                        <img :src="`${url}/assets/images/logo-light.png`" alt="" height="70">
                     </span>
-                </a>
+                </router-link>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
@@ -65,28 +65,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img :src="`${url}/assets/images/flags/us.jpg`" alt="English Language" height="16">
                 </button>
-                <!-- <div class="dropdown-menu dropdown-menu-end">
-
-                    
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                    </a>
-                </div> -->
+              
             </div>
 
             <div class="dropdown d-none d-lg-inline-block ms-1">

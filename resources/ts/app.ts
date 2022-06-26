@@ -10,7 +10,7 @@ import MasterLayout from "./vue/backend/layouts/MasterLayoutComponent.vue"
 import Notifications from '@kyvg/vue3-notification';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-
+import * as moment from 'moment'
 
 const app =createApp({
     data(){
@@ -52,4 +52,10 @@ app.component('master-layout',MasterLayout)
 app.use(Notifications)
 
 app.component('Datepicker', Datepicker);
+
+app.config.globalProperties.$filters = {
+    DateTimeFormat(date:String) {
+      return  moment.utc(String(date)).local().format('DD-MMM-YYYY , h:mm:ss a')
+    }
+  }
 app.use(router).mount('#app');

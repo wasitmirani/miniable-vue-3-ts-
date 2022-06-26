@@ -134,6 +134,7 @@
                 this.page_num = page;
                 axios.get('/audit?page=' + page).then((res) => {
                     this.audits = res.data.audits;
+                    this.auditors=res.data.auditors;
                     this.loading = false;
                 }).catch((err) => {
                         this.errors = err.response.data;

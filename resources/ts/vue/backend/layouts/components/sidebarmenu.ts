@@ -65,7 +65,7 @@ let sidebar_menu=[
       "can":"leads-management-heading-view",
     },
     {
-      "title": "Leads Management",
+      "title": "Audit Management",
       "can": "leads-management-dropdown",
       "icon": "uil-invoice",
       "type": "multi",

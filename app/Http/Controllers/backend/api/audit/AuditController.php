@@ -5,7 +5,10 @@ namespace App\Http\Controllers\backend\api\audit;
 use App\Models\Audit;
 use App\Models\Auditor;
 use App\Models\AuditDate;
+use App\Models\AuditAuditor;
 use Illuminate\Http\Request;
+use App\Jobs\SendAuditEmailJob;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class AuditController extends Controller
@@ -23,9 +26,11 @@ class AuditController extends Controller
     public function store(Request $request){
         $request->validate([
             'title' => ['required', 'string', 'min:6','max:255'],
-            'description' => ['required', 'string', 'min:20','max:255'],
+            'description' => ['required', 'string', 'min:20'],
         ]);
 
+DB::beginTransaction();
+try{
         $audit =Audit::create([
             'title'=>$request->title,
             'company'=>$request->company,
@@ -33,6 +38,8 @@ class AuditController extends Controller
             'location'=>$request->location,
             'user_id'=>$request->user()->id,
         ]);
+
+
         foreach ($request->dates as $key => $value) {
             # code...
             AuditDate::create([
@@ -41,7 +48,24 @@ class AuditController extends Controller
                 'status_id'=>1,
             ]);
         }
+        foreach ($request->auditors as $key => $auditor) {
+
+            AuditAuditor::create([
+                'audit_id'=>$audit->id,
+                'auditor_id'=>$auditor['id'],
+            ]);
+            dispatch(new SendAuditEmailJob($auditor,$audit));
+
+        }
         // Auditors
+        DB::commit();
         return response()->json(['message'=>'Audit has been created successfully.','audit'=>$audit]);
+    }
+    catch(\Exception $e){
+        //if there is an error/exception in the above code before commit, it'll rollback
+        DB::rollBack();
+        // return $e->getMessage();
+        return response()->json(['message'=>$e->getMessage()],422);
+        }
     }
 }

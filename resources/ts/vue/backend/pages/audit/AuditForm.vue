@@ -48,7 +48,7 @@
                 <div class="col-lg-12">
                 <div class="mb-3">
                         <label class="form-label">Audit Dates*</label>
-                           <Datepicker v-model="audit.dates" multiDates   />
+                           <Datepicker required="true" v-model="audit.dates" multiDates   />
                     </div>
                 </div>
                 <hr/>
