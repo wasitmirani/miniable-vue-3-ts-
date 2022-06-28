@@ -4,7 +4,8 @@
             <div class="row">
                 <errors :errors="errors"></errors>
             </div>
-            <div class="row">
+            <loader-box v-if="loading"></loader-box>
+            <div class="row" v-else>
 
 
                 <!-- end row -->
@@ -71,29 +72,35 @@
 <script>
     import VueMultiselect from 'vue-multiselect'
     import Errors from "../../components/ErrorsComponent.vue";
+    import LoaderBox from "../../components/LoaderBoxComponent.vue";
 
     export default {
         props: ['editmode', 'editForm', 'auditors'],
         components: {
-            VueMultiselect, Errors
+            VueMultiselect, Errors,LoaderBox,
         },
 
         data() {
             return {
                 audit: {},
                 errors: [],
+                loading:false,
             }
         },
         watch: {
 
             editForm(collection) {
                 this.errors = [];
-                if (collection == null) {
+
+                if (collection == null || !collection) {
+
                     return this.restForm();
                 }
                 if (collection) {
                     // this.errors = "";
-                    return this.audit = collection;
+                     this.audit = collection
+                    this.audit.auditors=collection.auditors.map(x=>x.auditor);
+
                 } else {
                     this.restForm();
                 }
@@ -111,25 +118,31 @@
                 this.errors = []
             },
             async onSubmit() {
+                 this.errors = [];
+                this.loading=true;
                 this.audit.dates=this.audit.dates.map(x=>moment(x).format());
                 if (!this.editmode) {
                     await axios.post('/audit', this.audit).then((res) => {
                         this.$emit("created", this.audit);
                         this.$root.alertNotify(res.status, 'Created Successfuly', 'success', res.data);
+                        this.loading=false;
                         this.restForm();
                     }).catch((err) => {
                         this.errors = err.response.data;
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+                        this.loading=false;
                     })
                 } else {
                     await axios.put('/audit/' + this.editForm.id, this.audit).then((res) => {
                         console.log(this.audit);
                         this.$emit("updated", this.audit);
                         this.$root.alertNotify(res.status, 'Updated Successfuly', 'success', res.data);
+                             this.loading=false;
                         //   this.restForm();
                     }).catch((err) => {
                         this.errors = err.response.data;
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+                             this.loading=false;
 
                     })
                 }

@@ -6,10 +6,12 @@
                     <tr>
 
                         <th scope="col">Title</th>
+
+                        <th scope="col">Auditors</th>
                         <th scope="col">Company</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Location</th>
                         <th scope="col">Responses</th>
-                        <!-- <th scope="col">Description</th> -->
                         <th scope="col">Created</th>
                         <th scope="col" style="width: 200px;">Action</th>
                     </tr>
@@ -25,8 +27,9 @@
                             <name-avatar :name="audit.title" class="avatar-xs rounded-circle me-2"></name-avatar>
                             <a href="#" class="text-body">{{audit.title}}</a>
                         </td>
-
+                        <td><span class="badge rounded-pill bg-primary">{{audit.auditors.length}}</span></td>
                          <td>{{audit.company}}</td>
+                           <td><span :class="`badge rounded-pill bg-${setStatus(audit.status.name)}`">{{audit.status.name}}</span></td>
                  <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td>
 
                         <!-- <td><small ><description :value="audit.description"></description>  </small></td> -->
@@ -39,8 +42,11 @@
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
                                     <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
-                                        <i class="uil uil-pen font-size-18"></i></a>
+                                        <i class="uil uil-pen font-size-18"></i></a> |
+                                         <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
+                                        <i class="uil uil-eye  font-size-18"></i></a>
                                 </li>
+                                |
                                 <li class="list-inline-item">
                                     <a audit="button" @click="deleteItem(audit)" class="px-2 text-danger"><i
                                             class="uil uil-trash-alt font-size-18"></i></a>
@@ -85,6 +91,27 @@
         },
 
         methods: {
+            setStatus(name){
+                switch (name) {
+                    case 'created':
+                            return "primary";
+                        break;
+                    case "process":
+                       return "warning";
+                    break;
+                    case "completed":
+                        return "success";
+                    break;
+                    case "canceled":
+                        return "danger";
+                    break
+
+
+                    default:
+                        return "primary";
+                        break;
+                }
+            },
             dateformat(date){
             return  moment.utc(String(date)).local().format("DD MMM YYYY h:mm a");
             },

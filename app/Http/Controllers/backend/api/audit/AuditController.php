@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend\api\audit;
 use App\Models\Audit;
 use App\Models\Auditor;
 use App\Models\AuditDate;
+use Illuminate\Support\Str;
 use App\Models\AuditAuditor;
 use Illuminate\Http\Request;
 use App\Jobs\SendAuditEmailJob;
@@ -52,6 +53,7 @@ try{
 
             AuditAuditor::create([
                 'audit_id'=>$audit->id,
+                'token'=>(string)Str::uuid(),
                 'auditor_id'=>$auditor['id'],
             ]);
             dispatch(new SendAuditEmailJob($auditor,$audit));
@@ -69,6 +71,41 @@ try{
         }
     }
 
+    public function update(Request $request,$id){
+        $request->validate([
+            'title' => ['required', 'string', 'min:6','max:255'],
+            'description' => ['required', 'string', 'min:20'],
+        ]);
+        $audit =Audit::findOrFail($id);
+        $audit->update([
+            'title'=>$request->title,
+            'company'=>$request->company,
+            'description'=>$request->description,
+            'location'=>$request->location,
+            'user_id'=>$request->user()->id,
+        ]);
+        $audit->auditdates()->delete();
+        foreach ($request->dates as $key => $value) {
+            # code...
+            AuditDate::create([
+                'audit_id'=>$audit->id,
+                'audit_date'=>date('Y-m-d H:i:s', strtotime($value)),
+                'status_id'=>1,
+            ]);
+        }
+        $audit->auditors()->delete();
+        foreach ($request->auditors as $key => $auditor) {
+
+            AuditAuditor::create([
+                'audit_id'=>$audit->id,
+                'token'=>(string)Str::uuid(),
+                'auditor_id'=>$auditor['id'],
+            ]);
+            dispatch(new SendAuditEmailJob($auditor,$audit));
+
+        }
+        return response()->json(['message'=>'Audit has been updated successfully.','audit'=>$audit]);
+    }
     public function destroy($id){
         AuditDate::where('audit_id',$id)->delete();
         AuditAuditor::where('audit_id',$id)->delete();

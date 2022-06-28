@@ -25,7 +25,7 @@ class Audit extends Model
     }
     public function auditors()
     {
-        return $this->hasMany(AuditAuditor::class, 'audit_id', 'id');
+        return $this->hasMany(AuditAuditor::class, 'audit_id', 'id')->with('auditor');
     }
     /**
      * Get the user that owns the Audit

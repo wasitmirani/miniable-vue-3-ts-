@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\auditEmail;
+use App\Mail\auditNotification;
 use Illuminate\Support\Arr;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
@@ -37,6 +37,6 @@ class SendAuditEmailJob implements ShouldQueue
     public function handle()
     {
 
-        Mail::to($this->auditor['email'])->send(new auditEmail($this->data,$this->auditor));
+        Mail::to($this->auditor['email'])->send(new auditNotification($this->data,$this->auditor));
     }
 }

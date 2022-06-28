@@ -82,7 +82,7 @@
             },
             resetForm() {
                 this.audit = {},
-                    this.errors = [];
+                 this.errors = [];
             },
             closeModal(item) {
                 if (item) {
