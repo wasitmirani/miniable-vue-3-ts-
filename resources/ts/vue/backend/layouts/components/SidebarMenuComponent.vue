@@ -32,7 +32,7 @@
                   <!-- :class="getMenuClass(item) ?  getMenuClass(item) : null" -->
                   <li  :class="getMenuClass(item) ?  getMenuClass(item) : null"  v-for="item in sidebar_menu" :key="item.id">
                      {{item?.heading ? item?.heading : null  }}
-                     <router-link  :to="item.route" v-if="item.type=='single_link'">
+                     <router-link  :to="item.route" v-if="item.type=='single_link'  && isAllowed(item.can)">
                         <i :class="item.icon"></i>
                         <span>{{item.title}}</span>
                      </router-link>
@@ -42,7 +42,7 @@
                      </a>
                      <ul class="sub-menu mm-collapse"  aria-expanded="false"   v-if="item.type=='multi'">
                         <li v-for="subitem in item.sub_menu" :key="subitem.id">
-                           <router-link  :to="subitem.route" v-if="subitem.title">
+                           <router-link  :to="subitem.route" v-if="isAllowed(subitem?.can)">
                               <i :class="subitem.icon"></i>
                               <span>{{subitem.title}}</span>
                            </router-link>
@@ -70,6 +70,13 @@
            }
        },
        methods:{
+         isAllowed(value){
+
+                if(permissions.includes(value))
+                    return true;
+                else
+                    return false;
+            },
            getMenuClass(item){
                if(item?.heading)
                    return 'menu-title';

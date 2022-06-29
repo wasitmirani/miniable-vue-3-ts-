@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr v-if="audits.data?.length < 1">
-                        <th colspan="7">
+                        <th colspan="8">
                             <date-empty message="audits data not found" />
                         </th>
                     </tr>

@@ -37,7 +37,7 @@ let sidebar_menu=[
         {
           "title": "Permissions",
           "icon": null,
-          "can": "permissions-view",
+          "can": "permissions-list-view",
           "route": "/portal/permissions"
         }
       ]

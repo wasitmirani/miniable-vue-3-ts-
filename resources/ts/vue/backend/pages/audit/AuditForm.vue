@@ -98,8 +98,11 @@
                 }
                 if (collection) {
                     // this.errors = "";
-                     this.audit = collection
+                    if(this.editmode){
+                          this.audit = collection
                     this.audit.auditors=collection.auditors.map(x=>x.auditor);
+                    }
+
 
                 } else {
                     this.restForm();

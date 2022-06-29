@@ -38,7 +38,11 @@
 
                          <td>{{auditor.phone}}</td>
                         <td><span class="badge bg-soft-primary font-size-12">{{auditor.company}}</span></td>
-                           <td><p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> {{auditor.location}}</p></td>
+                           <td><p class="text-muted font-size-13 mb-0">
+
+
+
+                            <location :location="auditor.location"></location> </p></td>
                         <td>{{$filters.DateTimeFormat(auditor.created_at)}}</td>
                         <td>
                             <ul class="list-inline mb-0">
@@ -67,6 +71,7 @@
     import NameAvatar from "../../components/NameAvatarComponent.vue";
     import TableFooter from "../../components/TableFooterComponent.vue";
     import DateEmpty from "../../components/DataEmptyComponent.vue";
+     import Location from "../../components/LocationComponent.vue";
     export default {
         props: {
             auditors: {
@@ -79,7 +84,7 @@
             },
 
         },
-        components: { NameAvatar, TableFooter, DateEmpty },
+        components: { NameAvatar, TableFooter, DateEmpty ,Location},
         data() {
             return {
                 selected_auditors: [],

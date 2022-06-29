@@ -1,6 +1,6 @@
 <template>
     <div>
-        <bread-crumb active_name="audits List"></bread-crumb>
+        <bread-crumb active_name="Audits List"></bread-crumb>
            <div class="row">
             <div class="col-lg-12">
                 <div class="card">

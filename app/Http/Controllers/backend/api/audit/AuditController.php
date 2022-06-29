@@ -17,7 +17,15 @@ class AuditController extends Controller
     //
     public function index(Request $request){
         $q=request('query');
-        $audits =Audit::latest()->where('title', 'like', '%' . $q . '%')
+        $audits =Audit::latest();
+
+
+        if(!empty($request->date_range)){
+            
+        }
+        $audits = $audits->where('title', 'like', '%' . $q . '%')
+                         ->orWhere('company','like', '%' . $q . '%')
+                         ->orWhere('location','like', '%' . $q . '%')
                          ->with('auditdates','status:id,name','auditors')
                          ->paginate((int)env('PER_PAGE'));
         $auditors =Auditor::orderBy('name','ASC')->get();
