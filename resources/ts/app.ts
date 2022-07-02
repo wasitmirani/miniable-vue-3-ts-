@@ -55,7 +55,7 @@ app.component('Datepicker', Datepicker);
 
 app.config.globalProperties.$filters = {
     DateTimeFormat(date:String) {
-      return  moment.utc(String(date)).local().format('DD-MMM-YYYY , h:mm:ss a')
+      return  moment.utc(String(date)).local().format('DD-MMM-YYYY , h:mm a')
     }
   }
 app.use(router).mount('#app');

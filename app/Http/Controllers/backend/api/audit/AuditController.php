@@ -22,7 +22,7 @@ class AuditController extends Controller
               return response()->json(['message'=>'Invalid Token'],401);
        }
        $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
-       if($audit_auditor->finished==1 ){
+       if($audit_auditor->status_id==1 ){
         $audit->increment('response');
         $audit->status_id=2;
         $audit->save();
