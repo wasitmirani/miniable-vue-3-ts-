@@ -21,9 +21,9 @@
 
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label class="form-label">company</label>
-                        <input type="text" v-model="audit.company" class="form-control"
-                            placeholder="Enter your company">
+                        <label class="form-label">phone</label>
+                        <input type="text" v-model="audit.phone" class="form-control"
+                            placeholder="Enter your phone">
                     </div>
                 </div>
                 <div class="col-lg-6">

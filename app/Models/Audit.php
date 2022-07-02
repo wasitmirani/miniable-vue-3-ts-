@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\AuditDate;
 use App\Models\AuditStatus;
 use App\Models\AuditAuditor;
@@ -35,5 +36,9 @@ class Audit extends Model
     public function status()
     {
         return $this->belongsTo(AuditStatus::class, 'status_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

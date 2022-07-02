@@ -8,7 +8,7 @@
                         <th scope="col">Title</th>
 
                         <th scope="col">Auditors</th>
-                        <th scope="col">Company</th>
+                        <th scope="col">phone</th>
                         <th scope="col">Status</th>
                         <th scope="col">Location</th>
                         <th scope="col">Responses</th>
@@ -28,7 +28,7 @@
                             <a href="#" class="text-body">{{audit.title}}</a>
                         </td>
                         <td><span class="badge rounded-pill bg-primary">{{audit.auditors.length}}</span></td>
-                         <td>{{audit.company}}</td>
+                         <td>{{audit.phone}}</td>
                            <td><span :class="`badge rounded-pill bg-${setStatus(audit.status.name)}`">{{audit.status.name}}</span></td>
                  <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td>
 
@@ -43,7 +43,7 @@
                                 <li class="list-inline-item">
                                     <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
                                         <i class="uil uil-pen font-size-18"></i></a> |
-                                         <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
+                                         <a audit="button" @click="auditDetails(audit)" class="px-2 text-primary">
                                         <i class="uil uil-eye  font-size-18"></i></a>
                                 </li>
                                 |
@@ -91,6 +91,14 @@
         },
 
         methods: {
+            auditDetails(audit){
+                this.$router.push({
+                    name: 'audit-details',
+                    params: {
+                        id: audit.id
+                    }
+                })
+            },
             setStatus(name){
                 switch (name) {
                     case 'created':

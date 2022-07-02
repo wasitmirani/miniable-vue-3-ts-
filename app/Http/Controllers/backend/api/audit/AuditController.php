@@ -21,17 +21,22 @@ class AuditController extends Controller
 
 
         if(!empty($request->date_range)){
-            
+
         }
         $audits = $audits->where('title', 'like', '%' . $q . '%')
-                         ->orWhere('company','like', '%' . $q . '%')
+                         ->orWhere('phone','like', '%' . $q . '%')
                          ->orWhere('location','like', '%' . $q . '%')
                          ->with('auditdates','status:id,name','auditors')
                          ->paginate((int)env('PER_PAGE'));
         $auditors =Auditor::orderBy('name','ASC')->get();
         return response()->json(['audits'=>$audits,'auditors'=>$auditors]);
     }
-
+    public function getAuditDetails(Request $request){
+        $audit = Audit::find($request->id)->with('user','auditdates','status:id,name','auditors')->first();
+        $audit->auditdates = $audit->auditdates()->orderBy('audit_date','ASC')->get();
+        // $audit->auditors = $audit->auditors()->orderBy('name','ASC')->get();
+        return response()->json(['audit'=>$audit]);
+    }
     public function store(Request $request){
         $request->validate([
             'title' => ['required', 'string', 'min:6','max:255'],
@@ -42,7 +47,7 @@ DB::beginTransaction();
 try{
         $audit =Audit::create([
             'title'=>$request->title,
-            'company'=>$request->company,
+            'phone'=>$request->phone,
             'description'=>$request->description,
             'location'=>$request->location,
             'user_id'=>$request->user()->id,
@@ -87,7 +92,7 @@ try{
         $audit =Audit::findOrFail($id);
         $audit->update([
             'title'=>$request->title,
-            'company'=>$request->company,
+            'phone'=>$request->phone,
             'description'=>$request->description,
             'location'=>$request->location,
             'user_id'=>$request->user()->id,

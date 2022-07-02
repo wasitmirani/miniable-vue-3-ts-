@@ -34,5 +34,6 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('auditor', AuditorController::class);
+    Route::get('/audit/details/{id}',[AuditController::class,'getAuditDetails']);
     Route::resource('audit', AuditController::class);
 });
