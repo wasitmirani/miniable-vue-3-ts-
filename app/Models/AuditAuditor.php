@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AuditDateRequest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AuditAuditor extends Model
 {
@@ -17,6 +18,7 @@ class AuditAuditor extends Model
     */
    public function auditor()
    {
-       return $this->belongsTo(Auditor::class, 'auditor_id', 'id');
+       return $this->belongsTo(Auditor::class, 'auditor_id', 'id')->with('auditrequests');
    }
+
 }

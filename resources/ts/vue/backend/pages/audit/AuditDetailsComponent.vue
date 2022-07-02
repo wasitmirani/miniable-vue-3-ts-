@@ -89,15 +89,15 @@
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tasks" role="tab">
                                                 <i class="uil uil-clipboard-notes font-size-20"></i>
-                                                <span class="d-none d-sm-block">Requests</span>
+                                                <span class="d-none d-sm-block">Auditor Requests</span>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                                                 <i class="uil uil-envelope-alt font-size-20"></i>
                                                 <span class="d-none d-sm-block">Messages</span>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                     <!-- Tab content -->
                                     <div class="tab-content p-4">
@@ -160,154 +160,64 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="tasks" role="tabpanel">
-                                            <div>
-                                                <h5 class="font-size-16 mb-3">Active</h5>
+                                        <div class="tab-pane" id="tasks" role="tabpanel" style="overflow-y: scroll; height:430px;">
+                                            <div v-for="item in audit.auditors" :key="item.id">
+                                                <h5 class="font-size-16 mb-3 mt-4 text-primary"><strong> {{item?.auditor?.name}}</strong></h5>
 
                                                 <div class="table-responsive">
-                                                    <table class="table table-nowrap table-centered">
+
+                                                         <table class="table table-nowrap table-hover mb-0">
+                                                            <thead>
+                                                                <tr>
+
+                                                                    <th scope="col">Audit</th>
+                                                                    <th scope="col">Date</th>
+                                                                    <th scope="col">Availability</th>
+                                                                    <th scope="col">Action</th>
+                                                                </tr>
+                                                            </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td style="width: 60px;">
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-activeCheck2">
-                                                                        <label class="form-check-label" for="tasks-activeCheck2"></label>
+                                                            <tr v-if="item.auditor.auditrequests.length<1">
+                                                             <td colspan="4">
+                                                                    <div class="alert alert-warning">
+                                                                        <h5 class="font-size-16 mb-3 mt-4 text-war"><strong>Not found any request</strong></h5>
                                                                     </div>
                                                                 </td>
+                                                            </tr>
+                                                            <tr  v-for="request in item?.auditor?.auditrequests" :key="request.id" >
+
                                                                 <td>
-                                                                    <a href="#" class="fw-bold text-dark">Ecommerce Product Detail</a>
+                                                                    <small>{{audit.title}}</small>
                                                                 </td>
 
-                                                                <td>27 May, 2020</td>
-                                                                <td style="width: 160px;"><span class="badge bg-soft-primary font-size-12">Active</span></td>
+                                                                <td>{{request.auditdate.audit_date}}</td>
+                                                                <td >
+
+                                                                <span class="badge bg-success" v-if="request.availability==1">
+                                                                 <i class="uil uil-file-check-alt  text-light   font-size-13"></i>
+                                                                Available</span>
+                                                                  <span class="badge bg-danger" v-if="request.availability==0">
+                                                                 <i class="uil uil-file-times-alt  text-light   font-size-13"></i>
+                                                                UnAvailable</span>
+                                                                </td>
+                                                                <td v-if="request.availability==1 && request.auditdate.finished==0">
+
+                                                                             <a role="button" @click="editItem(audit)" class="text-primary">
+                                                                              <i class="uil uil-check-circle  font-size-18"></i></a>
+                                                                       |
+                                                                          <a role="button" @click="editItem(audit)" class=" text-danger">
+                                                                              <i class="uil uil-trash font-size-18"></i></a>
+                                                                </td>
+
 
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-activeCheck1">
-                                                                        <label class="form-check-label" for="tasks-activeCheck1"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Ecommerce Product</a>
-                                                                </td>
 
-                                                                <td>26 May, 2020</td>
-                                                                <td><span class="badge bg-soft-primary font-size-12">Active</span></td>
 
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
 
-                                                <h5 class="font-size-16 my-3">Upcoming</h5>
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-nowrap table-centered">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 60px;">
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-upcomingCheck3">
-                                                                        <label class="form-check-label" for="tasks-upcomingCheck3"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Chat app Page</a>
-                                                                </td>
-
-                                                                <td>-</td>
-                                                                <td style="width: 160px;"><span class="badge bg-soft-secondary font-size-12">Waiting</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-upcomingCheck2">
-                                                                        <label class="form-check-label" for="tasks-upcomingCheck2"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Email Pages</a>
-                                                                </td>
-
-                                                                <td>04 June, 2020</td>
-                                                                <td><span class="badge bg-soft-primary font-size-12">Approved</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-upcomingCheck1">
-                                                                        <label class="form-check-label" for="tasks-upcomingCheck1"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Contacts Profile Page</a>
-                                                                </td>
-
-                                                                <td>-</td>
-                                                                <td><span class="badge bg-soft-secondary font-size-12">Waiting</span></td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <h5 class="font-size-16 my-3">Complete</h5>
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-nowrap table-centered">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 60px;">
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-completeCheck3">
-                                                                        <label class="form-check-label" for="tasks-completeCheck3"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">UI Elements</a>
-                                                                </td>
-
-                                                                <td>27 May, 2020</td>
-                                                                <td style="width: 160px;"><span class="badge bg-soft-success font-size-12">Complete</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-completeCheck2">
-                                                                        <label class="form-check-label" for="tasks-completeCheck2"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Authentication Pages</a>
-                                                                </td>
-
-                                                                <td>27 May, 2020</td>
-                                                                <td><span class="badge bg-soft-success font-size-12">Complete</span></td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check font-size-16 text-center">
-                                                                        <input type="checkbox" class="form-check-input" id="tasks-completeCheck1">
-                                                                        <label class="form-check-label" for="tasks-completeCheck1"></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <a href="#" class="fw-bold text-dark">Admin Layout</a>
-                                                                </td>
-
-                                                                <td>26 May, 2020</td>
-                                                                <td><span class="badge bg-soft-success font-size-12">Complete</span></td>
-
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                            <hr>
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="messages" role="tabpanel">

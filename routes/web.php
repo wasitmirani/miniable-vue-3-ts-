@@ -20,6 +20,10 @@ Route::get('/', function () {
 
 Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::get('audit-survey/{token}',[AuditController::class,'auditSurvey'])->name('audit-survey');
+Route::post('audit-survery-auditor/{token}',[AuditController::class,'sendSurveyDates'])->name('audit-survery-auditor');
+Route::get('/audit-survery-completed',function(){
+    return view('survey.thank');
+})->name('thank');
 
 Route::get('/portal/{any?}', function () {
     return view('backend.index');

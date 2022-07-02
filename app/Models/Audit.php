@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AuditDate;
 use App\Models\AuditStatus;
 use App\Models\AuditAuditor;
+use App\Models\AuditDateRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,6 +29,7 @@ class Audit extends Model
     {
         return $this->hasMany(AuditAuditor::class, 'audit_id', 'id')->with('auditor');
     }
+
     /**
      * Get the user that owns the Audit
      *

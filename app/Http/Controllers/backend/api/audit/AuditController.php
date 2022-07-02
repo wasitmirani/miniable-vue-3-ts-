@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\AuditAuditor;
 use Illuminate\Http\Request;
 use App\Jobs\SendAuditEmailJob;
+use App\Models\AuditDateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -16,21 +17,56 @@ class AuditController extends Controller
 {
     //
 
+    public  function sendSurveyDates(Request $request)
+    {
+
+        $audit_auditor= AuditAuditor::where('token',$request->token)->first();
+        AuditDateRequest::where(['audit_id'=>$audit_auditor->audit_id,'auditor_id'=>$audit_auditor->auditor_id])->delete();
+        $audit_dates=AuditDate::whereIn('id',$request->available_dates)->get();
+        $not_dates_availability=AuditDate::where('audit_id',$audit_auditor->audit_id)->whereNotIn('id',$request->available_dates)
+        ->get();
+
+        $audit=Audit::where('id',$audit_auditor->audit_id)->first();
+
+        if($audit_auditor->finished==0 ){
+         $audit->increment('response');
+         // $audit->status_id=2
+         $audit->save();
+        }
+        $audit_auditor->status_id=2;
+        $audit_auditor->finished=1;
+        $audit_auditor->save();
+        foreach ($audit_dates as $key => $item) {
+            # code...
+            AuditDateRequest::create([
+                'audit_id'=>$audit_auditor->audit_id,
+                'auditor_id'=>$audit_auditor->auditor_id,
+                'audit_date_id'=>$item->id,
+                'availability'=>1
+            ]);
+        }
+        foreach ($not_dates_availability as $key => $value) {
+            # code...
+            AuditDateRequest::create([
+                'audit_id'=>$audit_auditor->audit_id,
+                'auditor_id'=>$audit_auditor->auditor_id,
+                'audit_date_id'=>$value->id,
+                'availability'=>0
+            ]);
+        }
+
+        return redirect()->route('thank');
+    }
     public function auditSurvey(Request $request){
-       $audit_auditor= AuditAuditor::where('token',$request->token)->first();
+       $audit_auditor= AuditAuditor::where('token',$request->token)->with('auditor')->first();
        if(empty($audit_auditor)){
               return response()->json(['message'=>'Invalid Token'],401);
        }
        $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
-       if($audit_auditor->status_id==1 ){
-        $audit->increment('response');
+
         $audit->status_id=2;
         $audit->save();
-       }
 
-       $audit_auditor->status_id=2;
-       $audit_auditor->finished=1;
-       $audit_auditor->save();
        return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor]);
 
     }
@@ -51,7 +87,7 @@ class AuditController extends Controller
         return response()->json(['audits'=>$audits,'auditors'=>$auditors]);
     }
     public function getAuditDetails(Request $request){
-        $audit = Audit::find($request->id)->with('user','auditdates','status:id,name','auditors')->first();
+        $audit = Audit::where('id',$request->id)->with('user','auditdates','status:id,name','auditors')->first();
         $audit->auditdates = $audit->auditdates()->orderBy('audit_date','ASC')->get();
         // $audit->auditors = $audit->auditors()->orderBy('name','ASC')->get();
         return response()->json(['audit'=>$audit]);
@@ -134,12 +170,18 @@ try{
         $audit->auditors()->delete();
         foreach ($request->auditors as $key => $auditor) {
 
-            AuditAuditor::create([
+            $audit_auditor=  AuditAuditor::create([
                 'audit_id'=>$audit->id,
                 'token'=>(string)Str::uuid(),
                 'auditor_id'=>$auditor['id'],
             ]);
-            dispatch(new SendAuditEmailJob($auditor,$audit));
+            $new_auditor = [
+                'token'=>$audit_auditor->token,
+                'audit_id'=>$audit->id,
+                'auditor_id'=>$auditor['id'],
+                'name'=>$auditor['name'],
+                'email'=>$auditor['email']];
+            dispatch(new SendAuditEmailJob($new_auditor,$audit));
 
         }
         return response()->json(['message'=>'Audit has been updated successfully.','audit'=>$audit]);

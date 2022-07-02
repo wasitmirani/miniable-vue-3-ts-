@@ -10,7 +10,7 @@
                     <div class="row justify-content-center mt-4">
                         <div class="col-lg-5">
                             <div class="text-center">
-                                <h5>Can't find what you are looking for?</h5>
+                                <h5>Hello, {{$audit_auditor->auditor->name}}</h5>
                                 <p class="text-muted">If several languages coalesce, the grammar of the resulting language is
                                     more simple and regular than that of the individual</p>
 
@@ -96,20 +96,22 @@
                                                 <div class="mt-4">
                                                     <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Please mark availability date</h5>
 
-                                                    <form>
-                                                        <div class="hstack gap-3">
+                                                    <form method="POST" class="row row-cols-lg-auto gx-3 gy-4 align-items-center" action="{{route('audit-survery-auditor',['token'=>request('token')])}}">
+                                                    @csrf
                                                             @foreach ($audit->auditdates as $item)
                                                             <div>
                                                                 <div class="form-check form-check-right">
-                                                                    <input class="form-check-input" type="checkbox" id="formCheckRight{{$item->id}}" value="{{$item->id}}">
+                                                                    <input name="available_dates[]" class="form-check-input" type="checkbox" id="formCheckRight{{$item->id}}" value="{{$item->id}}">
                                                                     <label class="form-check-label" for="formCheckRight{{$item->id}}">
-                                                                       {{ $item->audit_date }}
+                                                                       {{ $item->audit_date->format('d-m-Y') }}
                                                                     </label>
                                                                 </div>
                                                             </div>
+                                                            <div class="hstack gap-1">
                                                             <div class="vr"></div>
+                                                            </div>
                                                             @endforeach
-                                                            <button type="button" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
 
 
                                                         </div>
