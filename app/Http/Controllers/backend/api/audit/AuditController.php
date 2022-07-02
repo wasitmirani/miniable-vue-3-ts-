@@ -15,6 +15,25 @@ use App\Http\Controllers\Controller;
 class AuditController extends Controller
 {
     //
+
+    public function auditSurvey(Request $request){
+       $audit_auditor= AuditAuditor::where('token',$request->token)->first();
+       if(empty($audit_auditor)){
+              return response()->json(['message'=>'Invalid Token'],401);
+       }
+       $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
+       if($audit_auditor->finished==1 ){
+        $audit->increment('response');
+        $audit->status_id=2;
+        $audit->save();
+       }
+
+       $audit_auditor->status_id=2;
+       $audit_auditor->finished=1;
+       $audit_auditor->save();
+       return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor]);
+
+    }
     public function index(Request $request){
         $q=request('query');
         $audits =Audit::latest();
@@ -64,12 +83,18 @@ try{
         }
         foreach ($request->auditors as $key => $auditor) {
 
-            AuditAuditor::create([
+           $audit_auditor= AuditAuditor::create([
                 'audit_id'=>$audit->id,
                 'token'=>(string)Str::uuid(),
                 'auditor_id'=>$auditor['id'],
             ]);
-            dispatch(new SendAuditEmailJob($auditor,$audit));
+            $new_auditor = [
+                             'token'=>$audit_auditor->token,
+                             'audit_id'=>$audit->id,
+                             'auditor_id'=>$auditor['id'],
+                             'name'=>$auditor['name'],
+                             'email'=>$auditor['email']];
+            dispatch(new SendAuditEmailJob($new_auditor,$audit));
 
         }
         // Auditors

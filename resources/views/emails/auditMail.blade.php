@@ -4,7 +4,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('audit-survey',['token'=>$auditor['token']])])
 View Details
 @endcomponent
 

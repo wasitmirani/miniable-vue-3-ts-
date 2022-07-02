@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\backend\api\audit\AuditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::get('audit-survey/{token}',[AuditController::class,'auditSurvey'])->name('audit-survey');
 
 Route::get('/portal/{any?}', function () {
     return view('backend.index');
@@ -29,5 +31,7 @@ Route::get('/portal/{any?}', function () {
 Route::get('unauthorized/user',function(){
 return abort(401,'Unauthorized User');
 });
+
+
 
 require __DIR__.'/auth.php';

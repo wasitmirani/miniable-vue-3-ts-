@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <bread-crumb active_name="Audit Details"></bread-crumb>
+        <bread-crumb active_name="Audit Details" :previous="[{name:'Audits',link:'/portal/audits'}]"></bread-crumb>
 
                         <div class="row mb-4">
                             <div class="col-xl-4">
@@ -134,7 +134,7 @@
                                                                 <tr>
                                                                     <th scope="col">#</th>
                                                                     <th scope="col">Audit</th>
-                                                                    <th scope="col">Date</th>
+                                                                    <th scope="col">DateTime</th>
                                                                     <th scope="col">Status</th>
 
                                                                 </tr>
@@ -147,7 +147,8 @@
                                                                       {{$filters.DateTimeFormat(item.audit_date)}}
                                                                     </td>
                                                                     <td>
-                                                                        <span class="badge bg-soft-primary font-size-12">Open</span>
+                                                                        <span class="badge bg-soft-primary font-size-12"  v-if="item.finished==0">Open</span>
+                                                                         <span class="badge bg-soft-primary font-size-12"  v-if="item.finished==1">Close</span>
                                                                     </td>
 
                                                                 </tr>

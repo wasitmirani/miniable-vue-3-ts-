@@ -4,7 +4,7 @@
             <div class="row">
                 <errors :errors="errors"></errors>
             </div>
-            <loader-box v-if="loading"></loader-box>
+            <loader-box v-if="loading" message="Please wait audit data has been proccessing"></loader-box>
             <div class="row" v-else>
 
 

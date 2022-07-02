@@ -41,10 +41,11 @@
                         <td>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
+                                 <a audit="button" @click="auditDetails(audit)" class="px-2 text-primary">
+                                        <i class="uil uil-eye  font-size-18"></i></a> |
                                     <a audit="button" @click="editItem(audit)" class="px-2 text-primary">
-                                        <i class="uil uil-pen font-size-18"></i></a> |
-                                         <a audit="button" @click="auditDetails(audit)" class="px-2 text-primary">
-                                        <i class="uil uil-eye  font-size-18"></i></a>
+                                        <i class="uil uil-pen font-size-18"></i></a> 
+
                                 </li>
                                 |
                                 <li class="list-inline-item">

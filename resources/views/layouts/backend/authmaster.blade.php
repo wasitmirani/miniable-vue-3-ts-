@@ -5,7 +5,7 @@
     <head>
 
         <meta charset="utf-8" />
-        <title> Login | {{config('app.name')}}</title>
+        <title> @yield('title') | {{config('app.name')}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="{{config('app.name')}}" name="description" />
         <meta content="Themesbrand" name="{{config('app.name')}}" />
