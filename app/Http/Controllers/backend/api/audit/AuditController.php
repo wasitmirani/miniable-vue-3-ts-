@@ -213,4 +213,42 @@ try{
             return response()->json(['message' => 'Audit has not been not found'], 400);
 
     }
+
+    public function getAuditDates($request){
+      $audit_date=  AuditDate::where(['id'=>$request->audit_date_id,'audit_id'=>$request->audit_id])->with('auditor')->first();
+      if(empty($audit_date->auditor_assistant)){
+        $audit_date->auditor_assistant =$request->auditor_id;
+        $audit_date->status_id=3;
+        $audit_date->finished=1;
+        $audit_date->save();
+        return ['message'=>'Auditor Assistant has been assigned successfully.','code'=>200];
+      }
+      else {
+        return ['message'=>$audit_date->auditor->name.' , Auditor Assistant has already been assigned.','code'=>422];
+      }
+    }
+    public function updateAuditApproval(Request $request){
+        $audit_req=AuditDateRequest::where('id',$request->id)->first();
+        if($request->approval_type=="2"){
+            $audit_req->update(['approval_type'=>$request->approval_type]);
+             AuditDate::where(['id'=>$audit_req->audit_date_id,'audit_id'=>$audit_req->audit_id])->update(['status_id'=>2,'finished'=>0,'auditor_assistant'=>null]);
+        }
+        else{
+        $assinged_auditor= $this->getAuditDates($audit_req);
+        if($assinged_auditor['code']==200){
+            $audit_req->update(['approval_type'=>$request->approval_type]);
+            return response()->json( $assinged_auditor);
+        }
+        else{
+            return response()->json($assinged_auditor,$assinged_auditor['code']);
+        }
+
+        }
+
+        if($audit_req)
+            return response()->json(['message' => 'Audit has been updated successfully'], 200);
+        else
+            return response()->json(['message' => 'Audit  has not been not found'], 400);
+
+    }
 }

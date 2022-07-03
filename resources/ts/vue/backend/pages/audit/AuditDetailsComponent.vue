@@ -134,6 +134,8 @@
                                                                 <tr>
                                                                     <th scope="col">#</th>
                                                                     <th scope="col">Audit</th>
+                                                                    <th scope="col"> Auditor</th>
+
                                                                     <th scope="col">DateTime</th>
                                                                     <th scope="col">Status</th>
 
@@ -143,12 +145,14 @@
                                                                 <tr v-for="(item,index) in audit.auditdates" :key="index">
                                                                     <th scope="row">{{index}}</th>
                                                                     <td><a href="#" class="text-dark">{{audit.title}}</a></td>
+                                                                    <td v-if="item?.auditor">{{item.auditor.name}}</td>
+                                                                    <td v-else>-</td>
                                                                     <td>
                                                                       {{$filters.DateTimeFormat(item.audit_date)}}
                                                                     </td>
                                                                     <td>
-                                                                        <span class="badge bg-soft-primary font-size-12"  v-if="item.finished==0">Open</span>
-                                                                         <span class="badge bg-soft-primary font-size-12"  v-if="item.finished==1">Close</span>
+                                                                        <span class="badge bg-primary font-size-12"  v-if="item.finished==0">Open</span>
+                                                                         <span class="badge bg-success font-size-12"  v-if="item.finished==1">Close</span>
                                                                     </td>
 
                                                                 </tr>
@@ -172,13 +176,14 @@
 
                                                                     <th scope="col">Audit</th>
                                                                     <th scope="col">Date</th>
+                                                                    <th scope="col">Status</th>
                                                                     <th scope="col">Availability</th>
                                                                     <th scope="col">Action</th>
                                                                 </tr>
                                                             </thead>
                                                         <tbody>
                                                             <tr v-if="item.auditor.auditrequests.length<1">
-                                                             <td colspan="4">
+                                                             <td colspan="5">
                                                                     <div class="alert alert-warning">
                                                                         <h5 class="font-size-16 mb-3 mt-4 text-war"><strong>Not found any request</strong></h5>
                                                                     </div>
@@ -190,9 +195,16 @@
                                                                     <small>{{audit.title}}</small>
                                                                 </td>
 
-                                                                <td>{{request.auditdate.audit_date}}</td>
+                                                                <td>{{$filters.DateTimeFormat(request.auditdate.audit_date)}}</td>
                                                                 <td >
-
+                                                                 <span class="badge bg-success" v-if="request.approval_type==1">
+                                                                    Approved
+                                                                </span>
+                                                                  <span class="badge bg-danger" v-if="request.approval_type==2">
+                                                                    Rejected
+                                                                </span>
+                                                                </td>
+                                                                  <td >
                                                                 <span class="badge bg-success" v-if="request.availability==1">
                                                                  <i class="uil uil-file-check-alt  text-light   font-size-13"></i>
                                                                 Available</span>
@@ -200,12 +212,12 @@
                                                                  <i class="uil uil-file-times-alt  text-light   font-size-13"></i>
                                                                 UnAvailable</span>
                                                                 </td>
-                                                                <td v-if="request.availability==1 && request.auditdate.finished==0">
+                                                                <td v-if="request.availability==1 ">
 
-                                                                             <a role="button" @click="editItem(audit)" class="text-primary">
+                                                                             <a role="button" @click="approval(request)" class="text-primary">
                                                                               <i class="uil uil-check-circle  font-size-18"></i></a>
                                                                        |
-                                                                          <a role="button" @click="editItem(audit)" class=" text-danger">
+                                                                          <a role="button" @click="reject(request)" class=" text-danger">
                                                                               <i class="uil uil-trash font-size-18"></i></a>
                                                                 </td>
 
@@ -220,86 +232,7 @@
                                             <hr>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="messages" role="tabpanel">
-                                            <div>
-                                                <div data-simplebar style="max-height: 430px;">
-                                                    <div class="d-flex align-items-start border-bottom py-4">
-                                                        <div class="flex-shrink-0 me-2">
-                                                            <img class="rounded-circle avatar-xs" src="assets/images/users/avatar-3.jpg" alt="avatar-3 images">
-                                                        </div>
 
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="font-size-15 mb-1">Marion Walker <small class="text-muted float-end">1 hr ago</small></h5>
-                                                            <p class="text-muted">If several languages coalesce, the grammar of the resulting .</p>
-
-                                                            <a href="javascript: void(0);" class="text-muted font-13 d-inline-block"><i
-                                                                class="mdi mdi-reply"></i> Reply</a>
-
-                                                            <div class="d-flex align-items-start mt-4">
-                                                                <div class="flex-shrink-0 me-2">
-                                                                    <img class="rounded-circle avatar-xs" src="assets/images/users/avatar-4.jpg" alt="avatar-4 images">
-                                                                </div>
-
-                                                                <div class="flex-grow-1">
-                                                                    <h5 class="font-size-15 mb-1">Shanon Marvin <small class="text-muted float-end">1 hr ago</small></h5>
-                                                                    <p class="text-muted">It will be as simple as in fact, it will be Occidental. To it will seem like simplified .</p>
-
-
-                                                                    <a href="javascript: void(0);" class="text-muted font-13 d-inline-block">
-                                                                        <i class="mdi mdi-reply"></i> Reply
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-start border-bottom py-4">
-                                                        <div class="flex-shrink-0 me-2">
-                                                            <img class="rounded-circle avatar-xs" src="assets/images/users/avatar-5.jpg" alt="avatar-5 images">
-                                                        </div>
-
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="font-size-15 mb-1">Janice Morgan <small class="text-muted float-end">2 hrs ago</small></h5>
-                                                            <p class="text-muted">To achieve this, it would be necessary to have uniform pronunciation.</p>
-
-                                                            <a href="javascript: void(0);" class="text-muted font-13 d-inline-block"><i
-                                                                class="mdi mdi-reply"></i> Reply</a>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="d-flex align-items-start border-bottom py-4">
-                                                        <div class="flex-shrink-0 me-2">
-                                                            <img class="rounded-circle avatar-xs" src="assets/images/users/avatar-7.jpg" alt="avatar-7 images">
-                                                        </div>
-
-                                                        <div class="flex-grow-1">
-                                                            <h5 class="font-size-15 mb-1">Patrick Petty <small class="text-muted float-end">3 hrs ago</small></h5>
-                                                            <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit </p>
-
-                                                            <a href="javascript: void(0);" class="text-muted font-13 d-inline-block"><i
-                                                                class="mdi mdi-reply"></i> Reply</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="border rounded mt-4">
-                                                    <form action="#">
-                                                        <div class="px-2 py-1 bg-light">
-
-                                                            <div class="btn-group" role="group">
-                                                                <button type="button" class="btn btn-sm btn-link text-dark text-decoration-none"><i class="uil uil-link"></i></button>
-                                                                <button type="button" class="btn btn-sm btn-link text-dark text-decoration-none"><i class="uil uil-smile"></i></button>
-                                                                <button type="button" class="btn btn-sm btn-link text-dark text-decoration-none"><i class="uil uil-at"></i></button>
-                                                              </div>
-
-                                                        </div>
-                                                        <textarea rows="3" class="form-control border-0 resize-none" placeholder="Your Message..."></textarea>
-
-                                                    </form>
-                                                </div> <!-- end .border-->
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -319,6 +252,36 @@ export default {
         };
     },
     methods:{
+        approval(item){
+               axios.get(`audit-approve/${item.id}?approval_type=1`).then((res) => {
+                    this.$root.alertNotify(res.status, 'Auditor Assistant Successfuly', 'info', res.data);
+                    this.getAudit();
+                }).catch((err) => {
+                        this.errors = err.response.data;
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+
+                    });
+        },
+       reject(item){
+                     Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to reject this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, reject it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
+
+                            this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
+                            this.getAudit();
+                        })
+                    }
+                })
+
+       },
       async  onSubmit(){
                  await axios.post('/update-audit-remark/'+this.audit.id, this.audit).then((res) => {
 
