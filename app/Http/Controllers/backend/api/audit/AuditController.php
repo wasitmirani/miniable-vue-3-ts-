@@ -12,6 +12,7 @@ use App\Jobs\SendAuditEmailJob;
 use App\Models\AuditDateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Spatie\Activitylog\Models\Activity;
 
 class AuditController extends Controller
 {
@@ -29,7 +30,7 @@ class AuditController extends Controller
     public  function sendSurveyDates(Request $request)
     {
 
-        $audit_auditor= AuditAuditor::where('token',$request->token)->first();
+        $audit_auditor= AuditAuditor::where('token',$request->token)->with('auditor')->first();
         AuditDateRequest::where(['audit_id'=>$audit_auditor->audit_id,'auditor_id'=>$audit_auditor->auditor_id])->delete();
         $audit_dates=AuditDate::whereIn('id',$request->available_dates)->get();
         $not_dates_availability=AuditDate::where('audit_id',$audit_auditor->audit_id)->whereNotIn('id',$request->available_dates)
@@ -40,6 +41,10 @@ class AuditController extends Controller
         if($audit_auditor->finished==0 ){
          $audit->increment('response');
          // $audit->status_id=2
+         activity()
+        ->performedOn($audit)
+        ->withProperties(['name' => $audit_auditor->auditor->name, 'email' => $audit_auditor->auditor->email])
+        ->log($audit_auditor->auditor->name.' has sent survey dates successfully');
          $audit->save();
         }
         $audit_auditor->status_id=2;
@@ -98,8 +103,11 @@ class AuditController extends Controller
     public function getAuditDetails(Request $request){
         $audit = Audit::where('id',$request->id)->with('user','auditdates','status:id,name','auditors')->first();
         $audit->auditdates = $audit->auditdates()->orderBy('audit_date','ASC')->get();
+
+        $activities=Activity::where('subject_id', $audit->id)->where('subject_type',get_class($audit))->get();
+
         // $audit->auditors = $audit->auditors()->orderBy('name','ASC')->get();
-        return response()->json(['audit'=>$audit]);
+        return response()->json(['audit'=>$audit,'activities'=>$activities]);
     }
     public function store(Request $request){
         $request->validate([

@@ -107,12 +107,12 @@
                                                     <h5 class="font-size-16 mb-4">Audit Log</h5>
 
                                                     <ul class="activity-feed mb-0 ps-2">
-                                                        <li class="feed-item">
+                                                        <li class="feed-item" v-for="item in activities" :key="item.id">
                                                             <div class="feed-item-list">
-                                                                <p class="text-muted mb-1">2019 - 2020</p>
-                                                                <h5 class="font-size-16">UI/UX Designer</h5>
-                                                                <p>Abc Company</p>
-                                                                <p class="text-muted">To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual</p>
+                                                                <p class="text-muted mb-1">{{$filters.DateTimeFormat(audit.created_at)}} <div class="vr"></div>  Response  </p>
+                                                                <h5 class="font-size-16">{{item?.properties?.name}}</h5>
+                                                                <p class="text-muted mb-1">{{item?.properties?.email}}</p>
+                                                                <p class="text-muted">{{item?.description}}</p>
                                                             </div>
                                                         </li>
                                                         <li class="feed-item">
@@ -315,6 +315,7 @@ export default {
     data(){
         return {
             audit:{},
+            activities:{},
         };
     },
     methods:{
@@ -324,7 +325,7 @@ export default {
                         this.$root.alertNotify(res.status, 'Created Successfuly', 'success', res.data);
 
                     }).catch((err) => {
-               
+
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
 
                     })
@@ -353,6 +354,7 @@ export default {
         getAudit(){
             axios.get('/audit/details/'+this.$route.params.id).then((res)=>{
                 this.audit=res.data.audit;
+                this.activities=res.data.activities;
             }).catch((er)=>{
 
             })
