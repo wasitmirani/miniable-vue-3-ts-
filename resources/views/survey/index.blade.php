@@ -11,14 +11,13 @@
                         <div class="col-lg-5">
                             <div class="text-center">
                                 <h5>Hello, {{$audit_auditor->auditor->name}}</h5>
-                                <p class="text-muted">If several languages coalesce, the grammar of the resulting language is
-                                    more simple and regular than that of the individual</p>
+                                <p class="text-muted">Audit Survey</p>
 
                                 <div>
                                     <button type="button" class="btn btn-primary mt-2 me-2 waves-effect waves-light">Email
                                         Us</button>
-                                    <button type="button" class="btn btn-success mt-2 waves-effect waves-light">Send us a
-                                        tweet</button>
+                                    {{-- <button type="button" class="btn btn-success mt-2 waves-effect waves-light">Send us a
+                                        tweet</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -137,8 +136,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1 overflow-hidden">
-                                                    <h5 class="font-size-16 mb-1">Privacy Policy</h5>
-                                                    <p class="text-muted text-truncate mb-0">Privacy Policy Questions</p>
+                                                    <h5 class="font-size-16 mb-1">Approved Auditors</h5>
+                                                    <p class="text-muted text-truncate mb-0">Approved Auditors List</p>
                                                 </div>
                                                 <div class="flex-shrink-0">
                                                     <i class="mdi mdi-chevron-up accor-down-icon font-size-16"></i>
@@ -230,13 +229,13 @@
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar-xs">
                                                         <div class="avatar-title rounded-circle font-size-22">
-                                                            <i class="uil uil-pricetag-alt"></i>
+                                                            <i class="uil uil-user-check"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1 overflow-hidden">
-                                                    <h5 class="font-size-16 mb-1">Pricing & Plans</h5>
-                                                    <p class="text-muted text-truncate mb-0">Pricing & Plans Questions</p>
+                                                    <h5 class="font-size-16 mb-1">Audit Auditors</h5>
+                                                    <p class="text-muted text-truncate mb-0">Audit Auditors List</p>
                                                 </div>
                                                 <div class="flex-shrink-0">
                                                     <i class="mdi mdi-chevron-up accor-down-icon font-size-16"></i>
