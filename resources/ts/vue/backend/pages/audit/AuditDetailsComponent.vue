@@ -60,12 +60,12 @@
                                         </div>
                                         <hr>
                                         <div class="row">
-                                         <form>
+                                         <form v-on:submit.prevent="onSubmit">
                                                         <div class="hstack gap-3">
                                                             <!-- <input  type="text" placeholder="Add your item here..."
                                                                 aria-label="Add your item here..."> -->
-                                                            <textarea rows="2"  class="form-control me-auto" placeholder="Add your remarks here..."></textarea>
-                                                            <button type="button" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
+                                                            <textarea rows="2"  class="form-control me-auto" v-model="audit.remarks" placeholder="Add your remarks here..."></textarea>
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
                                                             <!-- <div class="vr"></div> -->
 
                                                         </div>
@@ -318,7 +318,17 @@ export default {
         };
     },
     methods:{
+      async  onSubmit(){
+                 await axios.post('/update-audit-remark/'+this.audit.id, this.audit).then((res) => {
 
+                        this.$root.alertNotify(res.status, 'Created Successfuly', 'success', res.data);
+
+                    }).catch((err) => {
+               
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+
+                    })
+        },
          setStatus(name){
                 switch (name) {
                     case 'created':

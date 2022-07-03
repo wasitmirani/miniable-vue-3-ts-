@@ -17,6 +17,15 @@ class AuditController extends Controller
 {
     //
 
+
+    public function updateAuditRemark(Request $request)
+    {
+        $audit=Audit::find($request->id);
+        $audit->remarks=$request->remarks;
+        $audit->save();
+        return response()->json(['message'=>'Audit remark updated successfully'],200);
+
+    }
     public  function sendSurveyDates(Request $request)
     {
 

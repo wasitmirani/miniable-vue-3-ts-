@@ -35,5 +35,6 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::resource('permission', PermissionController::class);
     Route::resource('auditor', AuditorController::class);
     Route::get('/audit/details/{id}',[AuditController::class,'getAuditDetails']);
+    Route::post('update-audit-remark/{id}',[AuditController::class,'updateAuditRemark']);
     Route::resource('audit', AuditController::class);
 });
