@@ -82,13 +82,13 @@
                                     <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-bs-toggle="tab" href="#about" role="tab">
-                                                <i class="uil uil-user-circle font-size-20"></i>
+                                                <i class="uil uil-clipboard-notes font-size-20"></i>
                                                 <span class="d-none d-sm-block"> Audit</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tasks" role="tab">
-                                                <i class="uil uil-clipboard-notes font-size-20"></i>
+                                                <i class=" uil uil-user-circle  font-size-20"></i>
                                                 <span class="d-none d-sm-block">Auditor Requests</span>
                                             </a>
                                         </li>
