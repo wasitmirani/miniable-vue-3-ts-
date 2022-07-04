@@ -39,13 +39,15 @@ class AuditController extends Controller
         $audit=Audit::where('id',$audit_auditor->audit_id)->first();
 
         if($audit_auditor->finished==0 ){
-         $audit->increment('response');
-         // $audit->status_id=2
+
+         $audit->status_id=2;
+
          activity()
         ->performedOn($audit)
         ->withProperties(['name' => $audit_auditor->auditor->name, 'email' => $audit_auditor->auditor->email])
         ->log($audit_auditor->auditor->name.' has sent survey dates successfully');
          $audit->save();
+         $audit->increment('response');
         }
         $audit_auditor->status_id=2;
         $audit_auditor->finished=1;
@@ -68,6 +70,14 @@ class AuditController extends Controller
                 'availability'=>0
             ]);
         }
+
+
+        $check_auditor= AuditAuditor::where(['audit_id'=>$audit_auditor->audit_id,'finished'=>0])->get();
+            if(count($check_auditor)==0){
+                $audit->status_id=3;
+                $audit->save();
+            }
+
 
         return redirect()->route('thank');
     }
@@ -250,5 +260,22 @@ try{
         else
             return response()->json(['message' => 'Audit  has not been not found'], 400);
 
+    }
+
+    public function resendMail(Request $request){
+        $audit_auditor= AuditAuditor::where(['audit_id'=>$request->id,'finished'=>0])->with('auditor')->get();
+        $audit=Audit::where('id',$request->id)->first();
+        foreach ($audit_auditor as $key => $item) {
+            # code...
+            $new_auditor = [
+                'token'=>$item->token,
+                'audit_id'=>$item->audit_id,
+                'auditor_id'=>$item->auditor['id'],
+                'name'=>$item->auditor['name'],
+                'email'=>$item->auditor['email']];
+            dispatch(new SendAuditEmailJob($new_auditor,$audit));
+        }
+
+        return response()->json(['message'=>'Audit resend mail has been sended successfully.','audit'=>$audit]);
     }
 }

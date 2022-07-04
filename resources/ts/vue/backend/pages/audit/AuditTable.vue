@@ -34,7 +34,7 @@
 
                         <!-- <td><small ><description :value="audit.description"></description>  </small></td> -->
                             <td > <span  style="font-size: 14px;" class="badge bg-dark">{{audit.response}}/{{audit?.auditors.length}}</span> |
-                            <button type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
+                            <button v-if="audit.response<audit?.auditors.length" @click="resendMail(audit)"  type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
 
                                         </td>
                         <td>{{$filters.DateTimeFormat(audit.created_at)}}</td>
@@ -92,6 +92,9 @@
         },
 
         methods: {
+            resendMail(audit){
+                 return this.$emit("resendMail", audit);
+            },
             auditDetails(audit){
                 this.$router.push({
                     name: 'audit-details',

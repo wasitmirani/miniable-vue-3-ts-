@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\api\user\UserController;
 use App\Http\Controllers\backend\layout\LayoutController;
 use App\Http\Controllers\backend\api\audit\AuditController;
 use App\Http\Controllers\backend\api\auditor\AuditorController;
+use App\Http\Controllers\backend\api\dashboard\DashboardController;
 use App\Http\Controllers\backend\api\permission\PermissionController;
 
 /*
@@ -37,5 +38,11 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::get('/audit/details/{id}',[AuditController::class,'getAuditDetails']);
     Route::post('update-audit-remark/{id}',[AuditController::class,'updateAuditRemark']);
     Route::get('audit-approve/{id}',[AuditController::class,'updateAuditApproval']);
+    Route::get('audit-resendmail/{id}',[AuditController::class,'resendMail']);
     Route::resource('audit', AuditController::class);
+    Route::get('/dashboard',[DashboardController::class,'getDashboard']);
 });
+
+
+
+

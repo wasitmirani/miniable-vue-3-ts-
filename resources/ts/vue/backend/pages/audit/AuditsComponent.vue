@@ -1,7 +1,9 @@
 <template>
     <div>
         <bread-crumb active_name="Audits List"></bread-crumb>
-           <div class="row">
+
+          <loader-box v-if="loading_mail" message="Please wait Mail has been proccessing..."></loader-box>
+                <div class="row mt-2">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -23,7 +25,7 @@
                         </div>
                         <!-- end row -->
                         <loader-box v-if="loading"></loader-box>
-                        <audit-table :audits="audits" v-else :query="query" :getaudits="getaudits"
+                        <audit-table :audits="audits" v-on:resendMail="resendMail($event)" v-else :query="query" :getaudits="getaudits"
                             v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></audit-table>
 
                     </div>
@@ -65,6 +67,7 @@
             return {
                 audits: [],
                 loading: false,
+                loading_mail:false,
                 audit: {},
                 errors: [],
                 auditors: [],
@@ -75,6 +78,16 @@
             }
         },
         methods: {
+            resendMail(audit){
+                    this.loading_mail=true;
+                      this.$root.alertNotify(200, 'Mail proccessing', 'info', [{'message':'Please wait Mail has been proccessing...'}]);
+                   axios.get('/audit-resendmail/'+audit.id).then(res => {
+                                 this.$root.alertNotify(res.status, 'Mail Sended Successfuly', 'success', res.data);
+                                                    this.getaudits();
+                             this.loading_mail=false;
+
+                    });
+            },
             openModal() {
                 this.editmode = false;
                 this.resetForm();
