@@ -43,6 +43,6 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::get('/dashboard',[DashboardController::class,'getDashboard']);
 });
 
-
+Route::get('/dashboard',[DashboardController::class,'getDashboard']);
 
 

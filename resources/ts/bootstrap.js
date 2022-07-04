@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import * as moment from 'moment';
 window.Swal=Swal;
 window.moment=moment;
+// window.user=user;
 let token=null;
 let perfix="/api/";
 if(user){

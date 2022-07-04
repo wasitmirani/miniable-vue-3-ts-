@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\backend\api\dashboard;
 
+use App\Models\User;
 use App\Models\Audit;
+use App\Models\Auditor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -15,16 +17,16 @@ class DashboardController extends Controller
     public function setDateFilter($val){
 
         switch ($val) {
-            case 'week':
-                return date('Y-m-d', strtotime('-7 days'));
+            case 'Weekly':
+                return date('Y-m-d', strtotime('-20 days'));
             break;
-            case 'today':
+            case 'Daily':
                 return date('Y-m-d');
             break;
-            case 'monthly':
-                return  date('Y-m-d', strtotime('-1 days'));
+            case 'Monthly':
+                return  date('Y-m-d', strtotime('-30 days'));
             break;
-            case 'yearly':
+            case 'Yearly':
                 return  date('Y-m-d', strtotime('-360 days'));
             break;
             default:
@@ -37,18 +39,20 @@ class DashboardController extends Controller
         $audits=Audit::query();
         // query()
         $startDate=date('Y-m-d');
-        $startDate = Carbon::parse(date('Y-m-d', strtotime( $startDate)));
+        // $startDate = Carbon::parse(date('Y-m-d', strtotime( $startDate)));
 
-        if(!empty($request->date_range)){
-            $endDate=$this->setDateFilter($request);
-            $audits= $audits->where('created_at','>=',$endDate." 00:00:00")->where('created_at','<=',$startDate." 23:59:59");
-        }
-        else {
-            $endDate=$this->setDateFilter("week");
-            $endDate = Carbon::parse(date('Y-m-d', strtotime( $endDate)));
-            $audits= $audits->whereBetween('created_at', [$endDate, $startDate]);
+        // if(!empty($request->date_range)){
+        //     $endDate=$this->setDateFilter($request->date_range);
+        //     $endDate = Carbon::parse(date('Y-m-d', strtotime( $endDate)));
 
-        }
+        //     $audits= $audits->whereBetween('created_at', [$endDate, $startDate]);
+        // }
+        // else {
+        //     $endDate=$this->setDateFilter("Weekly");
+        //     // $endDate = Carbon::parse(date('Y-m-d', strtotime( $endDate)));
+        //     $audits= $audits->whereBetween('created_at', [$endDate, $startDate]);
+
+        // }
 
         $audits= $audits->select(
             array(
@@ -59,14 +63,12 @@ class DashboardController extends Controller
                     WHEN status_id = '2' THEN 1 ELSE 0 END) AS inproccess"),
                DB::raw("SUM(CASE
                     WHEN status_id = '3' THEN 1 ELSE 0 END) AS completed"),
-              DB::raw(" DATE_FORMAT(updated_at, '%d-%m-%Y') date")
+              DB::raw(" DATE_FORMAT(updated_at, '%D-%M-%Y') date")
             )
         )->groupBy('date')->get();
-        // ->selectRaw(
-        //         "SUM((CASE WHEN status_id = 1 THEN 1 ELSE 0 END)) AS created,
-        //         SUM((CASE WHEN status_id = 2 THEN 1 ELSE 0 END)) AS inproccess,
-        //         SUM((CASE WHEN status_id = 3 THEN 1 ELSE 0 END)) AS completed,
-        //          DATE_FORMAT(updated_at, '%d-%m-%Y') date")
-        return response()->json(['audit_stats'=>$audits]);
+        $users=User::all()->count();
+        $auditor=Auditor::all()->count();
+        // query()
+        return response()->json(['audit_stats'=>$audits,'total_users'=>$users,'total_auditors'=>$auditor]);
     }
 }
