@@ -21,6 +21,7 @@
                                     :apiurl="'/audit?page=' +this.page_num" v-on:query="isQuery($event)"
                                     v-on:loading="loadingStart($event)" v-on:reload="getaudits()"
                                     v-on:filterData="filterData($event)"></search-input>
+                                 
                             </div>
                         </div>
                         <!-- end row -->

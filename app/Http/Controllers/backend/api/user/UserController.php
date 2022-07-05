@@ -57,11 +57,13 @@ class UserController extends Controller
             ]);
             $user = User::find($id);
             $user->password = Hash::make($request->password);
+            $user->save();
         }
         $user_name=!empty($request->username) ? str_replace(' ', '',$request->username)  : str_replace(' ', '',strtolower($request->name)).rand(10,10000);
         $update_user=User::where('id',$id)->update([
             'name'=>$request->name,
             'email'=>$request->email,
+            'phone'=>$request->phone,
             'username'=>$user_name,
         ]);
         return response()->json(['user' => $update_user,'message' =>'user has been updated successfully'], 200);

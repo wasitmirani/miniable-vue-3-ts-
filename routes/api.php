@@ -41,6 +41,7 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::get('audit-resendmail/{id}',[AuditController::class,'resendMail']);
     Route::resource('audit', AuditController::class);
     Route::get('/dashboard',[DashboardController::class,'getDashboard']);
+
 });
 
 Route::get('/dashboard',[DashboardController::class,'getDashboard']);

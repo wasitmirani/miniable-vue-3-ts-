@@ -27,15 +27,12 @@ Route::get('/audit-survery-completed',function(){
 
 Route::get('/portal/{any?}', function () {
     return view('backend.index');
-})
-->middleware('auth')
-->name('dashboard')
-->where('any', '[\/\w\.-]*');
+})->middleware('auth')->name('dashboard')->where('any', '[\/\w\.-]*');
 
 Route::get('unauthorized/user',function(){
 return abort(401,'Unauthorized User');
 });
 
-
+Route::get('/logout',[AuthenticatedSessionController::class,'destroy']);
 
 require __DIR__.'/auth.php';

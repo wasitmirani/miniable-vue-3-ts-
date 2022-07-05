@@ -42,14 +42,14 @@
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label class="form-label" for="price">Password*</label>
-                        <input type="text" v-model="user.password" class="form-control"
+                        <input type="password" v-model="user.password" class="form-control"
                             placeholder="Enter your Password">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label class="form-label" for="price">Confirmed Password*</label>
-                        <input type="text" v-model="user.password_confirmation" class="form-control"
+                        <input type="password" v-model="user.password_confirmation" class="form-control"
                             placeholder="Enter your Password Confirmation">
                     </div>
                 </div>

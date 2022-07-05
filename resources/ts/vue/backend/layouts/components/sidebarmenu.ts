@@ -90,13 +90,13 @@ let sidebar_menu=[
       "can": "settings-view",
       "route": "/portal/settings"
     },
-    {
-      "title": "Log out",
-      "type": "single_link",
-      "icon": "uil-sign-out-alt",
-      "can": "session-view",
-      "route": "/portal/logout"
-    }
+    // {
+    //   "title": "Log out",
+    //   "type": "single_link",
+    //   "icon": "uil-sign-out-alt",
+    //   "can": "session-view",
+    //   "route": "/portal/logout"
+    // }
   ];
 
 export default sidebar_menu;

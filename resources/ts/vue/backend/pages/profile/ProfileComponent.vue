@@ -31,13 +31,13 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <div>
-                                                <img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                                                <img :src="`${url}/assets/images/man.png`" alt="" class="avatar-lg rounded-circle img-thumbnail">
                                             </div>
-                                            <h5 class="mt-3 mb-1">Marcus</h5>
-                                            <p class="text-muted">UI/UX Designer</p>
+                                            <h5 class="mt-3 mb-1">{{auth_user.name}}</h5>
+                                            <p class="text-muted">{{auth_user?.email}}</p>
 
                                             <div class="mt-4">
-                                                <button type="button" class="btn btn-light btn-sm"><i class="uil uil-envelope-alt me-2"></i> Message</button>
+                                                <!-- <button type="button" class="btn btn-light btn-sm"><i class="uil uil-envelope-alt me-2"></i> Message</button> -->
                                             </div>
                                         </div>
 
@@ -45,23 +45,23 @@
 
                                         <div class="text-muted">
                                             <h5 class="font-size-16">About</h5>
-                                            <p>Hi I'm Marcus,has been the industry's standard dummy text To an English person, it will seem like simplified English, as a skeptical Cambridge.</p>
+                                            <p>N/A</p>
                                             <div class="table-responsive mt-4">
                                                 <div>
                                                     <p class="mb-1">Name :</p>
-                                                    <h5 class="font-size-16">Marcus</h5>
+                                                    <h5 class="font-size-16">{{auth_user.name}}</h5>
                                                 </div>
                                                 <div class="mt-4">
                                                     <p class="mb-1">Mobile :</p>
-                                                    <h5 class="font-size-16">012-234-5678</h5>
+                                                    <h5 class="font-size-16">{{auth_user.phone}}</h5>
                                                 </div>
                                                 <div class="mt-4">
                                                     <p class="mb-1">Email :</p>
-                                                    <h5 class="font-size-16">marcus@minible.com</h5>
+                                                    <h5 class="font-size-16">{{auth_user.email}}</h5>
                                                 </div>
                                                 <div class="mt-4">
                                                     <p class="mb-1">Location :</p>
-                                                    <h5 class="font-size-16">California, United States</h5>
+                                                    <h5 class="font-size-16">N/A</h5>
                                                 </div>
 
                                             </div>
@@ -85,176 +85,121 @@
                                     <!-- Tab content -->
                                     <div class="tab-content p-4">
                                         <div class="tab-pane active" id="about" role="tabpanel">
-                                            <div>
-                                                <div>
-                                                    <h5 class="font-size-16 mb-4">Experience</h5>
+                                                    <h5 class="font-size-16 mb-4">Update User Information</h5>
 
-                                                    <ul class="activity-feed mb-0 ps-2">
-                                                        <li class="feed-item">
-                                                            <div class="feed-item-list">
-                                                                <p class="text-muted mb-1">2019 - 2020</p>
-                                                                <h5 class="font-size-16">UI/UX Designer</h5>
-                                                                <p>Abc Company</p>
-                                                                <p class="text-muted">To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="feed-item">
-                                                            <div class="feed-item-list">
-                                                                <p class="text-muted mb-1">2017 - 2019</p>
-                                                                <h5 class="font-size-16">Graphic Designer</h5>
-                                                                <p>xyz Company</p>
-                                                                <p class="text-muted">It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental </p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                        <form v-on:submit.prevent="onSubmit">
+            <div class="row">
+                <errors :errors="errors"></errors>
+            </div>
+            <div class="row">
 
-                                                <div>
-                                                    <h5 class="font-size-16 mb-4">Projects</h5>
 
-                                                    <div class="table-responsive">
-                                                        <table class="table table-nowrap table-hover mb-0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">#</th>
-                                                                    <th scope="col">Projects</th>
-                                                                    <th scope="col">Date</th>
-                                                                    <th scope="col">Status</th>
-                                                                    <th scope="col" style="width: 120px;">Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th scope="row">01</th>
-                                                                    <td><a href="#" class="text-dark">Brand Logo Design</a></td>
-                                                                    <td>
-                                                                        18 Jun, 2020
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge bg-soft-primary font-size-12">Open</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="dropdown">
-                                                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                                <i class="uil uil-ellipsis-v"></i>
-                                                                            </a>
+                <!-- end row -->
 
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                                <a class="dropdown-item" href="#">Something else here</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">02</th>
-                                                                    <td><a href="#" class="text-dark">Minible Admin</a></td>
-                                                                    <td>
-                                                                        06 Jun, 2020
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge bg-soft-primary font-size-12">Open</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="dropdown">
-                                                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                                <i class="uil uil-ellipsis-v"></i>
-                                                                            </a>
+                <div class="col-lg-6">
 
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                                <a class="dropdown-item" href="#">Something else here</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">03</th>
-                                                                    <td><a href="#" class="text-dark">Chat app Design</a></td>
-                                                                    <td>
-                                                                        28 May, 2020
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge bg-soft-success font-size-12">Complete</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="dropdown">
-                                                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                                <i class="uil uil-ellipsis-v"></i>
-                                                                            </a>
+                    <div class="mb-3">
+                        <label class="form-label" for="manufacturername">Full Name*</label>
+                        <input v-model="user.name" type="text" class="form-control" placeholder="Enter your Full Name"
+                            required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
 
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                                <a class="dropdown-item" href="#">Something else here</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">04</th>
-                                                                    <td><a href="#" class="text-dark">Minible Landing</a></td>
-                                                                    <td>
-                                                                        13 May, 2020
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge bg-soft-success font-size-12">Complete</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="dropdown">
-                                                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                                <i class="uil uil-ellipsis-v"></i>
-                                                                            </a>
+                    <div class="mb-3">
+                        <label class="form-label" for="manufacturerbrand">Email Address* </label>
+                        <input v-model="user.email" type="text" class="form-control"
+                            placeholder="Enter your Email Address" required>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" v-model="user.username" class="form-control"
+                            placeholder="Enter your Username">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="text" v-model="user.phone" class="form-control"
+                            placeholder="Enter your Phone Number">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="price">Password*</label>
+                        <input type="password" v-model="user.password" class="form-control"
+                            placeholder="Enter your Password">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label" for="price">Confirmed Password*</label>
+                        <input type="password" v-model="user.password_confirmation" class="form-control"
+                            placeholder="Enter your Password Confirmation">
+                    </div>
+                </div>
 
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                                <a class="dropdown-item" href="#">Something else here</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">05</th>
-                                                                    <td><a href="#" class="text-dark">Authentication Pages</a></td>
-                                                                    <td>
-                                                                        06 May, 2020
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="badge bg-soft-success font-size-12">Complete</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="dropdown">
-                                                                            <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                                                <i class="uil uil-ellipsis-v"></i>
-                                                                            </a>
 
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                                <a class="dropdown-item" href="#">Something else here</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                <div class="col-lg-6">
+                    <div class="mb-0">
+                        <p class="fw-bolder">Password requirements:</p>
+                        <ul class="ps-1 ms-25">
+                            <li class="mb-50">Minimum 8 characters long - the more, the better</li>
+                            <li class="mb-50">At least one lowercase character</li>
+                            <li>At least one number, symbol, or whitespace character</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row mb-4 mt-2">
+                    <div class="col ms-auto ">
+                        <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
+
+                                    <button type="submit" class=" btn btn-primary "> <i class="uil uil-file-alt"></i>
+                                        Submit
+                                        </button>
+                        </div>
+                    </div> <!-- end col -->
+                </div> <!-- end row-->
+            </div>
+        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- end row -->
     </div>
+    </div>
+
 </template>
 <script>
+    import Errors from "../../components/ErrorsComponent.vue";
 export default {
+    components:{Errors},
+    data() {
+        return {
+            auth_user: user,
+            url: this.hosturl,
+            user:user,
+        };
+    },
+    methods:{
+        async onSubmit() {
 
+                    await axios.put('/user/' + this.user.id, this.user).then((res) => {
+
+                        this.$root.alertNotify(res.status, 'Updated Successfuly', 'success', res.data);
+                        //   this.restForm();
+                    }).catch((err) => {
+                        this.errors = err.response.data;
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+
+                    })
+
+            }
+    }
 }
 </script>
 <style lang="">
