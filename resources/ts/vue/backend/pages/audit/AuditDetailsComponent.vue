@@ -106,7 +106,7 @@
                                                 <div>
                                                     <h5 class="font-size-16 mb-4">Audit Log</h5>
 
-                                                    <ul class="activity-feed mb-0 ps-2">
+                                                    <ul class="activity-feed mb-0 ps-2"  style="overflow-y: scroll; height:400px;">
                                                         <li class="feed-item" v-for="item in activities" :key="item.id">
                                                             <div class="feed-item-list">
                                                                 <p class="text-muted mb-1">{{$filters.DateTimeFormat(audit.created_at)}} <div class="vr"></div>  Response  </p>
@@ -152,7 +152,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <span class="badge bg-primary font-size-12"  v-if="item.finished==0">Open</span>
-                                                                         <span class="badge bg-success font-size-12"  v-if="item.finished==1">Close</span>
+                                                                         <span class="badge bg-danger font-size-12"  v-if="item.finished==1">Close</span>
                                                                     </td>
 
                                                                 </tr>

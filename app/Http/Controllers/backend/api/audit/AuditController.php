@@ -88,10 +88,14 @@ class AuditController extends Controller
        }
        $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
 
-        $audit->status_id=2;
-        $audit->save();
-
-       return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor]);
+        if($audit->status_id<3){
+            $audit->status_id=2;
+            $audit->save();
+        }
+        $auditor_audit_requests=AuditDateRequest::where(['audit_id'=> $audit->id,'auditor_id'=>$audit_auditor->auditor->id])->where('availability',1)->get();
+        $audit_requests_ids=$auditor_audit_requests->pluck('audit_date_id');
+       
+       return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor,'audit_requests_ids'=>$audit_requests_ids]);
 
     }
     public function index(Request $request){

@@ -20,7 +20,7 @@
         </div>
 
     </div>
-</template>
+</template>p
 <script>
 export default {
 
