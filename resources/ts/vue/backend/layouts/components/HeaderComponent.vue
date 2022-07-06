@@ -122,7 +122,7 @@ export default {
     methods:{
         logout(){
 
-             window.Location.href="/logout";
+            window.location.href=window.location.origin+"/logout";
         },
     }
 
