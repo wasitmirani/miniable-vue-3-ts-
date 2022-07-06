@@ -467,6 +467,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    resendMail: function resendMail(audit) {
+      return this.$emit("resendMail", audit);
+    },
     auditDetails: function auditDetails(audit) {
       this.$router.push({
         name: 'audit-details',
@@ -555,6 +558,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       audits: [],
       loading: false,
+      loading_mail: false,
       audit: {},
       errors: [],
       auditors: [],
@@ -564,6 +568,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    resendMail: function resendMail(audit) {
+      var _this = this;
+
+      this.loading_mail = true;
+      this.$root.alertNotify(200, 'Mail proccessing', 'info', [{
+        'message': 'Please wait Mail has been proccessing...'
+      }]);
+      axios.get('/audit-resendmail/' + audit.id).then(function (res) {
+        _this.$root.alertNotify(res.status, 'Mail Sended Successfuly', 'success', res.data);
+
+        _this.getaudits();
+
+        _this.loading_mail = false;
+      });
+    },
     openModal: function openModal() {
       this.editmode = false;
       this.resetForm();
@@ -597,7 +616,7 @@ __webpack_require__.r(__webpack_exports__);
       $('.modal-form').modal('show');
     },
     deleteItem: function deleteItem(item) {
-      var _this = this;
+      var _this2 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -610,27 +629,27 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           axios["delete"]("audit/".concat(item.id)).then(function (res) {
-            _this.$root.alertNotify(res.status, 'Destroyed Successfuly', 'info', res.data);
+            _this2.$root.alertNotify(res.status, 'Destroyed Successfuly', 'info', res.data);
 
-            _this.getaudits();
+            _this2.getaudits();
           });
         }
       });
     },
     getaudits: function getaudits() {
-      var _this2 = this;
+      var _this3 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.loading = true;
       this.page_num = page;
       axios.get('/audit?page=' + page).then(function (res) {
-        _this2.audits = res.data.audits;
-        _this2.auditors = res.data.auditors;
-        _this2.loading = false;
+        _this3.audits = res.data.audits;
+        _this3.auditors = res.data.auditors;
+        _this3.loading = false;
       })["catch"](function (err) {
-        _this2.errors = err.response.data;
+        _this3.errors = err.response.data;
 
-        _this2.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+        _this3.$root.alertNotify(err.response.status, null, 'error', err.response.data);
       });
     }
   },
@@ -1150,7 +1169,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , ["errors"])]), $data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_loader_box, {
-    key: 0
+    key: 0,
+    message: "Please wait audit data has been proccessing"
   })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end row "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.audit.title = $event;
@@ -1295,60 +1315,60 @@ var _hoisted_9 = {
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  type: "button",
-  "class": "btn btn-outline-dark btn-sm waves-effect waves-light"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_11 = ["onClick"];
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   style: {
     "font-size": "14px"
   },
   "class": "uil-fast-mail-alt"
-})], -1
-/* HOISTED */
-);
-
-var _hoisted_12 = {
-  "class": "list-inline mb-0"
-};
-var _hoisted_13 = {
-  "class": "list-inline-item"
-};
-var _hoisted_14 = ["onClick"];
-
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "uil uil-pen font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_16 = [_hoisted_15];
+var _hoisted_13 = [_hoisted_12];
+var _hoisted_14 = {
+  "class": "list-inline mb-0"
+};
+var _hoisted_15 = {
+  "class": "list-inline-item"
+};
+var _hoisted_16 = ["onClick"];
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
-
-var _hoisted_18 = ["onClick"];
-
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil uil-eye font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_20 = [_hoisted_19];
+var _hoisted_18 = [_hoisted_17];
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
 
-var _hoisted_22 = {
+var _hoisted_20 = ["onClick"];
+
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "uil uil-pen font-size-18"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_22 = [_hoisted_21];
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
+
+var _hoisted_24 = {
   "class": "list-inline-item"
 };
-var _hoisted_23 = ["onClick"];
+var _hoisted_25 = ["onClick"];
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil uil-trash-alt font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_25 = [_hoisted_24];
+var _hoisted_27 = [_hoisted_26];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$audits$data, _$props$audits;
 
@@ -1388,33 +1408,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* PROPS */
     , ["location"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td><small ><description :value=\"audit.description\"></description>  </small></td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(audit.response) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(audit === null || audit === void 0 ? void 0 : audit.auditors.length), 1
     /* TEXT */
-    ), _hoisted_10, _hoisted_11]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$filters.DateTimeFormat(audit.created_at)), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-      audit: "button",
+    ), _hoisted_10, audit.response < (audit === null || audit === void 0 ? void 0 : audit.auditors.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 0,
       onClick: function onClick($event) {
-        return $options.editItem(audit);
+        return $options.resendMail(audit);
       },
-      "class": "px-2 text-primary"
-    }, _hoisted_16, 8
+      type: "button",
+      "class": "btn btn-outline-dark btn-sm waves-effect waves-light"
+    }, _hoisted_13, 8
     /* PROPS */
-    , _hoisted_14), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-      audit: "button",
+    , _hoisted_11)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$filters.DateTimeFormat(audit.created_at)), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      role: "button",
       onClick: function onClick($event) {
         return $options.auditDetails(audit);
       },
       "class": "px-2 text-primary"
-    }, _hoisted_20, 8
+    }, _hoisted_18, 8
     /* PROPS */
-    , _hoisted_18)]), _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-      audit: "button",
+    , _hoisted_16), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      role: "button",
+      onClick: function onClick($event) {
+        return $options.editItem(audit);
+      },
+      "class": "px-2 text-primary"
+    }, _hoisted_22, 8
+    /* PROPS */
+    , _hoisted_20)]), _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+      role: "button",
       onClick: function onClick($event) {
         return $options.deleteItem(audit);
       },
       "class": "px-2 text-danger"
-    }, _hoisted_25, 8
+    }, _hoisted_27, 8
     /* PROPS */
-    , _hoisted_23)])])])]);
+    , _hoisted_25)])])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_table_footer, {
@@ -1441,7 +1470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "row"
+  "class": "row mt-2"
 };
 var _hoisted_2 = {
   "class": "col-lg-12"
@@ -1510,9 +1539,9 @@ var _hoisted_18 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_bread_crumb = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("bread-crumb");
 
-  var _component_search_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("search-input");
-
   var _component_loader_box = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("loader-box");
+
+  var _component_search_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("search-input");
 
   var _component_audit_table = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("audit-table");
 
@@ -1520,7 +1549,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_bread_crumb, {
     active_name: "Audits List"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }), $data.loading_mail ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_loader_box, {
+    key: 0,
+    message: "Please wait Mail has been proccessing..."
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.openModal && $options.openModal.apply($options, arguments);
     }),
@@ -1548,12 +1580,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_audit_table, {
     key: 1,
     audits: $data.audits,
+    onResendMail: _cache[5] || (_cache[5] = function ($event) {
+      return $options.resendMail($event);
+    }),
     query: $data.query,
     getaudits: $options.getaudits,
-    onEditItem: _cache[5] || (_cache[5] = function ($event) {
+    onEditItem: _cache[6] || (_cache[6] = function ($event) {
       return $options.editItem($event);
     }),
-    onDeleteItem: _cache[6] || (_cache[6] = function ($event) {
+    onDeleteItem: _cache[7] || (_cache[7] = function ($event) {
       return $options.deleteItem($event);
     })
   }, null, 8
@@ -1564,10 +1599,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     auditors: $data.auditors,
     editmode: $data.editmode,
     editForm: $data.audit,
-    onCreated: _cache[7] || (_cache[7] = function ($event) {
+    onCreated: _cache[8] || (_cache[8] = function ($event) {
       return $options.closeModal($event);
     }),
-    onUpdated: _cache[8] || (_cache[8] = function ($event) {
+    onUpdated: _cache[9] || (_cache[9] = function ($event) {
       return $options.closeModal($event);
     })
   }, null, 8
