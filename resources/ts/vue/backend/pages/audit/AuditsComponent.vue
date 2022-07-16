@@ -141,7 +141,11 @@
                             this.getaudits();
                         })
                     }
-                })
+                }).catch((err) => {
+                       
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+
+                    })
 
             },
             getaudits(page = 1) {

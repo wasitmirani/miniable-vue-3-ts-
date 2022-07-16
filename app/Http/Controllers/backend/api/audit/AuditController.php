@@ -218,6 +218,7 @@ try{
         return response()->json(['message'=>'Audit has been updated successfully.','audit'=>$audit]);
     }
     public function destroy($id){
+        AuditDateRequest::where('audit_id',$id)->delete();
         AuditDate::where('audit_id',$id)->delete();
         AuditAuditor::where('audit_id',$id)->delete();
         $audit=Audit::destroy($id);

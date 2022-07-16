@@ -12,6 +12,8 @@ class AuditorController extends Controller
     public function index(Request $request){
         $q=request('query');
         $auditors =Auditor::latest()->where('name', 'like', '%' . $q . '%')
+                         ->orWhere('email', 'like', '%' . $q . '%')
+                          ->orWhere('phone', 'like', '%' . $q . '%')
                          ->paginate((int)env('PER_PAGE'));
         return response()->json(['auditors'=>$auditors]);
     }

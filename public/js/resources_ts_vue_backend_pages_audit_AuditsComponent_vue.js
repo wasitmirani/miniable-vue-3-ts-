@@ -643,6 +643,8 @@ __webpack_require__.r(__webpack_exports__);
             _this2.getaudits();
           });
         }
+      })["catch"](function (err) {
+        _this2.$root.alertNotify(err.response.status, null, 'error', err.response.data);
       });
     },
     getaudits: function getaudits() {
