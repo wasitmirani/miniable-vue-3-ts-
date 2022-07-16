@@ -7,10 +7,10 @@
 
                         <th scope="col">Title</th>
 
-                        <th scope="col">Auditors</th>
+                        <!-- <th scope="col">Auditors</th> -->
                         <th scope="col">phone</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Location</th>
+                        <!-- <th scope="col">Location</th> -->
                         <th scope="col">Responses</th>
                         <th scope="col">Created</th>
                         <th scope="col" style="width: 200px;">Action</th>
@@ -25,31 +25,31 @@
                     <tr v-for="audit in audits?.data" :key="audit.id" v-else>
                         <td>
                             <name-avatar :name="audit.title" class="avatar-xs rounded-circle me-2"></name-avatar>
-                            <a href="#" class="text-body">{{audit.title}}</a>
+                            <a role="button" class="text-body" @click="auditDetails(audit)" >{{audit.title}}</a>
                         </td>
-                        <td><span class="badge rounded-pill bg-primary">{{audit.auditors.length}}</span></td>
+                        <!-- <td><span class="badge rounded-pill bg-primary">{{audit.auditors.length}}</span></td> -->
                          <td>{{audit.phone}}</td>
                            <td><span :class="`badge rounded-pill bg-${setStatus(audit.status.name)}`">{{audit.status.name}}</span></td>
-                 <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td>
+                 <!-- <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td> -->
 
                         <!-- <td><small ><description :value="audit.description"></description>  </small></td> -->
                             <td > <span  style="font-size: 14px;" class="badge bg-dark">{{audit.response}}/{{audit?.auditors.length}}</span> |
-                            <button v-if="audit.response<audit?.auditors.length" @click="resendMail(audit)"  type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
+                            <button v-tooltip="'Resend Mail'" v-if="audit.response<audit?.auditors.length" @click="resendMail(audit)"  type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
 
                                         </td>
                         <td>{{$filters.DateTimeFormat(audit.created_at)}}</td>
                         <td>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
-                                 <a role="button" @click="auditDetails(audit)" class="px-2 text-primary">
+                                 <a role="button"  v-tooltip="'View Audit Details'" @click="auditDetails(audit)" class="px-2 text-primary">
                                         <i class="uil uil-eye  font-size-18"></i></a> |
-                                    <a role="button" @click="editItem(audit)" class="px-2 text-primary">
+                                    <a v-tooltip="'Edit Audit'" role="button" @click="editItem(audit)" class="px-2 text-primary">
                                         <i class="uil uil-pen font-size-18"></i></a>
 
                                 </li>
                                 |
                                 <li class="list-inline-item">
-                                    <a role="button" @click="deleteItem(audit)" class="px-2 text-danger"><i
+                                    <a v-tooltip="'Delete Audit'" role="button" @click="deleteItem(audit)" class="px-2 text-danger"><i
                                             class="uil uil-trash-alt font-size-18"></i></a>
                                 </li>
 

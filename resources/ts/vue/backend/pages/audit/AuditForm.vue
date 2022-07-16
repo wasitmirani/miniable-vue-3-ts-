@@ -49,7 +49,7 @@
                 <div class="col-lg-12">
                 <div class="mb-3">
                         <label class="form-label">Audit Dates*</label>
-                           <Datepicker required="true" v-model="audit.dates" multiDates   />
+                           <Datepicker required="true" v-model="this.audit.dates" multiDates    />
                     </div>
                 </div>
                 <hr/>
@@ -82,7 +82,10 @@
 
         data() {
             return {
-                audit: {},
+                audit: {
+                    dates:[]
+                    // dates:['Tue June 28 2022 19:06:00 GMT+0500 (Pakistan Standard Time)','Tue June 29 2022 19:06:00 GMT+0500 (Pakistan Standard Time)']
+                },
                 errors: [],
                 loading:false,
             }
@@ -100,7 +103,9 @@
                     // this.errors = "";
                     if(this.editmode){
                           this.audit = collection
+                    let dates=this.audit.auditdates.map(x=> moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss')+" GMT+0500 (Pakistan Standard Time)")
                     this.audit.auditors=collection.auditors.map(x=>x.auditor);
+                    this.audit.dates=dates;
                     }
 
 
@@ -117,7 +122,9 @@
         },
         methods: {
             restForm() {
-                this.audit = {};
+                this.audit = {
+                    dates:['Thu May 19 2022 23:34:00 GMT+0500 (Pakistan Standard Time)']
+                };
                 this.errors = []
             },
             async onSubmit() {

@@ -94,7 +94,7 @@ class AuditController extends Controller
         }
         $auditor_audit_requests=AuditDateRequest::where(['audit_id'=> $audit->id,'auditor_id'=>$audit_auditor->auditor->id])->where('availability',1)->get();
         $audit_requests_ids=$auditor_audit_requests->pluck('audit_date_id');
-       
+
        return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor,'audit_requests_ids'=>$audit_requests_ids]);
 
     }
@@ -125,8 +125,8 @@ class AuditController extends Controller
     }
     public function store(Request $request){
         $request->validate([
-            'title' => ['required', 'string', 'min:6','max:255'],
-            'description' => ['required', 'string', 'min:20'],
+            'title' => ['required', 'string','max:255'],
+            'description' => ['required', 'string'],
         ]);
 
 DB::beginTransaction();

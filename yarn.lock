@@ -918,6 +918,18 @@
   "resolved" "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   "version" "0.5.7"
 
+"@floating-ui/core@^0.3.0":
+  "integrity" "sha512-ensKY7Ub59u16qsVIFEo2hwTCqZ/r9oZZFh51ivcLGHfUwTn8l1Xzng8RJUe91H/UP8PeqeBronAGx0qmzwk2g=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/core/-/core-0.3.1.tgz"
+  "version" "0.3.1"
+
+"@floating-ui/dom@^0.1.10":
+  "integrity" "sha512-4kAVoogvQm2N0XE0G6APQJuCNuErjOfPW8Ux7DFxh8+AfugWflwVJ5LDlHOwrwut7z/30NUvdtHzQ3zSip4EzQ=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/dom/-/dom-0.1.10.tgz"
+  "version" "0.1.10"
+  dependencies:
+    "@floating-ui/core" "^0.3.0"
+
 "@jridgewell/gen-mapping@^0.1.0":
   "integrity" "sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w=="
   "resolved" "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz"
@@ -3041,6 +3053,14 @@
   dependencies:
     "locate-path" "^5.0.0"
     "path-exists" "^4.0.0"
+
+"floating-vue@^2.0.0-beta.17":
+  "integrity" "sha512-zgHPIdlILFxMEq2kLpeUpE3SUSd/zHI4pNAO2QYtp2rATkiSOlcLJidTDjG3mcBKzN3ahoAF6t/FhA1VbMTkAg=="
+  "resolved" "https://registry.npmjs.org/floating-vue/-/floating-vue-2.0.0-beta.17.tgz"
+  "version" "2.0.0-beta.17"
+  dependencies:
+    "@floating-ui/dom" "^0.1.10"
+    "vue-resize" "^2.0.0-alpha.1"
 
 "follow-redirects@^1.0.0", "follow-redirects@^1.14.0":
   "integrity" "sha512-aExlJShTV4qOUOL7yF1U5tvLCB0xQuudbf6toyYA0E/acBNw71mvjFTnLaRp50aQaYocMR0a/RMMBIHeZnGyjQ=="
@@ -5661,6 +5681,11 @@
   "integrity" "sha512-VeNG/inMsFbvdCTS7lJ1gjDAKSUZdqkhW9gS1tb0we1rqFKxR+BCEiVUgw5C84vODKb14M2GWHTw0WVdpoVg6g=="
   "resolved" "https://registry.npmjs.org/vue-progressbar/-/vue-progressbar-0.7.5.tgz"
   "version" "0.7.5"
+
+"vue-resize@^2.0.0-alpha.1":
+  "integrity" "sha512-7+iqOueLU7uc9NrMfrzbG8hwMqchfVfSzpVlCMeJQe4pyibqyoifDNbKTZvwxZKDvGkB+PdFeKvnGZMoEb8esg=="
+  "resolved" "https://registry.npmjs.org/vue-resize/-/vue-resize-2.0.0-alpha.1.tgz"
+  "version" "2.0.0-alpha.1"
 
 "vue-router@^4.0.15":
   "integrity" "sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg=="

@@ -11,6 +11,7 @@ import Notifications from '@kyvg/vue3-notification';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import * as moment from 'moment'
+import FloatingVue from 'floating-vue'
 
 const app =createApp({
     data(){
@@ -51,6 +52,8 @@ app.config.globalProperties.hosturl = window.location.origin ;
 app.component('master-layout',MasterLayout)
 app.use(Notifications)
 
+app.use(FloatingVue)
+import 'floating-vue/dist/style.css';
 app.component('Datepicker', Datepicker);
 
 app.config.globalProperties.$filters = {
