@@ -17,6 +17,6 @@ class AuditDateRequest extends Model
     }
     public function auditdate()
     {
-        return $this->belongsTo(AuditDate::class, 'audit_date_id', 'id');
+        return $this->belongsTo(AuditDate::class, 'audit_date_id', 'id')->orderBy('audit_date','asc');
     }
 }

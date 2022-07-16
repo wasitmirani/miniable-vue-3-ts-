@@ -23,11 +23,11 @@ class Audit extends Model
      */
     public function auditdates()
     {
-        return $this->hasMany(AuditDate::class, 'audit_id', 'id')->with('auditor');
+        return $this->hasMany(AuditDate::class, 'audit_id', 'id')->orderBy('audit_date','asc')->with('auditor');
     }
     public function auditors()
     {
-        return $this->hasMany(AuditAuditor::class, 'audit_id', 'id')->with('auditor');
+        return $this->hasMany(AuditAuditor::class, 'audit_id', 'id')->with('auditor','auditrequests');
     }
 
     /**

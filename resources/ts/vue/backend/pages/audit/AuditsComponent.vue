@@ -158,7 +158,19 @@
                     })
             }
         },
+        created(){
+             const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('create');
+            if(myParam==true || myParam=='true'){
+                this.openModal();
+            }
+        },
         mounted() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('create');
+            if(myParam==true || myParam=='true'){
+                this.openModal();
+            }
             this.getaudits();
         }
 

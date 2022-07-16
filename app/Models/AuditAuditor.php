@@ -21,4 +21,9 @@ class AuditAuditor extends Model
        return $this->belongsTo(Auditor::class, 'auditor_id', 'id')->with('auditrequests');
    }
 
+   public function auditrequests()
+   {
+       return $this->hasMany(AuditDateRequest::class,'audit_id','audit_id')->with('auditdate');
+   }
+
 }

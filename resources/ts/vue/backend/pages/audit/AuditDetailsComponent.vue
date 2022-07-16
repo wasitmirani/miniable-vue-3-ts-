@@ -94,7 +94,15 @@
                                                                 </tr>
                                                             </thead>
                                                         <tbody>
+                                                            <tr v-for="item in auditors" :key="item.id">
+                                                                <td>{{item?.name}}</td>
+                                                                <td v-for="request in item.auditrequests">
+                                                                    <span class="badge bg-primary font-size-12"  v-if="request.availability==1">Open | {{request.auditdate.audit_date}} </span>
+                                                                    <span class="badge bg-danger font-size-12"  v-if="request.availability==0">Close | {{request.auditdate.audit_date}}</span>
+                                                                </td>
 
+
+                                                            </tr>
 
 
                                                         </tbody>
@@ -121,9 +129,15 @@ export default {
         return {
             audit:{},
             activities:{},
+            auditors:{},
         };
     },
     methods:{
+        findAuditorRequest(requests,auditor){
+            let data= requests.filter(request=>request.auditor_id==auditor);
+            console.log('tag', data);
+            return data;
+        },
         approval(item){
                axios.get(`audit-approve/${item.id}?approval_type=1`).then((res) => {
                     this.$root.alertNotify(res.status, 'Auditor Assistant Successfuly', 'info', res.data);
@@ -190,6 +204,14 @@ export default {
             axios.get('/audit/details/'+this.$route.params.id).then((res)=>{
                 this.audit=res.data.audit;
                 this.activities=res.data.activities;
+                this.auditors=this.audit.auditors.map((item)=>{
+                     let data= item.auditrequests.filter(request=>request.auditor_id==item.auditor_id);
+                    return {
+                        ...item.auditor,
+                        auditrequests:data.sort((a,b)=> (a.auditdate.audit_date > b.auditdate.audit_date? 1 : -1))};
+
+                })
+
             }).catch((er)=>{
 
             })
