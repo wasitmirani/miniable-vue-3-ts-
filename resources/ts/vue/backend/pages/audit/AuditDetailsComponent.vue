@@ -101,9 +101,8 @@
                                                                     <i class="bx bx-badge-check font-size-16"></i>
                                                                       </span>
                                                                     <span v-tooltip="` ${item.name} unavailable on  ${request.auditdate.audit_date}`" class="badge bg-danger"  v-if="request.availability==0"> <i class=" bx bx-block font-size-16"></i> </span>
+                                                                
                                                                 </td>
-
-
                                                             </tr>
 
 
