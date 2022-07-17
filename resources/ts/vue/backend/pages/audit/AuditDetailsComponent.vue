@@ -98,10 +98,21 @@
                                                                 <td>{{item?.name}}</td>
                                                                 <td v-for="request in item.auditrequests">
                                                                     <span v-tooltip="` ${item.name} available on ${request.auditdate.audit_date}`" class="badge bg-success "  v-if="request.availability==1">
-                                                                    <i class="bx bx-badge-check font-size-16"></i>
+                                                                    <i class="uil-check-circle font-size-16"></i>
                                                                       </span>
-                                                                    <span v-tooltip="` ${item.name} unavailable on  ${request.auditdate.audit_date}`" class="badge bg-danger"  v-if="request.availability==0"> <i class=" bx bx-block font-size-16"></i> </span>
-                                                                
+                                                                    <span v-tooltip="` ${item.name} unavailable on  ${request.auditdate.audit_date}`" class="badge bg-danger"  v-if="request.availability==0"> <i class="uil-backspace font-size-16"></i> </span>
+                                                               <div v-if="request.availability==1">
+
+                                                                            <a  v-tooltip="'Approve Audit'" role="button" @click="approval(request)" class="text-primary" >
+                                                                              <i class="uil-check-square  font-size-18"></i>
+
+                                                                              </a>
+                                                                       |
+                                                                          <a v-tooltip="'Reject Audit'"  role="button" @click="reject(request)" class=" text-danger" >
+                                                                              <i class="uil-ban font-size-18"></i></a>
+                                                               </div>
+
+
                                                                 </td>
                                                             </tr>
 
