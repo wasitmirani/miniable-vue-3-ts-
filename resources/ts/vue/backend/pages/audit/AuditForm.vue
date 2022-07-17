@@ -102,7 +102,7 @@
                     // this.errors = "";
                     if(this.editmode){
                           this.audit = collection
-                    const dates=this.audit.auditdates.map(x=> moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss')+" GMT+0500 (Pakistan Standard Time)")
+                    const dates=this.audit.auditdates.map(x=> moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss'))
                     this.audit.auditors=collection.auditors.map(x=>x.auditor);
                     console.log("date",dates);
                     this.audit.dates=dates;
