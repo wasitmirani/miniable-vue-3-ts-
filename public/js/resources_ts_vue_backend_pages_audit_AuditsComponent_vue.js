@@ -314,9 +314,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      audit: {
-        dates: [] // dates:['Tue June 28 2022 19:06:00 GMT+0500 (Pakistan Standard Time)','Tue June 29 2022 19:06:00 GMT+0500 (Pakistan Standard Time)']
-
+      audit: {// dates:['Tue June 28 2022 19:06:00 GMT+0500 (Pakistan Standard Time)','Tue June 29 2022 19:06:00 GMT+0500 (Pakistan Standard Time)']
       },
       errors: [],
       loading: false
@@ -325,6 +323,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     editForm: function editForm(collection) {
       this.errors = [];
+      this.restForm();
 
       if (collection == null || !collection) {
         return this.restForm();
@@ -335,11 +334,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (this.editmode) {
           this.audit = collection;
           var dates = this.audit.auditdates.map(function (x) {
-            return moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss') + " GMT+0500 (Pakistan Standard Time)";
+            return moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss');
           });
           this.audit.auditors = collection.auditors.map(function (x) {
             return x.auditor;
           });
+          console.log("date", dates);
           this.audit.dates = dates;
         }
       } else {
@@ -355,9 +355,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     restForm: function restForm() {
-      this.audit = {
-        dates: ['Thu May 19 2022 23:34:00 GMT+0500 (Pakistan Standard Time)']
-      };
+      this.audit = {};
       this.errors = [];
     },
     onSubmit: function onSubmit() {
