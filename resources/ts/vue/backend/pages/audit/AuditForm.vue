@@ -93,7 +93,7 @@
 
             editForm(collection) {
                 this.errors = [];
-
+                this.restForm();
                 if (collection == null || !collection) {
 
                     return this.restForm();
@@ -122,9 +122,7 @@
         },
         methods: {
             restForm() {
-                this.audit = {
-                    dates:['Thu May 19 2022 23:34:00 GMT+0500 (Pakistan Standard Time)']
-                };
+                this.audit = {};
                 this.errors = []
             },
             async onSubmit() {
