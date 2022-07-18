@@ -14,8 +14,8 @@
                                 <p class="text-muted">Audit Survey</p>
 
                                 <div>
-                                    <button type="button" class="btn btn-primary mt-2 me-2 waves-effect waves-light">Email
-                                        Us</button>
+                                    {{-- <button type="button" class="btn btn-primary mt-2 me-2 waves-effect waves-light">Email
+                                        Us</button> --}}
                                     {{-- <button type="button" class="btn btn-success mt-2 waves-effect waves-light">Send us a
                                         tweet</button> --}}
                                 </div>
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="row mt-5">
-                        <div class="col-xl-4">
+                        {{-- <div class="col-xl-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="text-center">
@@ -62,8 +62,8 @@
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-8">
+                        </div> --}}
+                        <div class="col-xl-12">
                             <div id="faqs-accordion" class="custom-accordion mt-5 mt-xl-0">
                                 <div class="card border shadow-none">
                                     <a href="#faqs-gen-ques-collapse" class="text-dark" data-bs-toggle="collapse"

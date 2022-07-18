@@ -22,12 +22,17 @@
     </head>
 
     <body class="authentication-bg">
-        <div class="account-pages my-5 pt-sm-5">
+        <div class="account-pages  @if(Route::is('audit-survey'))  @else  my-5  @endif pt-sm-5">
             <div class="container">
+                @if(Route::is('audit-survey'))
+                <div class="row">
+                    @yield('content')
+                </div>
+                @else
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
-                            <a href="index.html" class="mb-5 d-block auth-logo">
+                            <a href="{{route('/login')}}" class="mb-5 d-block auth-logo">
                                 <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="80" class="logo logo-dark">
                                 <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="80" class="logo logo-light">
                             </a>
@@ -38,6 +43,7 @@
                     @yield('content')
                 </div>
                 <!-- end row -->
+                @endif
             </div>
             <!-- end container -->
         </div>
