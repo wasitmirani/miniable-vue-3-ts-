@@ -92,7 +92,7 @@
                                                     </h3>
                                                 </li>
                                                   <li class="list-inline-item chart-border-left me-0">
-                                                    <h3 class="text-wearing"><span data-plugin="counterup">{{getTotal().total_proccess}}</span><span class="text-muted d-inline-block font-size-15 ms-3">Completed</span>
+                                                    <h3 class="text-wearing"><span data-plugin="counterup">{{getTotal().total_proccess}}</span><span class="text-muted d-inline-block font-size-15 ms-3">In Proccess</span>
                                                     </h3>
                                                 </li>
 

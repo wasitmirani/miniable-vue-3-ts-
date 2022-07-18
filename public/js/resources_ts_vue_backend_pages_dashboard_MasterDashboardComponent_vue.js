@@ -323,7 +323,7 @@ var _hoisted_31 = {
 
 var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-muted d-inline-block font-size-15 ms-3"
-}, "Completed", -1
+}, "In Proccess", -1
 /* HOISTED */
 );
 
