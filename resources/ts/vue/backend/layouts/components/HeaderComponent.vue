@@ -31,8 +31,10 @@
             <!-- App Search-->
             <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="uil-search"></span>
+
+                     <router-link to="audits?create=true" style="    margin-left: 20px;" class="ml-4 btn btn-sm btn-primary waves-effect waves-light">
+                                                Create New Audit <i class="uil uil-arrow-right ms-2"></i>
+                                            </router-link>
                 </div>
             </form>
         </div>
