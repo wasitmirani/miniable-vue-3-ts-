@@ -95,11 +95,9 @@
                                                     <h3 class="text-wearing"><span data-plugin="counterup">{{getTotal().total_proccess}}</span><span class="text-muted d-inline-block font-size-15 ms-3">In Proccess</span>
                                                     </h3>
                                                 </li>
-
                                             </ul>
                                         </div>
-
-                                                  <div class="mt-3">
+                                        <div class="mt-3">
                                             <div id="sales-analytics-chart" class="apex-charts" dir="ltr"></div>
                                         </div>
 

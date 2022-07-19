@@ -23,7 +23,7 @@
     </head>
 
 {{--  data-sidebar="dark" --}}
-    <body>
+    <body data-sidebar="dark" data-sidebar-size="small">
 
     <!-- <body data-layout="horizontal" data-topbar="colored"> -->
         <div id="app">
@@ -60,18 +60,7 @@
                 <div class="p-4">
 
 
-                    <h6 class="mt-4 mb-3 pt-2">Layout Mode</h6>
 
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="layout-mode"
-                            id="layout-mode-light" value="light">
-                        <label class="form-check-label" for="layout-mode-light">Light</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="layout-mode"
-                            id="layout-mode-dark" value="dark">
-                        <label class="form-check-label" for="layout-mode-dark">Dark</label>
-                    </div>
 
                     <h6 class="mt-4 mb-3 pt-2">Layout Width</h6>
 
@@ -135,19 +124,6 @@
                         <input class="form-check-input" type="radio" name="sidebar-color"
                             id="sidebar-color-colored" value="colored" onchange="document.body.setAttribute('data-sidebar', 'colored')">
                         <label class="form-check-label" for="sidebar-color-colored">Colored</label>
-                    </div>
-
-                    <h6 class="mt-4 mb-3 pt-2">Direction</h6>
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="layout-direction"
-                            id="layout-direction-ltr" value="ltr">
-                        <label class="form-check-label" for="layout-direction-ltr">LTR</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="layout-direction"
-                            id="layout-direction-rtl" value="rtl">
-                        <label class="form-check-label" for="layout-direction-rtl">RTL</label>
                     </div>
 
                 </div>

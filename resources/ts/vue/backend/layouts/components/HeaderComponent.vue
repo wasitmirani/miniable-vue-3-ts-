@@ -31,10 +31,10 @@
             <!-- App Search-->
             <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
-
+<!-- 
                      <router-link to="audits?create=true" style="    margin-left: 20px;" class="ml-4 btn btn-sm btn-primary waves-effect waves-light">
                                                 Create New Audit <i class="uil uil-arrow-right ms-2"></i>
-                                            </router-link>
+                                            </router-link> -->
                 </div>
             </form>
         </div>
@@ -62,21 +62,6 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block language-switch">
-                <button type="button" class="btn header-item waves-effect"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img :src="`${url}/assets/images/flags/us.jpg`" alt="English Language" height="16">
-                </button>
-
-            </div>
-
-
-
-            <div class="dropdown d-none d-lg-inline-block ms-1">
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
-                    <i class="uil-minus-path"></i>
-                </button>
-            </div>
 
 
             <div class="dropdown d-inline-block">
@@ -95,7 +80,7 @@
 
                     <router-link class="dropdown-item d-block" to="/portal/settings">
                     <i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Settings</span> <span class="badge bg-soft-success rounded-pill mt-1 ms-2"></span></router-link>
-                    <a class="dropdown-item" href="#"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock screen</span></a>
+
                     <a class="dropdown-item" role="button" @click="logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                 </div>
             </div>

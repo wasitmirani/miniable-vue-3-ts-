@@ -13,7 +13,7 @@
                                     <a @click="openModal" role="button"
                                         v-tooltip="'Create New Audit'"
                                         class="btn btn-success waves-effect waves-light">
-                                        <i class="mdi mdi-plus me-2"></i> Add Audit
+                                        <i class="mdi mdi-plus me-2"></i> Create new Audit
                                     </a>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                         })
                     }
                 }).catch((err) => {
-                       
+
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
 
                     })

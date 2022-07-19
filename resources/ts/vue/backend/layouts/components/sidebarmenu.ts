@@ -67,15 +67,15 @@ let sidebar_menu=[
         "can": "auditors-list-view",
         "route": "/portal/auditors"
      },
+    //  {
+    //     "title": "Create new Audit",
+    //     "type": "single_link",
+    //     "icon": "uil-file-alt",
+    //     "can": "audits-view",
+    //     "route": "/portal/audits?create=true"
+    //  },
      {
-        "title": "Create new Audit",
-        "type": "single_link",
-        "icon": "uil-file-alt",
-        "can": "audits-view",
-        "route": "/portal/audits?create=true"
-     },
-     {
-        "title": "View Audits",
+        "title": "Audits",
         "type": "single_link",
         "icon": "uil-invoice",
         "can": "audits-view",

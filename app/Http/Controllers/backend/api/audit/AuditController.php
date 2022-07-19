@@ -119,9 +119,9 @@ class AuditController extends Controller
         $audit->auditdates = $audit->auditdates()->orderBy('audit_date','ASC')->get();
 
         $activities=Activity::where('subject_id', $audit->id)->where('subject_type',get_class($audit))->get();
-
+        $auditors =Auditor::orderBy('name','ASC')->get();
         // $audit->auditors = $audit->auditors()->orderBy('name','ASC')->get();
-        return response()->json(['audit'=>$audit,'activities'=>$activities]);
+        return response()->json(['auditors'=>$auditors,'audit'=>$audit,'activities'=>$activities]);
     }
     public function store(Request $request){
         $request->validate([

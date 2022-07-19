@@ -14,12 +14,12 @@
                                                 <span class="d-none d-sm-block">Auditor Requests</span>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
+                                        <!-- <li class="nav-item">
                                             <a class="nav-link " data-bs-toggle="tab" href="#about" role="tab">
                                                 <i class="uil uil-clipboard-notes font-size-20"></i>
                                                 <span class="d-none d-sm-block"> Audit</span>
                                             </a>
-                                        </li>
+                                        </li> -->
 
                                         <!-- <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
@@ -32,8 +32,8 @@
                                     <div class="tab-content p-4">
                                         <div class="tab-pane " id="about" role="tabpanel">
                                             <div>
-
-                                                <div>
+                                                        <loader-box v-if="loading"></loader-box>
+                                                <div v-else>
                                                     <h5 class="font-size-16 mb-4">Audit Dates</h5>
 
                                                     <div class="table-responsive">
@@ -74,6 +74,7 @@
                                         </div>
                                         <div class="tab-pane active" id="tasks" role="tabpanel" >
                                             <div>
+                                               <!-- <audit-form :auditors="auditors_list" :editmode="true" :editForm="this.audit"></audit-form> -->
 
                                                 <h5 class="font-size-16 mb-3 mt-4 text-primary"><strong> Audit Assignment Details</strong></h5>
 
@@ -96,20 +97,28 @@
                                                         <tbody>
                                                             <tr v-for="item in auditors" :key="item.id">
                                                                 <td>{{item?.name}}</td>
-                                                                <td v-for="request in item.auditrequests">
+
+                                                                <td v-for="auditdate in audit?.auditdates" :key="auditdate.id" v-if="item.auditrequests.length<1">
+                                                                     <span v-tooltip="'No Response'"  class="text-danger" >
+                                                                    <i class="uil-ban font-size-16"></i>
+                                                                      </span>
+                                                                  </td>
+                                                                <td v-for="request in item.auditrequests" v-else>
                                                                     <span v-tooltip="` ${item.name} available on ${request.auditdate.audit_date}`" class="badge bg-success "  v-if="request.availability==1">
                                                                     <i class="uil-check-circle font-size-16"></i>
                                                                       </span>
+
                                                                     <span v-tooltip="` ${item.name} unavailable on  ${request.auditdate.audit_date}`" class="badge bg-danger"  v-if="request.availability==0"> <i class="uil-backspace font-size-16"></i> </span>
+
                                                                <div v-if="request.availability==1">
 
-                                                                            <a  v-tooltip="'Approve Audit'" role="button" @click="approval(request)" class="text-primary" >
+                                                                            <a  v-tooltip="'Approve Audit'" role="button" @click="approval(request)" :class="getApproved(request)" >
                                                                               <i class="uil-check-square  font-size-18"></i>
 
                                                                               </a>
                                                                        |
                                                                           <a v-tooltip="'Reject Audit'"  role="button" @click="reject(request)" class=" text-danger" >
-                                                                              <i class="uil-ban font-size-18"></i></a>
+                                                                              <i class="bx bx-window-close font-size-18"></i></a>
                                                                </div>
 
 
@@ -124,6 +133,16 @@
                                             <hr>
                                             </div>
                                         </div>
+                                            <div class="row">
+                                         <form v-on:submit.prevent="onSubmit">
+                                                        <div class="hstack gap-3">
+
+                                                            <textarea rows="2"  class="form-control me-auto" v-model="audit.remarks" placeholder="Add your remarks here..."></textarea>
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
+
+                                                        </div>
+                                                    </form>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -135,16 +154,28 @@
 <script>
     import BreadCrumb from "../../components/BreadcrumbComponent.vue";
     import DateEmpty from "../../components/DataEmptyComponent.vue";
+        import AuditForm from "./AuditForm.vue";
 export default {
-    components: { BreadCrumb,DateEmpty },
+    components: { BreadCrumb,DateEmpty,AuditForm },
     data(){
         return {
             audit:{},
             activities:{},
             auditors:{},
+            auditors_list:{},
+            loading:false,
         };
     },
     methods:{
+        getApproved(item){
+
+            if(item.approval_type==1){
+                return 'text-success';
+            }
+            else{
+                return 'text-primary';
+            }
+        },
         findAuditorRequest(requests,auditor){
             let data= requests.filter(request=>request.auditor_id==auditor);
             console.log('tag', data);
@@ -161,23 +192,28 @@ export default {
                     });
         },
        reject(item){
-                     Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to reject this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, reject it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
+           axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
 
                             this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
                             this.getAudit();
                         })
-                    }
-                })
+                //      Swal.fire({
+                //     title: 'Are you sure?',
+                //     text: "You won't be able to reject this!",
+                //     icon: 'warning',
+                //     showCancelButton: true,
+                //     confirmButtonColor: '#3085d6',
+                //     cancelButtonColor: '#d33',
+                //     confirmButtonText: 'Yes, reject it!'
+                // }).then((result) => {
+                //     if (result.isConfirmed) {
+                //         axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
+
+                //             this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
+                //             this.getAudit();
+                //         })
+                //     }
+                // })
 
        },
       async  onSubmit(){
@@ -213,9 +249,12 @@ export default {
                 }
             },
         getAudit(){
+             this.loading=true;
             axios.get('/audit/details/'+this.$route.params.id).then((res)=>{
+
                 this.audit=res.data.audit;
                 this.activities=res.data.activities;
+                this.auditors_list=res.data.auditors;
                 this.auditors=this.audit.auditors.map((item)=>{
                      let data= item.auditrequests.filter(request=>request.auditor_id==item.auditor_id);
                     return {
@@ -223,6 +262,7 @@ export default {
                         auditrequests:data.sort((a,b)=> (a.auditdate.audit_date > b.auditdate.audit_date? 1 : -1))};
 
                 })
+                this.loading=false;
 
             }).catch((er)=>{
 
