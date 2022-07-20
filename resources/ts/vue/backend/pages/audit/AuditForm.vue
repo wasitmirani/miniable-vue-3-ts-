@@ -20,9 +20,9 @@
                 </div>
     <div class="col-lg-12">
                 <div class="mb-3">
-                        <label class="form-label">Audit Dates* | DatesLimit:8  </label>
+                        <label class="form-label">Audit Dates* | DatesLimit:10  </label>
 
-                              <Datepicker required="true" v-model="this.audit.dates"  multiDates   multiDatesLimit="8"    />
+                              <Datepicker required="true" v-model="this.audit.dates"  multiDates   vertical  multiDatesLimit="10"    />
 
                     </div>
                 </div>
@@ -165,5 +165,16 @@
     }
 </script>
 
-<style>
+<style >
+.dp__action_row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    height: 100px !important;
+    overflow-y: scroll !important;
+    box-sizing: border-box;
+    color: var(--dp-text-color);
+    background: var(--dp-background-color);
+}
 </style>
