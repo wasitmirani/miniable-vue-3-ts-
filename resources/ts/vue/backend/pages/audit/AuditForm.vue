@@ -18,7 +18,14 @@
                             required>
                     </div>
                 </div>
+    <div class="col-lg-12">
+                <div class="mb-3">
+                        <label class="form-label">Audit Dates* | DatesLimit:8  </label>
 
+                              <Datepicker required="true" v-model="this.audit.dates"  multiDates   multiDatesLimit="8"    />
+
+                    </div>
+                </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label class="form-label">phone</label>
@@ -36,12 +43,7 @@
                             placeholder="Type to search or add auditor" label="name" track-by="id" />
                     </div>
                 </div>
-                  <div class="col-lg-12">
-                <div class="mb-3">
-                        <label class="form-label">Audit Dates*</label>
-                           <Datepicker required="true" v-model="this.audit.dates"  multiDates    />
-                    </div>
-                </div>
+
                   <div class="col-lg-6">
                 <div class="mb-3">
                         <label class="form-label">Location*</label>
