@@ -75,7 +75,6 @@
                         <label class="form-check-label" for="layout-width-boxed">Boxed</label>
                     </div>
 
-                    <h6 class="mt-4 mb-3 pt-2">Layout Position</h6>
 
                     <h6 class="mt-4 mb-3 pt-2">Topbar Color</h6>
 
