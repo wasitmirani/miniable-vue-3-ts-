@@ -23,7 +23,21 @@ class AuditController extends Controller
     {
         $audit=Audit::find($request->id);
         $audit->remarks=$request->remarks;
+        $audit->status_id=3;
         $audit->save();
+        $auditors=AuditAuditor::where('audit_id',$request->id)->pluck('auditor_id');
+        $auditors=Auditor::whereIn('id',$auditors)->get();
+        foreach ($auditors as $key => $auditor) {
+            $audit_auditor= AuditAuditor::where(['audit_id'=>$audit->id,'auditor_id'=>$auditor['id']])->first();
+             $new_auditor = [
+                              'token'=>$audit_auditor->token,
+                              'audit_id'=>$audit->id,
+                              'auditor_id'=>$auditor['id'],
+                              'name'=>$auditor['name'],
+                              'email'=>$auditor['email']];
+             dispatch(new SendAuditEmailJob($new_auditor,$audit));
+
+         }
         return response()->json(['message'=>'Audit remark updated successfully'],200);
 
     }
@@ -144,7 +158,7 @@ try{
             # code...
             AuditDate::create([
                 'audit_id'=>$audit->id,
-                'audit_date'=>date('Y-m-d H:i:s', strtotime($value)),
+                'audit_date'=>date('Y-m-d', strtotime($value)),
                 'status_id'=>1,
             ]);
         }
@@ -178,23 +192,27 @@ try{
 
     public function update(Request $request,$id){
         $request->validate([
-            'title' => ['required', 'string', 'min:6','max:255'],
-            'description' => ['required', 'string', 'min:20'],
+            'title' => ['required', 'string','max:255'],
+            'description' => ['required', 'string'],
         ]);
         $audit =Audit::findOrFail($id);
         $audit->update([
             'title'=>$request->title,
             'phone'=>$request->phone,
             'description'=>$request->description,
+            'status_id'=>2,
             'location'=>$request->location,
             'user_id'=>$request->user()->id,
         ]);
+
+        AuditDateRequest::where('audit_id',$id)->delete();
         $audit->auditdates()->delete();
+
         foreach ($request->dates as $key => $value) {
             # code...
             AuditDate::create([
                 'audit_id'=>$audit->id,
-                'audit_date'=>date('Y-m-d H:i:s', strtotime($value)),
+                'audit_date'=>date('Y-m-d', strtotime($value)),
                 'status_id'=>1,
             ]);
         }

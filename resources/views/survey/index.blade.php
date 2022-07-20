@@ -89,13 +89,12 @@
                                         </div>
                                     </a>
 
-                                    <div id="faqs-gen-ques-collapse" class="collapse show" data-bs-parent="#faqs-accordion">
+                                    <div id="faqs-gen-ques-collapse" class="collapse @if ($audit->status_id != 3) show @endif " data-bs-parent="#faqs-accordion">
                                         <div class="p-4">
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <h5 class="font-size-14 mb-4"><i
-                                                            class="mdi mdi-arrow-right text-primary me-1"></i> Please mark
-                                                        availability date</h5>
+                                                            class="mdi mdi-arrow-right text-primary me-1"></i> Audit Dates</h5>
 
                                                     <form method="POST"
                                                         class="row row-cols-lg-auto gx-3 gy-4 align-items-center"
@@ -160,7 +159,7 @@
                                     </div>
                                 </a>
 
-                                <div id="faqs-privacy-policy-collapse" class="collapse" data-bs-parent="#faqs-accordion">
+                                <div id="faqs-privacy-policy-collapse" class="collapse  @if ($audit->status_id == 3) show @endif " data-bs-parent="#faqs-accordion">
                                     <div class="p-4">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -171,7 +170,7 @@
                                                             <table class="table table-nowrap table-hover mb-0">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th scope="col">#</th>
+
                                                                         <th scope="col">Audit</th>
                                                                         <th scope="col"> Auditor</th>
                                                                         <th scope="col">DateTime</th>
@@ -181,7 +180,7 @@
                                                                 <tbody>
                                                                     @foreach ($audit->auditdates as $item)
                                                                     <tr>
-                                                                        <th scope="row">0</th>
+
                                                                         <td><a href="#" class="text-dark">{{$audit->title}}</a></td>
                                                                         <td>
                                                                             @if(!empty($item->auditor))
@@ -191,7 +190,7 @@
                                                                             -
                                                                             @endif
                                                                         </td>
-                                                                        <td>{{$item->audit_date}}</td>
+                                                                        <td>{{$item->audit_date->format('Y-m-d')}}</td>
                                                                         <td>
                                                                             @if($item->finished==1)
                                                                             <!--v-if--><span
@@ -205,9 +204,13 @@
                                                                     </tr>
                                                                     @endforeach
 
-
                                                                 </tbody>
                                                             </table>
+                                                            <hr/>
+                                                            <div>
+                                                                <label for="">Audit Remarks</label>
+                                                                <textarea name="" id="" class="form-control" cols="30" rows="3" readonly>{{$audit->remarks}}</textarea>
+                                                            </div>
                                                         </div>
 
                                                 </div>

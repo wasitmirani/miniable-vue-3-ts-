@@ -26,12 +26,20 @@
                             placeholder="Enter your phone">
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label class="form-label">Auditors</label>
+
                               <VueMultiselect v-model="audit.auditors" :options="auditors" :multiple="true" :taggable="true"
                             :limit="3" :close-on-select="true" tag-placeholder="Add this as new auditor"
                             placeholder="Type to search or add auditor" label="name" track-by="id" />
+                    </div>
+                </div>
+                  <div class="col-lg-12">
+                <div class="mb-3">
+                        <label class="form-label">Audit Dates*</label>
+                           <Datepicker required="true" v-model="this.audit.dates"  multiDates    />
                     </div>
                 </div>
                   <div class="col-lg-6">
@@ -46,18 +54,13 @@
                     <textarea  class="form-control" v-model="audit.description" rows="3" placeholder="Enter audit description"></textarea>
                     </div>
                 </div>
-                <div class="col-lg-12">
-                <div class="mb-3">
-                        <label class="form-label">Audit Dates*</label>
-                           <Datepicker required="true" v-model="this.audit.dates"  multiDates    />
-                    </div>
-                </div>
+
                 <hr/>
                 <div class="row mb-4 mt-2">
                     <div class="col ms-auto ">
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
-                            <a role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
-                                    class="uil uil-times"></i> Cancel </a>
+                            <a v-if="!editmode" role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
+                                    class="uil uil-times" ></i> Cancel </a>
                                     <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
                                         {{editmode ? 'Update' : 'Submit'}}
                                         </button>
@@ -101,8 +104,9 @@
                 if (collection) {
                     // this.errors = "";
                     if(this.editmode){
-                          this.audit = collection
-                    const dates=this.audit.auditdates.map(x=> moment.utc(moment(x.audit_date)).format('ddd MMMM D YYYY H:MM:ss'))
+                        console.log("tr",this.editmode);
+                    this.audit = collection
+                    const dates=this.audit.auditdates.map(x=> moment(x.audit_date).format('ddd MMMM D YYYY'))
                     this.audit.auditors=collection.auditors.map(x=>x.auditor);
                     console.log("date",dates);
                     this.audit.dates=dates;
@@ -128,7 +132,7 @@
             async onSubmit() {
                  this.errors = [];
                 this.loading=true;
-                this.audit.dates=this.audit.dates.map(x=>moment(x).format());
+                this.audit.dates=this.audit.dates.map(x=>moment(x).format("YYYY-MM-DD"));
                 if (!this.editmode) {
                     await axios.post('/audit', this.audit).then((res) => {
                         this.$emit("created", this.audit);

@@ -74,7 +74,9 @@
                                         </div>
                                         <div class="tab-pane active" id="tasks" role="tabpanel" >
                                             <div>
-                                               <!-- <audit-form :auditors="auditors_list" :editmode="true" :editForm="this.audit"></audit-form> -->
+
+
+                                               <audit-form :auditors="auditors_list" :editmode="true" :editForm="audit" ></audit-form>
 
                                                 <h5 class="font-size-16 mb-3 mt-4 text-primary"><strong> Audit Assignment Details</strong></h5>
 
@@ -134,6 +136,8 @@
                                             </div>
                                         </div>
                                             <div class="row">
+                                              <loader-box v-if="isloading" message="Please wait audit data has been proccessing"></loader-box>
+                                              <br>
                                          <form v-on:submit.prevent="onSubmit">
                                                         <div class="hstack gap-3">
 
@@ -154,16 +158,18 @@
 <script>
     import BreadCrumb from "../../components/BreadcrumbComponent.vue";
     import DateEmpty from "../../components/DataEmptyComponent.vue";
+       import LoaderBox from "../../components/LoaderBoxComponent.vue";
         import AuditForm from "./AuditForm.vue";
 export default {
-    components: { BreadCrumb,DateEmpty,AuditForm },
+    components: { BreadCrumb,DateEmpty,AuditForm,LoaderBox },
     data(){
         return {
             audit:{},
             activities:{},
             auditors:{},
-            auditors_list:{},
+            auditors_list:[],
             loading:false,
+            isloading:false,
         };
     },
     methods:{
@@ -217,13 +223,15 @@ export default {
 
        },
       async  onSubmit(){
+        this.isloading=true;
                  await axios.post('/update-audit-remark/'+this.audit.id, this.audit).then((res) => {
 
                         this.$root.alertNotify(res.status, 'Created Successfuly', 'success', res.data);
-
+                         this.isloading=false;
                     }).catch((err) => {
 
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+                                     this.isloading=false;
 
                     })
         },
@@ -255,6 +263,7 @@ export default {
                 this.audit=res.data.audit;
                 this.activities=res.data.activities;
                 this.auditors_list=res.data.auditors;
+
                 this.auditors=this.audit.auditors.map((item)=>{
                      let data= item.auditrequests.filter(request=>request.auditor_id==item.auditor_id);
                     return {
@@ -262,6 +271,7 @@ export default {
                         auditrequests:data.sort((a,b)=> (a.auditdate.audit_date > b.auditdate.audit_date? 1 : -1))};
 
                 })
+                  this.audit.auditors=collection.auditors.map(x=>x.auditor);
                 this.loading=false;
 
             }).catch((er)=>{
