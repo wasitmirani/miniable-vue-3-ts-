@@ -76,7 +76,11 @@
                                             <div>
 
 
-                                               <audit-form :auditors="auditors_list" :editmode="true" :editForm="audit" ></audit-form>
+                                    <a v-tooltip="'Edit Audit'" role="button"  @click="disabled=!disabled" :class="`px-2 ${disabled ? 'bg-primary' : 'bg-danger' }`" style="float: right;">
+                                        <i class="uil uil-pen font-size-24 text-white"></i></a>
+                                                <audit-form  :disabled="disabled" :auditors="auditors_list" :editmode="true" :editForm="audit" ></audit-form>
+
+
 
                                                 <h5 class="font-size-16 mb-3 mt-4 text-primary"><strong> Audit Assignment Details</strong></h5>
 
@@ -112,15 +116,15 @@
 
                                                                     <span v-tooltip="` ${item.name} unavailable on  ${request.auditdate.audit_date}`" class="badge bg-danger"  v-if="request.availability==0"> <i class="uil-backspace font-size-16"></i> </span>
 
-                                                               <div v-if="request.availability==1">
+                                                               <div v-if="request.availability==1" class="mt-2">
 
-                                                                            <a  v-tooltip="'Approve Audit'" role="button" @click="approval(request)" :class="getApproved(request)" >
-                                                                              <i class="uil-check-square  font-size-18"></i>
+                                                                            <a  v-tooltip="'Approve Audit'" role="button" @click="approval(request)"  >
+                                                                              <i :class="getApproved(request)" ></i>
 
                                                                               </a>
-                                                                       |
+                                                                            |
                                                                           <a v-tooltip="'Reject Audit'"  role="button" @click="reject(request)" class=" text-danger" >
-                                                                              <i class="bx bx-window-close font-size-18"></i></a>
+                                                                              <i class="bx bx-window-close font-size-22"></i></a>
                                                                </div>
 
 
@@ -169,17 +173,21 @@ export default {
             auditors:{},
             auditors_list:[],
             loading:false,
+            disabled:true,
             isloading:false,
         };
     },
     methods:{
+        editItem(){
+            this.disabled=false;
+        },
         getApproved(item){
 
             if(item.approval_type==1){
-                return 'text-success';
+                return 'bx bx-user-check  font-size-22 text-success';
             }
             else{
-                return 'text-primary';
+                return 'bx bx-check-circle font-size-22 text-primary';
             }
         },
         findAuditorRequest(requests,auditor){

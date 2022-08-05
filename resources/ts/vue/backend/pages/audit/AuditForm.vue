@@ -14,22 +14,22 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="manufacturername">Title*</label>
-                        <input v-model="audit.title" type="text" class="form-control" placeholder="Enter audit title"
+                        <input :disabled="disabled" v-model="audit.title" type="text" class="form-control" placeholder="Enter audit title"
                             required>
                     </div>
                 </div>
     <div class="col-lg-12">
                 <div class="mb-3">
-                        <label class="form-label">Audit Dates* | DatesLimit:10  </label>
+                        <label class="form-label">Audit Dates*   </label>
 
-                              <Datepicker required="true" v-model="this.audit.dates"  multiDates   vertical  multiDatesLimit="10"    />
+                              <Datepicker :disabled="disabled"  required="true" v-model="this.audit.dates"  multiDates   vertical     />
 
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label class="form-label">phone</label>
-                        <input type="text" v-model="audit.phone" class="form-control"
+                        <input :disabled="disabled"  type="text" v-model="audit.phone" class="form-control"
                             placeholder="Enter your phone">
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="mb-3">
                         <label class="form-label">Auditors</label>
 
-                              <VueMultiselect v-model="audit.auditors" :options="auditors" :multiple="true" :taggable="true"
+                              <VueMultiselect :disabled="disabled" v-model="audit.auditors" :options="auditors" :multiple="true" :taggable="true"
                             :limit="3" :close-on-select="true" tag-placeholder="Add this as new auditor"
                             placeholder="Type to search or add auditor" label="name" track-by="id" />
                     </div>
@@ -47,13 +47,13 @@
                   <div class="col-lg-6">
                 <div class="mb-3">
                         <label class="form-label">Location*</label>
-                    <textarea  class="form-control" v-model="audit.location" rows="3" placeholder="Enter audit location"></textarea>
+                    <textarea :disabled="disabled"  class="form-control" v-model="audit.location" rows="3" placeholder="Enter audit location"></textarea>
                     </div>
                 </div>
                 <div class="col-lg-6">
                 <div class="mb-3">
                         <label class="form-label">Description*</label>
-                    <textarea  class="form-control" v-model="audit.description" rows="3" placeholder="Enter audit description"></textarea>
+                    <textarea :disabled="disabled" class="form-control" v-model="audit.description" rows="3" placeholder="Enter audit description"></textarea>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
     import LoaderBox from "../../components/LoaderBoxComponent.vue";
 
     export default {
-        props: ['editmode', 'editForm', 'auditors'],
+        props: ['editmode', 'editForm', 'auditors','disabled'],
         components: {
             VueMultiselect, Errors,LoaderBox,
         },
@@ -171,7 +171,7 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    height: 100px !important;
+    height: 70px !important;
     overflow-y: scroll !important;
     box-sizing: border-box;
     color: var(--dp-text-color);

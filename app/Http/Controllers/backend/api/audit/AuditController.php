@@ -86,11 +86,11 @@ class AuditController extends Controller
         }
 
 
-        $check_auditor= AuditAuditor::where(['audit_id'=>$audit_auditor->audit_id,'finished'=>0])->get();
-            if(count($check_auditor)==0){
-                $audit->status_id=3;
-                $audit->save();
-            }
+        // $check_auditor= AuditAuditor::where(['audit_id'=>$audit_auditor->audit_id,'finished'=>0])->get();
+        //     if(count($check_auditor)==0){
+        //         $audit->status_id=3;
+        //         $audit->save();
+        //     }
 
 
         return redirect()->route('thank');
