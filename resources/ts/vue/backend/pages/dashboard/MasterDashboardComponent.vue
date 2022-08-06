@@ -1,23 +1,21 @@
 <template>
   <div>
 
-                        <!-- start page title -->
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="page-title-box d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0">Dashboard</h4>
 
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
+    <div class="col-12">
 
-                                            <li class="breadcrumb-item active">Dashboard</li>
-                                        </ol>
-                                    </div>
-
-                                </div>
+       <div class="card">
+                    <div class="card-body">
+                         <h4 class="card-title mb-4">Active Audits List    </h4>
+                        <div class="row mb-2">
+       <loader-box v-if="loading"></loader-box>
+                        <audit-table :audits="this.active_audits"  v-else  :getaudits="getDashboard"
+                            v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></audit-table>
                             </div>
-                        </div>
-                        <!-- end page title -->
+                            </div>
+       </div>
+    </div>
+
 
                         <div class="row">
 
@@ -117,28 +115,67 @@
 </template>
 
 <script>
+import AuditTable from "../audit/AuditTable.vue";
+    import LoaderBox from "../../components/LoaderBoxComponent.vue";
 export default {
+    components:{AuditTable,LoaderBox},
 data(){
     return {
         audit_stats:[],
         date_range:"weekly",
         total_users:0,
         auth_user:user,
+        loading:false,
         url:this.hosturl,
         total_auditors:0,
-        active_audits:[],
+        active_audits:{},
+         page_num: 1,
     };
 },
 methods:{
+     editItem(item) {
+this.$router.push({
+                    name: 'audit-details',
+                    params: {
+                        id: item.id
+                    }
+                })
+            },
+            deleteItem(item) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`audit/${item.id}`).then((res) => {
+
+
+                            this.$root.alertNotify(res.status, 'Destroyed Successfuly', 'info', res.data);
+                            this.getaudits();
+                        })
+                    }
+                }).catch((err) => {
+
+                        this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+
+                    })
+
+            },
     getDateRange(item){
+        this.loading=true;
         this.date_range = item;
         this.audit_stats=[];
           axios.get('/dashboard?date_range='+this.date_range).then(response => {
             this.audit_stats = response.data.audit_stats;
-            this.active_audits=response.data.active_audits;
+
         });
         // console.log(this.audit_stats.map(x=>moment(x.date)));
-
+         this.loading=false;
     },
     startDateWithEndDate(){
          if(this.audit_stats.length>0)
@@ -200,11 +237,13 @@ methods:{
             },
 
 
-    getDashboard(){
-        axios.get('/dashboard').then(response => {
+    getDashboard(page=1){
+        this.page_num = page;
+        axios.get('/dashboard?page='+ page).then(response => {
             this.audit_stats = response.data.audit_stats;
             this.total_users=response.data.total_users;
             this.total_auditors=response.data.total_auditors;
+            this.active_audits=response.data.active_audits;
             this.loadChart();
         });
     }

@@ -68,9 +68,8 @@ class DashboardController extends Controller
         )->groupBy('date')->get();
         $users=User::all()->count();
         $auditor=Auditor::all()->count();
-        $active_audits=Audit::latest()->where('status_id','!=','3')->where('title', 'like', '%' . $q . '%')
-        ->orWhere('phone','like', '%' . $q . '%')
-        ->orWhere('location','like', '%' . $q . '%')
+        $q=request('query');
+        $active_audits=Audit::latest()->whereNotIn('status_id',[3])
         ->with('auditdates','status:id,name','auditors')
         ->paginate((int)env('PER_PAGE'));
         // query()

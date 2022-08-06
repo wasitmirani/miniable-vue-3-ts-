@@ -58,12 +58,12 @@
                 </div>
 
                 <hr/>
-                <div class="row mb-4 mt-2">
+                <div class="row mb-4 mt-2" >
                     <div class="col ms-auto ">
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
                             <a v-if="!editmode" role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times" ></i> Cancel </a>
-                                    <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
+                                    <button :disabled="disabled" type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
                                         {{editmode ? 'Update' : 'Submit'}}
                                         </button>
                         </div>

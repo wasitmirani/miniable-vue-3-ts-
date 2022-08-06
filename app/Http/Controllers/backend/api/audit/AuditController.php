@@ -203,6 +203,7 @@ try{
             'status_id'=>2,
             'location'=>$request->location,
             'user_id'=>$request->user()->id,
+            'response'=>0,
         ]);
 
         AuditDateRequest::where('audit_id',$id)->delete();

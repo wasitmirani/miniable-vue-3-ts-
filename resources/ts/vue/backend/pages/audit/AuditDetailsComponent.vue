@@ -215,7 +215,7 @@ export default {
 
                             this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
                             this.getAudit();
-                          
+
                         })
                 //      Swal.fire({
                 //     title: 'Are you sure?',
