@@ -4,6 +4,72 @@
 @endsection
 @section('content')
     <div class="row">
+        <div  class="col-12">
+            <form v-on:submit.prevent="onSubmit">
+                <div class="row">
+                    <errors :errors="errors"></errors>
+                </div>
+                <div class="row">
+
+
+                    <!-- end row -->
+
+                    <div class="col-lg-6">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="manufacturername">Full Name*</label>
+                            <input v-model="auditor.name" type="text" class="form-control" placeholder="Enter your Full Name"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="manufacturerbrand">Email Address* </label>
+                            <input v-model="auditor.email" type="text" class="form-control"
+                                placeholder="Enter your Email Address" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">company</label>
+                            <input type="text" v-model="auditor.company" class="form-control"
+                                placeholder="Enter your company">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="text" v-model="auditor.phone" class="form-control"
+                                placeholder="Enter your Phone Number">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                    <div class="mb-3">
+                            <label class="form-label">Location*</label>
+                        <textarea  class="form-control" v-model="auditor.location" rows="3" placeholder="Enter auditor location"></textarea>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-4 mt-2">
+                        <div class="col ms-auto ">
+                            <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
+                                <a role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
+                                        class="uil uil-times"></i> Cancel </a>
+                                        <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
+                                            {{editmode ? 'Update' : 'Submit'}}
+                                            </button>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row-->
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -182,7 +248,7 @@
                                                                     @if($item->finished==1)
                                                                     <tr>
 
-                                                                       
+
                                                                         <td>
                                                                             @if(!empty($item->auditor))
                                                                             {{$item->auditor->name}}
