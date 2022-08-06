@@ -19,7 +19,8 @@ __webpack_require__.r(__webpack_exports__);
       total_users: 0,
       auth_user: user,
       url: this.hosturl,
-      total_auditors: 0
+      total_auditors: 0,
+      active_audits: []
     };
   },
   methods: {
@@ -30,6 +31,7 @@ __webpack_require__.r(__webpack_exports__);
       this.audit_stats = [];
       axios.get('/dashboard?date_range=' + this.date_range).then(function (response) {
         _this.audit_stats = response.data.audit_stats;
+        _this.active_audits = response.data.active_audits;
       }); // console.log(this.audit_stats.map(x=>moment(x.date)));
     },
     startDateWithEndDate: function startDateWithEndDate() {
@@ -206,7 +208,7 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVN
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "row"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-md-6 col-xl-3\">\n                                <div class=\"card\">\n                                    <div class=\"card-body\">\n                                        <div class=\"float-end mt-2\">\n\n                                        </div>\n                                        <div>\n                                            <h4 class=\"mb-1 mt-1\"><span data-plugin=\"counterup\">{{total_users}}</span></h4>\n                                            <p class=\"text-muted mb-0\">Total Users</p>\n                                        </div>\n                                        <p class=\"text-muted mt-3 mb-0\"><span class=\"text-success me-1\">\n\n                                        </span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end col"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" \n                            <div class=\"col-md-6 col-xl-3\">\n                                <div class=\"card\">\n                                    <div class=\"card-body\">\n                                        <div class=\"float-end mt-2\">\n\n                                        </div>\n                                        <div>\n                                            <h4 class=\"mb-1 mt-1\"><span data-plugin=\"counterup\">{{total_auditors}}</span></h4>\n                                            <p class=\"text-muted mb-0\">Total Auditors</p>\n                                        </div>\n                                        <p class=\"text-muted mt-3 mb-0\"><span class=\"text-danger me-1\"></span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end col")], -1
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-md-6 col-xl-3\">\n                                <div class=\"card\">\n                                    <div class=\"card-body\">\n                                        <div class=\"float-end mt-2\">\n\n                                        </div>\n                                        <div>\n                                            <h4 class=\"mb-1 mt-1\"><span data-plugin=\"counterup\">{{total_users}}</span></h4>\n                                            <p class=\"text-muted mb-0\">Total Users</p>\n                                        </div>\n                                        <p class=\"text-muted mt-3 mb-0\"><span class=\"text-success me-1\">\n\n                                        </span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end col"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\n                            <div class=\"col-md-6 col-xl-3\">\n                                <div class=\"card\">\n                                    <div class=\"card-body\">\n                                        <div class=\"float-end mt-2\">\n\n                                        </div>\n                                        <div>\n                                            <h4 class=\"mb-1 mt-1\"><span data-plugin=\"counterup\">{{total_auditors}}</span></h4>\n                                            <p class=\"text-muted mb-0\">Total Auditors</p>\n                                        </div>\n                                        <p class=\"text-muted mt-3 mb-0\"><span class=\"text-danger me-1\"></span>\n                                        </p>\n                                    </div>\n                                </div>\n                            </div> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end col")], -1
 /* HOISTED */
 );
 

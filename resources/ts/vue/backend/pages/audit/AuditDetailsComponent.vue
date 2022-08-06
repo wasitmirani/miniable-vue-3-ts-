@@ -83,8 +83,8 @@
 
 
                                                 <h5 class="font-size-16 mb-3 mt-4 text-primary"><strong> Audit Assignment Details</strong></h5>
-
-                                                <div class="table-responsive">
+                                                  <loader-box v-if="approval_loading" message="Please wait audit  request has been proccessing"></loader-box>
+                                                <div class="table-responsive" v-else>
 
                                                          <table class="table table-nowrap table-hover mb-0">
                                                             <thead>
@@ -173,6 +173,7 @@ export default {
             auditors:{},
             auditors_list:[],
             loading:false,
+            approval_loading:false,
             disabled:true,
             isloading:false,
         };
@@ -196,20 +197,25 @@ export default {
             return data;
         },
         approval(item){
+            this.approval_loading=true;
                axios.get(`audit-approve/${item.id}?approval_type=1`).then((res) => {
                     this.$root.alertNotify(res.status, 'Auditor Assistant Successfuly', 'info', res.data);
                     this.getAudit();
+                    this.approval_loading=false;
                 }).catch((err) => {
                         this.errors = err.response.data;
                         this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
-
+                        this.approval_loading=false;
                     });
+                     this.approval_loading=false;
         },
        reject(item){
+        this.approval_loading=true;
            axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
 
                             this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
                             this.getAudit();
+                          
                         })
                 //      Swal.fire({
                 //     title: 'Are you sure?',
@@ -228,6 +234,7 @@ export default {
                 //         })
                 //     }
                 // })
+                this.approval_loading=false;
 
        },
       async  onSubmit(){

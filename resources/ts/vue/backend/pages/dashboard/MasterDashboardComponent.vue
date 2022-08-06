@@ -39,7 +39,7 @@
                                 </div>
                             </div> -->
                              <!-- end col-->
-<!-- 
+<!--
                             <div class="col-md-6 col-xl-3">
                                 <div class="card">
                                     <div class="card-body">
@@ -126,6 +126,7 @@ data(){
         auth_user:user,
         url:this.hosturl,
         total_auditors:0,
+        active_audits:[],
     };
 },
 methods:{
@@ -134,6 +135,7 @@ methods:{
         this.audit_stats=[];
           axios.get('/dashboard?date_range='+this.date_range).then(response => {
             this.audit_stats = response.data.audit_stats;
+            this.active_audits=response.data.active_audits;
         });
         // console.log(this.audit_stats.map(x=>moment(x.date)));
 

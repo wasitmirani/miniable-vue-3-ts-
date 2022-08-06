@@ -12,7 +12,7 @@
                         <div class="col-lg-5">
                             <div class="text-center">
                                 <h5>Hello, {{ $audit_auditor->auditor->name }}</h5>
-                                <p class="text-muted">Audit Survey</p>
+                                <p class="text-muted">Audit Acceptance Survey Form  </p>
 
                                 <div>
                                     {{-- <button type="button" class="btn btn-primary mt-2 me-2 waves-effect waves-light">Email
