@@ -3,72 +3,7 @@
     Audit Survey
 @endsection
 @section('content')
-    <div class="row">
-        <div  class="col-12">
-            <form v-on:submit.prevent="onSubmit">
-                <div class="row">
-                    <errors :errors="errors"></errors>
-                </div>
-                <div class="row">
 
-
-                    <!-- end row -->
-
-                    <div class="col-lg-6">
-
-                        <div class="mb-3">
-                            <label class="form-label" for="manufacturername">Full Name*</label>
-                            <input v-model="auditor.name" type="text" class="form-control" placeholder="Enter your Full Name"
-                                required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-
-                        <div class="mb-3">
-                            <label class="form-label" for="manufacturerbrand">Email Address* </label>
-                            <input v-model="auditor.email" type="text" class="form-control"
-                                placeholder="Enter your Email Address" required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">company</label>
-                            <input type="text" v-model="auditor.company" class="form-control"
-                                placeholder="Enter your company">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="text" v-model="auditor.phone" class="form-control"
-                                placeholder="Enter your Phone Number">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                    <div class="mb-3">
-                            <label class="form-label">Location*</label>
-                        <textarea  class="form-control" v-model="auditor.location" rows="3" placeholder="Enter auditor location"></textarea>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row mb-4 mt-2">
-                        <div class="col ms-auto ">
-                            <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
-                                <a role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
-                                        class="uil uil-times"></i> Cancel </a>
-                                        <button type="submit" :class="!editmode ? 'btn btn-primary' : 'btn btn-success' "> <i class="uil uil-file-alt"></i>
-                                            {{editmode ? 'Update' : 'Submit'}}
-                                            </button>
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row-->
-                </div>
-            </form>
-        </div>
-    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -88,6 +23,52 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <form >
+
+                            <div class="row">
+
+
+                                <!-- end row -->
+
+                                <div class="col-lg-6">
+
+                                    <div class="mb-3">
+                                        <label class="form-label"  for="manufacturername">Audit Title</label>
+                                        <input  disabled="true" value="{{$audit->title}}" type="text" class="form-control"
+                                            required>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" disabled="true"  value="{{$audit->phone}}"   class="form-control"
+                                            placeholder="Enter your Phone Number">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                <div class="mb-3">
+                                        <label class="form-label">Location</label>
+                                    <textarea  class="form-control" disabled="true"   rows="3" placeholder="Enter auditor location">{{$audit->location}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                        <textarea  class="form-control" disabled="true"   rows="3" placeholder="Enter auditor location">{{$audit->description}}</textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                            </div>
+                        </form>
+                    </div>
+
 
                     <div class="row mt-5">
                         {{-- <div class="col-xl-4">
@@ -129,8 +110,9 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <div class="col-xl-12">
+                        <div class="col-xl-12" >
                             <div id="faqs-accordion" class="custom-accordion mt-5 mt-xl-0">
+                                @if ($audit->status_id != 3)
                                 <div class="card border shadow-none">
                                     <a href="#faqs-gen-ques-collapse" class="text-dark" data-bs-toggle="collapse"
                                         aria-haspopup="true" aria-expanded="true" aria-controls="faqs-gen-ques-collapse">
@@ -197,8 +179,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
-
+                            @if ($audit->status_id == 3)
                             <div class="card border shadow-none">
                                 <a href="#faqs-privacy-policy-collapse" class="text-dark collapsed"
                                     data-bs-toggle="collapse" aria-haspopup="true" aria-expanded="false"
@@ -288,7 +271,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @endif
 
                         </div>
                     </div>
