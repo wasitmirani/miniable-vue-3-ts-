@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <h5 class="font-size-16 mb-1">Audit Dates</h5>
-                                                    <p class="text-muted text-truncate mb-0">Audit Dates</p>
+                                                    {{-- <p class="text-muted text-truncate mb-0">Audit Dates</p> --}}
                                                 </div>
                                                 <div class="flex-shrink-0">
                                                     <i class="mdi mdi-chevron-up accor-down-icon font-size-16"></i>
@@ -94,7 +94,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <h5 class="font-size-14 mb-4"><i
-                                                            class="mdi mdi-arrow-right text-primary me-1"></i> Audit Dates</h5>
+                                                            class="mdi mdi-arrow-right text-primary me-1"></i> Please mark your available dates</h5>
 
                                                     <form method="POST"
                                                         class="row row-cols-lg-auto gx-3 gy-4 align-items-center"
@@ -171,7 +171,7 @@
                                                                 <thead>
                                                                     <tr>
 
-                                                                        <th scope="col">Audit</th>
+
                                                                         <th scope="col"> Auditor</th>
                                                                         <th scope="col">DateTime</th>
                                                                         <th scope="col">Status</th>
@@ -179,9 +179,10 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($audit->auditdates as $item)
+                                                                    @if($item->finished==1)
                                                                     <tr>
 
-                                                                        <td><a href="#" class="text-dark">{{$audit->title}}</a></td>
+                                                                       
                                                                         <td>
                                                                             @if(!empty($item->auditor))
                                                                             {{$item->auditor->name}}
@@ -192,16 +193,17 @@
                                                                         </td>
                                                                         <td>{{$item->audit_date->format('Y-m-d')}}</td>
                                                                         <td>
-                                                                            @if($item->finished==1)
+                                                                            {{-- @if($item->finished==1)
                                                                             <!--v-if--><span
                                                                                 class="badge bg-danger font-size-12">Close</span>
                                                                             @endif
-                                                                            @if($item->finished==0)
+                                                                            @if($item->finished==0) --}}
                                                                             <!--v-if--><span
-                                                                                class="badge bg-primary font-size-12">Open</span>
-                                                                            @endif
+                                                                                class="badge bg-success font-size-12">approved</span>
+                                                                            {{-- @endif --}}
                                                                         </td>
                                                                     </tr>
+                                                                    @endif
                                                                     @endforeach
 
                                                                 </tbody>
