@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label class="form-label">phone</label>
+                        <label class="form-label">Phone</label>
                         <input :disabled="disabled"  type="text" v-model="audit.phone" class="form-control"
                             placeholder="Enter your phone">
                     </div>
@@ -59,7 +59,11 @@
 
                 <hr/>
                 <div class="row mb-4 mt-2" >
-                    <div class="col ms-auto ">
+                    <div class="col-md-9">
+                       <strong><label class="form-label">Audit Dates</label></strong><br>
+                    <span v-for="item in this.audit.auditdates" class="badge bg-dark " style="margin-right: 5px;">{{item.audit_date}}</span>
+                    </div>
+                    <div class="col-md-3 ms-auto ">
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
                             <a v-if="!editmode" role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times" ></i> Cancel </a>
