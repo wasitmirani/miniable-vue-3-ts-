@@ -211,7 +211,7 @@ export default {
         },
        reject(item){
         this.approval_loading=true;
-           axios.get(`audit-approve/${item.id}?approval_type=2`).then((res) => {
+           axios.get(`audit-reject/${item.id}`).then((res) => {
 
                             this.$root.alertNotify(res.status, 'Audit Request Reject Successfuly', 'info', res.data);
                             this.getAudit();

@@ -38,6 +38,7 @@ Route::prefix('backend')->middleware('auth:api')->group(function () {
     Route::get('/audit/details/{id}',[AuditController::class,'getAuditDetails']);
     Route::post('update-audit-remark/{id}',[AuditController::class,'updateAuditRemark']);
     Route::get('audit-approve/{id}',[AuditController::class,'updateAuditApproval']);
+    Route::get('audit-reject/{id}',[AuditController::class,'updateAuditReject']);
     Route::get('audit-resendmail/{id}',[AuditController::class,'resendMail']);
     Route::resource('audit', AuditController::class);
     Route::get('/dashboard',[DashboardController::class,'getDashboard']);
