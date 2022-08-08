@@ -1,5 +1,5 @@
 <template>
-    <div>
+
         <headermenu />
         <sidebar/>
          <div class="main-content">
@@ -12,9 +12,23 @@
                     <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
-                <footer></footer>
+                  <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- <script>document.write(new Date().getFullYear())</script> © Minible. -->
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                     © {{new Date().getFullYear()   }} Halal CS. <i class="mdi mdi-heart text-danger"></i> <a href="#" target="_blank" class="text-reset">All rights reserved.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
             </div>
-    </div>
+
 </template>
 
 <script>
