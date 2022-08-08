@@ -428,7 +428,7 @@ __webpack_require__.r(__webpack_exports__);
           borderColor: "#f1f1f1"
         }
       };
-      (chart = new ApexCharts(document.querySelector("#sales-analytics-chart"), options)).render();
+      (chart = new ApexCharts(document.querySelector("#sales-analytics-chart2"), options)).render();
     },
     getDashboard: function getDashboard() {
       var _this3 = this;
@@ -955,7 +955,7 @@ var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mt-3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  id: "sales-analytics-chart",
+  id: "sales-analytics-chart2",
   "class": "apex-charts",
   dir: "ltr"
 })], -1

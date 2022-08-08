@@ -97,7 +97,7 @@
                                             </ul>
                                         </div>
                                         <div class="mt-3">
-                                            <div id="sales-analytics-chart" class="apex-charts" dir="ltr"></div>
+                                            <div id="sales-analytics-chart2" class="apex-charts" dir="ltr"></div>
                                         </div>
 
                                     </div> <!-- end card-body-->
@@ -232,7 +232,7 @@ this.$router.push({
             },
             grid: { borderColor: "#f1f1f1" },
             };
-            (chart = new ApexCharts(document.querySelector("#sales-analytics-chart"), options)).render();
+            (chart = new ApexCharts(document.querySelector("#sales-analytics-chart2"), options)).render();
 
             },
 
