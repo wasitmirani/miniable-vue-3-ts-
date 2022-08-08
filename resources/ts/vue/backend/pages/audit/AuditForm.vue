@@ -59,11 +59,11 @@
 
                 <hr/>
                 <div class="row mb-4 mt-2" >
-                    <div class="col-md-9">
-                       <strong><label class="form-label">Audit Dates</label></strong><br>
+                    <div class="col-md-9" v-if="editmode">
+                     <h5 class="font-size-14  text-primary"><strong> Audit Dates</strong></h5><br>
                     <span v-for="item in this.audit.auditdates" class="badge bg-dark " style="margin-right: 5px;">{{item.audit_date}}</span>
                     </div>
-                    <div class="col-md-3 ms-auto ">
+                    <div :class="`${editmode ? 'col-md-3' : 'col-md-10' } ms-auto `">
                         <div class="d-flex flex-reverse flex-wrap gap-2" style="float:right;">
                             <a v-if="!editmode" role="button" class="btn btn-danger" data-bs-dismiss="modal"> <i
                                     class="uil uil-times" ></i> Cancel </a>

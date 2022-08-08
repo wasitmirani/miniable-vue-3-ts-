@@ -222,37 +222,41 @@
 
 
                                                                         <th scope="col"> Auditor</th>
-                                                                        <th scope="col">DateTime</th>
-                                                                        <th scope="col">Status</th>
+                                                                        @foreach ($audit_dates as $item)
+                                                                        <th scope="col">{{ $item->audit_date->format('d-m-Y')}}</th>
+                                                                        @endforeach
+
+                                                                        {{-- <th scope="col">Status</th> --}}
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($audit->auditdates as $item)
-                                                                    @if($item->finished==1)
+
+                                                                    @foreach ($audit_date_requests as $item)
+
                                                                     <tr>
 
+                                                                        @php
+                                                                            $auditor=collect($item)->first();
 
+                                                                        @endphp
                                                                         <td>
-                                                                            @if(!empty($item->auditor))
-                                                                            {{$item->auditor->name}}
-
+                                                                            @if(!empty($auditor))
+                                                                                {{$auditor['auditor_name']}}
+                                                                            @endif
+                                                                        </td>
+                                                                        @foreach (collect($item)->sortBy('audit_date')->values() as $request)
+                                                                        <td>
+                                                                            @if($request['is_assigned']==1)
+                                                                            <span class="badge bg-success font-size-12">approved</span>
                                                                             @else
-                                                                            -
+                                                                            <span class="badge bg-danger font-size-12">rejected</span>
                                                                             @endif
+
                                                                         </td>
-                                                                        <td>{{$item->audit_date->format('Y-m-d')}}</td>
-                                                                        <td>
-                                                                            {{-- @if($item->finished==1)
-                                                                            <!--v-if--><span
-                                                                                class="badge bg-danger font-size-12">Close</span>
-                                                                            @endif
-                                                                            @if($item->finished==0) --}}
-                                                                            <!--v-if--><span
-                                                                                class="badge bg-success font-size-12">approved</span>
-                                                                            {{-- @endif --}}
-                                                                        </td>
+                                                                        @endforeach
+
                                                                     </tr>
-                                                                    @endif
+
                                                                     @endforeach
 
                                                                 </tbody>

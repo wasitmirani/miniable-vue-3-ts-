@@ -28,6 +28,38 @@ class AuditController extends Controller
         $audit->save();
         $auditors=AuditAuditor::where('audit_id',$request->id)->pluck('auditor_id');
         $auditors=Auditor::whereIn('id',$auditors)->get();
+
+        $audit_dates=AuditDate::where('audit_id',$audit->id)->get();
+        $audit_dates=collect($audit_dates)->sortBy('audit_date');
+        $audit_assigned=AuditAssigned::where('audit_id',$audit->id)->with('auditdate','auditor')->get();
+        $audit_assigned=collect($audit_assigned)->map(function($item) {
+          return [
+                'auditor_name'=>$item->auditor->name,
+                'auditor_id'=>$item->auditor->id,
+                'auditor_email'=>$item->auditor->email,
+                'audit_date'=>$item->auditdate->audit_date,
+                'audit_date_id'=>$item->auditdate->id,
+                'is_assigned'=>$item->is_assigned,
+          ];
+
+        })->sortBy('audit_date')->values();
+        $audit_date_requests= AuditDateRequest::where(['audit_id'=> $audit->id])->with('auditdate','auditor')->get();
+        $audit_date_requests=collect($audit_date_requests)->map(function($item) use($audit_assigned) {
+         $audit_request=collect($audit_assigned)->where('auditor_id',$item->auditor_id)->where('audit_date_id',$item->audit_date_id)->first();
+          return [
+            'auditor_name'=>$item->auditor->name,
+            'auditor_id'=>$item->auditor->id,
+            'auditor_email'=>$item->auditor->email,
+            'audit_date'=>$item->auditdate->audit_date->format('d-m-Y'),
+            'audit_date_id'=>$item->auditdate->id,
+            'is_assigned'=>!empty($audit_request) ?$audit_request['is_assigned'] : 0,
+          ];
+
+        });
+
+    $audit_date_requests= $audit_date_requests->groupBy('auditor_id')->values();
+
+
         foreach ($auditors as $key => $auditor) {
             $audit_auditor= AuditAuditor::where(['audit_id'=>$audit->id,'auditor_id'=>$auditor['id']])->first();
              $new_auditor = [
@@ -36,7 +68,9 @@ class AuditController extends Controller
                               'auditor_id'=>$auditor['id'],
                               'name'=>$auditor['name'],
                               'email'=>$auditor['email']];
-             dispatch(new SendAuditEmailJob($new_auditor,$audit));
+
+
+             dispatch(new SendAuditEmailJob($new_auditor,$audit,$audit_date_requests,$audit_dates));
 
          }
         return response()->json(['message'=>'Audit remark updated successfully'],200);
@@ -107,10 +141,42 @@ class AuditController extends Controller
             $audit->status_id=2;
             $audit->save();
         }
+        $audit_dates=AuditDate::where('audit_id',$audit_auditor->audit_id)->get();
+        $audit_dates=collect($audit_dates)->sortBy('audit_date');
+        $audit_assigned=AuditAssigned::where('audit_id',$audit_auditor->audit_id)->with('auditdate','auditor')->get();
+        $audit_assigned=collect($audit_assigned)->map(function($item) {
+          return [
+                'auditor_name'=>$item->auditor->name,
+                'auditor_id'=>$item->auditor->id,
+                'auditor_email'=>$item->auditor->email,
+                'audit_date'=>$item->auditdate->audit_date,
+                'audit_date_id'=>$item->auditdate->id,
+                'is_assigned'=>$item->is_assigned,
+          ];
+
+        })->sortBy('audit_date')->values();
+        $audit_date_requests= AuditDateRequest::where(['audit_id'=> $audit->id])->with('auditdate','auditor')->get();
+        $audit_date_requests=collect($audit_date_requests)->map(function($item) use($audit_assigned) {
+         $audit_request=collect($audit_assigned)->where('auditor_id',$item->auditor_id)->where('audit_date_id',$item->audit_date_id)->first();
+          return [
+            'auditor_name'=>$item->auditor->name,
+            'auditor_id'=>$item->auditor->id,
+            'auditor_email'=>$item->auditor->email,
+            'audit_date'=>$item->auditdate->audit_date->format('d-m-Y'),
+            'audit_date_id'=>$item->auditdate->id,
+            'is_assigned'=>!empty($audit_request) ?$audit_request['is_assigned'] : 0,
+          ];
+
+        });
+
+    $audit_date_requests= $audit_date_requests->groupBy('auditor_id')->values();
+
+
+
         $auditor_audit_requests=AuditDateRequest::where(['audit_id'=> $audit->id,'auditor_id'=>$audit_auditor->auditor->id])->where('availability',1)->get();
         $audit_requests_ids=$auditor_audit_requests->pluck('audit_date_id');
 
-       return view('survey.index',['audit'=>$audit,'audit_auditor'=>$audit_auditor,'audit_requests_ids'=>$audit_requests_ids]);
+       return view('survey.index',['audit_date_requests'=>$audit_date_requests,'audit'=>$audit,'audit_dates'=>$audit_dates,'audit_auditor'=>$audit_auditor,'audit_requests_ids'=>$audit_requests_ids]);
 
     }
     public function index(Request $request){
@@ -338,7 +404,7 @@ try{
                 'auditor_id'=>$item->auditor['id'],
                 'name'=>$item->auditor['name'],
                 'email'=>$item->auditor['email']];
-            dispatch(new SendAuditEmailJob($new_auditor,$audit));
+            dispatch(new SendAuditEmailJob($new_auditor,$audit,null,null));
         }
 
         return response()->json(['message'=>'Audit resend mail has been sended successfully.','audit'=>$audit]);

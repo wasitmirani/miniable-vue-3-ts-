@@ -36,4 +36,6 @@ return abort(401,'Unauthorized User');
 
 Route::get('/logout',[AuthenticatedSessionController::class,'destroy']);
 
+
+
 require __DIR__.'/auth.php';

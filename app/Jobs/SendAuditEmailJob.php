@@ -2,9 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Mail\auditNotification;
 use Illuminate\Support\Arr;
 use Illuminate\Bus\Queueable;
+use App\Mail\auditNotification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,11 +23,13 @@ class SendAuditEmailJob implements ShouldQueue
      * @return void
      */
     protected $auditor;
-    protected $data;
-    public function __construct($auditor,$data)
+    protected $data,$audit_date_requests,$audit_dates;
+    public function __construct($auditor,$data,$audit_date_requests=null,  $audit_dates=null)
     {
         $this->auditor = $auditor;
         $this->data = $data;
+        $this->audit_date_requests=$audit_date_requests;
+        $this->audit_dates=  $audit_dates;
     }
 
     /**
@@ -36,7 +39,7 @@ class SendAuditEmailJob implements ShouldQueue
      */
     public function handle()
     {
-
-        Mail::to($this->auditor['email'])->send(new auditNotification($this->data,$this->auditor));
+       
+        Mail::to($this->auditor['email'])->send(new auditNotification($this->data,$this->auditor,$this->audit_date_requests,$this->audit_dates));
     }
 }

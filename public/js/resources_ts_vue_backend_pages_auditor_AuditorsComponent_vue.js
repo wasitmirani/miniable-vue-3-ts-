@@ -926,7 +926,7 @@ var _hoisted_10 = {
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "form-label"
-}, "company", -1
+}, "Company", -1
 /* HOISTED */
 );
 
