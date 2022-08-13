@@ -135,7 +135,7 @@ class AuditController extends Controller
     public function auditSurvey(Request $request){
        $audit_auditor= AuditAuditor::where('token',$request->token)->with('auditor')->first();
        if(empty($audit_auditor)){
-              return response()->json(['message'=>'Invalid Token'],401);
+              return view('survey.expired');
        }
        $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
 
