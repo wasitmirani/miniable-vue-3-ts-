@@ -78,7 +78,9 @@ class AuditController extends Controller
     }
     public  function sendSurveyDates(Request $request)
     {
-
+        if(empty($request->available_dates)){
+            return back()->with('message','Please select at least one date');
+        }
         $audit_auditor= AuditAuditor::where('token',$request->token)->with('auditor')->first();
         AuditDateRequest::where(['audit_id'=>$audit_auditor->audit_id,'auditor_id'=>$audit_auditor->auditor_id])->delete();
         $audit_dates=AuditDate::whereIn('id',$request->available_dates)->get();
@@ -188,7 +190,7 @@ class AuditController extends Controller
 
         }
         $audits = $audits->where('title', 'like', '%' . $q . '%')
-                         ->orWhere('phone','like', '%' . $q . '%')
+                         ->orWhere('company','like', '%' . $q . '%')
                          ->orWhere('location','like', '%' . $q . '%')
                          ->with('auditdates','status:id,name','auditors')
                          ->paginate((int)env('PER_PAGE'));
@@ -214,7 +216,7 @@ DB::beginTransaction();
 try{
         $audit =Audit::create([
             'title'=>$request->title,
-            'phone'=>$request->phone,
+            'company'=>$request->company,
             'description'=>$request->description,
             'location'=>$request->location,
             'user_id'=>$request->user()->id,
@@ -265,7 +267,7 @@ try{
         $audit =Audit::findOrFail($id);
         $audit->update([
             'title'=>$request->title,
-            'phone'=>$request->phone,
+            'company'=>$request->company,
             'description'=>$request->description,
             'status_id'=>2,
             'location'=>$request->location,

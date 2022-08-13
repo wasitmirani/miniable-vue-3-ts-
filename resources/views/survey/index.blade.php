@@ -129,6 +129,7 @@
                                                 <div class="flex-grow-1 overflow-hidden">
                                                     <h5 class="font-size-16 mb-1">Audit Dates</h5>
                                                     {{-- <p class="text-muted text-truncate mb-0">Audit Dates</p> --}}
+
                                                 </div>
                                                 <div class="flex-shrink-0">
                                                     <i class="mdi mdi-chevron-up accor-down-icon font-size-16"></i>
@@ -143,6 +144,15 @@
                                                 <div class="mt-4">
                                                     <h5 class="font-size-14 mb-4"><i
                                                             class="mdi mdi-arrow-right text-primary me-1"></i> Please mark your available dates</h5>
+                                                           @if(session('message'))
+                                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                <i class="uil uil-exclamation-octagon me-2"></i>
+                                                                {{session('message')}}
+                                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+
+                                                                </button>
+                                                            </div>
+                                                            @endif
 
                                                     <form method="POST"
                                                         class="row row-cols-lg-auto gx-3 gy-4 align-items-center"

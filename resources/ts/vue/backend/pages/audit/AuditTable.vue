@@ -8,7 +8,7 @@
                         <th scope="col">Title</th>
 
                         <!-- <th scope="col">Auditors</th> -->
-                        <th scope="col">phone</th>
+                        <th scope="col">Company</th>
                         <th scope="col">Status</th>
                         <!-- <th scope="col">Location</th> -->
                         <th scope="col">Responses</th>
@@ -28,7 +28,7 @@
                             <a role="button" class="text-body" @click="auditDetails(audit)" >{{audit.title}}</a>
                         </td>
                         <!-- <td><span class="badge rounded-pill bg-primary">{{audit.auditors.length}}</span></td> -->
-                         <td>{{audit.phone}}</td>
+                         <td>{{audit.company}}</td>
                            <td><span :class="`badge rounded-pill bg-${setStatus(audit.status.name)}`">{{audit.status.name}}</span></td>
                  <!-- <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td> -->
 

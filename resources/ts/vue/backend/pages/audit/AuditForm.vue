@@ -28,9 +28,9 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label class="form-label">Phone</label>
-                        <input :disabled="disabled"  type="text" v-model="audit.phone" class="form-control"
-                            placeholder="Enter your phone">
+                        <label class="form-label">Company</label>
+                        <input :disabled="disabled"  type="text" v-model="audit.company" class="form-control"
+                            placeholder="Enter your company">
                     </div>
                 </div>
 

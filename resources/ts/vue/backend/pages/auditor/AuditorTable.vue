@@ -13,9 +13,9 @@
                         <th scope="col">Auditor Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Company</th>
+                        <th scope="col">Abbreviation </th>
                         <th scope="col">Location</th>
-                        <th scope="col">Created</th>
+                        <!-- <th scope="col">Created</th> -->
                         <th scope="col" style="width: 200px;">Action</th>
                     </tr>
                 </thead>
@@ -43,7 +43,7 @@
 
 
                             <location :location="auditor.location"></location> </p></td>
-                        <td>{{$filters.DateTimeFormat(auditor.created_at)}}</td>
+                        <!-- <td>{{$filters.DateTimeFormat(auditor.created_at)}}</td> -->
                         <td>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">

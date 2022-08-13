@@ -27,9 +27,9 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
-                        <label class="form-label">Company</label>
+                        <label class="form-label">Abbreviation </label>
                         <input type="text" v-model="auditor.company" class="form-control"
-                            placeholder="Enter your company">
+                            placeholder="Enter your abbreviation">
                     </div>
                 </div>
                 <div class="col-lg-6">
