@@ -73985,13 +73985,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _LoaderBoxComponent_vue_vue_type_template_id_7bf837fc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoaderBoxComponent.vue?vue&type=template&id=7bf837fc */ "./resources/ts/vue/backend/components/LoaderBoxComponent.vue?vue&type=template&id=7bf837fc");
 /* harmony import */ var _LoaderBoxComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoaderBoxComponent.vue?vue&type=script&lang=js */ "./resources/ts/vue/backend/components/LoaderBoxComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LoaderBoxComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LoaderBoxComponent_vue_vue_type_template_id_7bf837fc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/components/LoaderBoxComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LoaderBoxComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LoaderBoxComponent_vue_vue_type_template_id_7bf837fc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/components/LoaderBoxComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -74015,7 +74015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MasterLayoutComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MasterLayoutComponent.vue?vue&type=script&lang=js */ "./resources/ts/vue/backend/layouts/MasterLayoutComponent.vue?vue&type=script&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
 /* harmony import */ var _MasterLayoutComponent_vue_vue_type_style_index_1_id_4ffdaca2_lang_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MasterLayoutComponent.vue?vue&type=style&index=1&id=4ffdaca2&lang=css */ "./resources/ts/vue/backend/layouts/MasterLayoutComponent.vue?vue&type=style&index=1&id=4ffdaca2&lang=css");
-/* harmony import */ var C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -74024,7 +74024,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_MasterLayoutComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_MasterLayoutComponent_vue_vue_type_template_id_4ffdaca2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/MasterLayoutComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_MasterLayoutComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_MasterLayoutComponent_vue_vue_type_template_id_4ffdaca2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/MasterLayoutComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -74046,13 +74046,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _FooterComponent_vue_vue_type_template_id_5433d0db__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FooterComponent.vue?vue&type=template&id=5433d0db */ "./resources/ts/vue/backend/layouts/components/FooterComponent.vue?vue&type=template&id=5433d0db");
 /* harmony import */ var _FooterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FooterComponent.vue?vue&type=script&lang=js */ "./resources/ts/vue/backend/layouts/components/FooterComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FooterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FooterComponent_vue_vue_type_template_id_5433d0db__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/FooterComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FooterComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FooterComponent_vue_vue_type_template_id_5433d0db__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/FooterComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -74074,13 +74074,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HeaderComponent_vue_vue_type_template_id_812485ae__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=template&id=812485ae */ "./resources/ts/vue/backend/layouts/components/HeaderComponent.vue?vue&type=template&id=812485ae");
 /* harmony import */ var _HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=script&lang=js */ "./resources/ts/vue/backend/layouts/components/HeaderComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderComponent_vue_vue_type_template_id_812485ae__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/HeaderComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HeaderComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HeaderComponent_vue_vue_type_template_id_812485ae__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/HeaderComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -74102,13 +74102,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SidebarMenuComponent_vue_vue_type_template_id_57969e0e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SidebarMenuComponent.vue?vue&type=template&id=57969e0e */ "./resources/ts/vue/backend/layouts/components/SidebarMenuComponent.vue?vue&type=template&id=57969e0e");
 /* harmony import */ var _SidebarMenuComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SidebarMenuComponent.vue?vue&type=script&lang=js */ "./resources/ts/vue/backend/layouts/components/SidebarMenuComponent.vue?vue&type=script&lang=js");
-/* harmony import */ var C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,C_laragon_www_miniable_vue_3_ts_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SidebarMenuComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SidebarMenuComponent_vue_vue_type_template_id_57969e0e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/SidebarMenuComponent.vue"]])
+const __exports__ = /*#__PURE__*/(0,C_laragon_www_auditapp_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SidebarMenuComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SidebarMenuComponent_vue_vue_type_template_id_57969e0e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/ts/vue/backend/layouts/components/SidebarMenuComponent.vue"]])
 /* hot reload */
 if (false) {}
 

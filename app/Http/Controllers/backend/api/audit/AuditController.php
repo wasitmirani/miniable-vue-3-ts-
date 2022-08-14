@@ -275,7 +275,9 @@ try{
             'response'=>0,
         ]);
 
+        AuditAssigned::where('audit_id',$id)->delete();
         AuditDateRequest::where('audit_id',$id)->delete();
+
         $audit->auditdates()->delete();
 
         foreach ($request->dates as $key => $value) {
@@ -306,6 +308,7 @@ try{
         return response()->json(['message'=>'Audit has been updated successfully.','audit'=>$audit]);
     }
     public function destroy($id){
+        AuditAssigned::where('audit_id',$id)->delete();
         AuditDateRequest::where('audit_id',$id)->delete();
         AuditDate::where('audit_id',$id)->delete();
         AuditAuditor::where('audit_id',$id)->delete();
