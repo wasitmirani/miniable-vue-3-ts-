@@ -33,8 +33,9 @@
                  <!-- <td><p class="text-muted font-size-13 mb-0"><location :location="audit.location"></location> </p></td> -->
 
                         <!-- <td><small ><description :value="audit.description"></description>  </small></td> -->
-                            <td > <span  style="font-size: 14px;" class="badge bg-dark">{{audit.response}}/{{audit?.auditors.length}}</span> |
-                            <button v-tooltip="'Resend Mail'" v-if="audit.response<audit?.auditors.length" @click="resendMail(audit)"  type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button>
+                            <td > <span  style="font-size: 14px;" class="badge bg-dark">{{audit.response}}/{{audit?.auditors.length}}</span>
+                           <span v-if="audit.status_id < 3"> |
+                            <button v-tooltip="'Resend Mail'" v-if="audit.response<audit?.auditors.length " @click="resendMail(audit)"  type="button" class="btn btn-outline-dark btn-sm waves-effect waves-light"> <i  style="font-size: 14px;" class="uil-fast-mail-alt "></i></button></span>
 
                                         </td>
                         <td>{{$filters.DateTimeFormat(audit.created_at)}}</td>

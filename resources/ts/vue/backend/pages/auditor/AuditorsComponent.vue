@@ -23,7 +23,7 @@
                         </div>
                         <!-- end row -->
                         <loader-box v-if="loading"></loader-box>
-                        <auditor-table :auditors="auditors" v-else :query="query" :getAuditors="getAuditors"
+                        <auditor-table :auditors="auditors" v-else :query="query" :getauditors="getAuditors"
                             v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></auditor-table>
 
                     </div>

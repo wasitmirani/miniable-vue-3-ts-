@@ -22,7 +22,7 @@
                 <div class="mb-3">
                         <label class="form-label">Audit Dates*   </label>
 
-                              <Datepicker :disabled="disabled"  required="true" v-model="this.audit.dates"  multiDates   vertical     />
+                              <Datepicker :disabled="disabled" :minDate="new Date()"  required="true" v-model="this.audit.dates"  multiDates   vertical     />
 
                     </div>
                 </div>

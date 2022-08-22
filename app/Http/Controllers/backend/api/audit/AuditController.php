@@ -138,7 +138,9 @@ class AuditController extends Controller
               return view('survey.expired');
        }
        $audit=Audit::where('id',$audit_auditor->audit_id)->with('auditdates','status:id,name')->first();
-
+       if($audit->status_id==3){
+        return view('survey.expired');
+       }
         if($audit->status_id<3){
             $audit->status_id=2;
             $audit->save();

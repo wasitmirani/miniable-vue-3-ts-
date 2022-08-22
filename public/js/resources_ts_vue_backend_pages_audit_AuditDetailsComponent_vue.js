@@ -259,6 +259,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             })
           });
         });
+        _this4.auditors = _this4.auditors.sort(function (a, b) {
+          if (a === null) {
+            return 1;
+          }
+
+          if (b === null) {
+            return -1;
+          }
+
+          if (a === b) {
+            return 0;
+          }
+
+          return a < b ? 1 : -1;
+        });
         _this4.audit.auditors = collection.auditors.map(function (x) {
           return x.auditor;
         });
@@ -268,6 +283,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.getAudit();
+    console.log("auditor222", this.audit);
   }
 });
 
@@ -1108,6 +1124,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.audit.title]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Datepicker, {
     disabled: $props.disabled,
+    minDate: new Date(),
     required: "true",
     modelValue: this.audit.dates,
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -1117,7 +1134,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     vertical: ""
   }, null, 8
   /* PROPS */
-  , ["disabled", "modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  , ["disabled", "minDate", "modelValue"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     disabled: $props.disabled,
     type: "text",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {

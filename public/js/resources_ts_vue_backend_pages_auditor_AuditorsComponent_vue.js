@@ -1325,7 +1325,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 1,
     auditors: $data.auditors,
     query: $data.query,
-    getAuditors: $options.getAuditors,
+    getauditors: $options.getAuditors,
     onEditItem: _cache[5] || (_cache[5] = function ($event) {
       return $options.editItem($event);
     }),
@@ -1334,7 +1334,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 8
   /* PROPS */
-  , ["auditors", "query", "getAuditors"]))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  Large modal example "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.editmode ? 'Update Auditor' : 'Create New Auditor'), 1
+  , ["auditors", "query", "getauditors"]))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  Large modal example "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.editmode ? 'Update Auditor' : 'Create New Auditor'), 1
   /* TEXT */
   )]), _hoisted_17]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_auditor_form, {
     roles: $data.roles,

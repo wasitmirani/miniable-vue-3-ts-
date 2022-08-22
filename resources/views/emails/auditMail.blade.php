@@ -83,7 +83,7 @@ style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, '
                 <tr>
                     <td class="header"
                         style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; padding: 25px 0; text-align: center;">
-                        <a href="miniable-vue-3-ts-.test"
+                        <a href="{{url('/')}}"
                             style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #3d4852; font-size: 19px; font-weight: bold; text-decoration: none; display: inline-block;">
                             <img src="{{asset('assets/images/logo-sm.png')}}" class="logo"
                                 alt="logo"
@@ -115,7 +115,7 @@ style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, '
                                       <h4><b>
                                         {{ $data['title'] }} </b></h4>
                                       <p>The conclusion for this audit request has been drawn.</p>
-                                      <h6>Audit Remarks: {{$data['remarks']}}</h6>
+                                      <h4>Audit Remarks: {{$data['remarks']}}</h4>
                                     </div>
                                   </div>
                                   <hr>

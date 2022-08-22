@@ -285,8 +285,27 @@ export default {
                         ...item.auditor,
                         auditrequests:data.sort((a,b)=> (a.auditdate.audit_date > b.auditdate.audit_date? 1 : -1))};
 
-                })
-                  this.audit.auditors=collection.auditors.map(x=>x.auditor);
+                });
+   this.auditors= this.auditors.sort((a, b) => {
+                        if (a === null) {
+                            return 1;
+                        }
+
+                        if (b === null) {
+                            return -1;
+                        }
+
+                        if (a === b) {
+                            return 0;
+                        }
+
+                        return a < b ? 1 : -1;
+                        });
+
+
+              this.audit.auditors=collection.auditors.map(x=>x.auditor);
+
+
                 this.loading=false;
 
             }).catch((er)=>{
@@ -296,6 +315,7 @@ export default {
     },
     mounted(){
         this.getAudit();
+          console.log("auditor222",  this.audit);
     }
 }
 </script>

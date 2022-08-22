@@ -10,7 +10,7 @@
                         <div class="row mb-2">
        <loader-box v-if="loading"></loader-box>
                         <audit-table :audits="this.active_audits"  v-else  :getaudits="getDashboard"
-                            v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)"></audit-table>
+                            v-on:editItem="editItem($event)" v-on:resendMail="resendMail($event)" v-on:deleteItem="deleteItem($event)"></audit-table>
                             </div>
                             </div>
        </div>
@@ -141,6 +141,16 @@ this.$router.push({
                     }
                 })
             },
+               resendMail(audit){
+                    this.loading_mail=true;
+                      this.$root.alertNotify(200, 'Mail proccessing', 'info', [{'message':'Please wait Mail has been proccessing...'}]);
+                   axios.get('/audit-resendmail/'+audit.id).then(res => {
+                                 this.$root.alertNotify(res.status, 'Mail Sended Successfuly', 'success', res.data);
+                                                    this.getaudits();
+                             this.loading_mail=false;
+
+                    });
+            },
             deleteItem(item) {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -238,6 +248,7 @@ this.$router.push({
 
 
     getDashboard(page=1){
+        this.loading=true;
         this.page_num = page;
         axios.get('/dashboard?page='+ page).then(response => {
             this.audit_stats = response.data.audit_stats;
@@ -246,6 +257,7 @@ this.$router.push({
             this.active_audits=response.data.active_audits;
             this.loadChart();
         });
+          this.loading=false;
     }
 },
 mounted() {

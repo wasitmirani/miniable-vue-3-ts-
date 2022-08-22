@@ -257,8 +257,23 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    deleteItem: function deleteItem(item) {
+    resendMail: function resendMail(audit) {
       var _this = this;
+
+      this.loading_mail = true;
+      this.$root.alertNotify(200, 'Mail proccessing', 'info', [{
+        'message': 'Please wait Mail has been proccessing...'
+      }]);
+      axios.get('/audit-resendmail/' + audit.id).then(function (res) {
+        _this.$root.alertNotify(res.status, 'Mail Sended Successfuly', 'success', res.data);
+
+        _this.getaudits();
+
+        _this.loading_mail = false;
+      });
+    },
+    deleteItem: function deleteItem(item) {
+      var _this2 = this;
 
       Swal.fire({
         title: 'Are you sure?',
@@ -271,23 +286,23 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           axios["delete"]("audit/".concat(item.id)).then(function (res) {
-            _this.$root.alertNotify(res.status, 'Destroyed Successfuly', 'info', res.data);
+            _this2.$root.alertNotify(res.status, 'Destroyed Successfuly', 'info', res.data);
 
-            _this.getaudits();
+            _this2.getaudits();
           });
         }
       })["catch"](function (err) {
-        _this.$root.alertNotify(err.response.status, null, 'error', err.response.data);
+        _this2.$root.alertNotify(err.response.status, null, 'error', err.response.data);
       });
     },
     getDateRange: function getDateRange(item) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.loading = true;
       this.date_range = item;
       this.audit_stats = [];
       axios.get('/dashboard?date_range=' + this.date_range).then(function (response) {
-        _this2.audit_stats = response.data.audit_stats;
+        _this3.audit_stats = response.data.audit_stats;
       }); // console.log(this.audit_stats.map(x=>moment(x.date)));
 
       this.loading = false;
@@ -431,18 +446,20 @@ __webpack_require__.r(__webpack_exports__);
       (chart = new ApexCharts(document.querySelector("#sales-analytics-chart2"), options)).render();
     },
     getDashboard: function getDashboard() {
-      var _this3 = this;
+      var _this4 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.loading = true;
       this.page_num = page;
       axios.get('/dashboard?page=' + page).then(function (response) {
-        _this3.audit_stats = response.data.audit_stats;
-        _this3.total_users = response.data.total_users;
-        _this3.total_auditors = response.data.total_auditors;
-        _this3.active_audits = response.data.active_audits;
+        _this4.audit_stats = response.data.audit_stats;
+        _this4.total_users = response.data.total_users;
+        _this4.total_auditors = response.data.total_auditors;
+        _this4.active_audits = response.data.active_audits;
 
-        _this3.loadChart();
+        _this4.loadChart();
       });
+      this.loading = false;
     }
   },
   mounted: function mounted() {
@@ -687,12 +704,15 @@ var _hoisted_7 = {
   },
   "class": "badge bg-dark"
 };
+var _hoisted_8 = {
+  key: 0
+};
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
 
-var _hoisted_9 = ["onClick"];
+var _hoisted_10 = ["onClick"];
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   style: {
     "font-size": "14px"
   },
@@ -701,49 +721,49 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_11 = [_hoisted_10];
-var _hoisted_12 = {
+var _hoisted_12 = [_hoisted_11];
+var _hoisted_13 = {
   "class": "list-inline mb-0"
 };
-var _hoisted_13 = {
+var _hoisted_14 = {
   "class": "list-inline-item"
 };
-var _hoisted_14 = ["onClick"];
+var _hoisted_15 = ["onClick"];
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil uil-eye font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_16 = [_hoisted_15];
+var _hoisted_17 = [_hoisted_16];
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
 
-var _hoisted_18 = ["onClick"];
+var _hoisted_19 = ["onClick"];
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil uil-pen font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_20 = [_hoisted_19];
+var _hoisted_21 = [_hoisted_20];
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" | ");
 
-var _hoisted_22 = {
+var _hoisted_23 = {
   "class": "list-inline-item"
 };
-var _hoisted_23 = ["onClick"];
+var _hoisted_24 = ["onClick"];
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "uil uil-trash-alt font-size-18"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_25 = [_hoisted_24];
+var _hoisted_26 = [_hoisted_25];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$audits$data, _$props$audits;
 
@@ -783,42 +803,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT, CLASS */
     )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td><p class=\"text-muted font-size-13 mb-0\"><location :location=\"audit.location\"></location> </p></td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td><small ><description :value=\"audit.description\"></description>  </small></td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(audit.response) + "/" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(audit === null || audit === void 0 ? void 0 : audit.auditors.length), 1
     /* TEXT */
-    ), _hoisted_8, audit.response < (audit === null || audit === void 0 ? void 0 : audit.auditors.length) ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    ), audit.status_id < 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, [_hoisted_9, audit.response < (audit === null || audit === void 0 ? void 0 : audit.auditors.length) ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
       key: 0,
       onClick: function onClick($event) {
         return $options.resendMail(audit);
       },
       type: "button",
       "class": "btn btn-outline-dark btn-sm waves-effect waves-light"
-    }, _hoisted_11, 8
+    }, _hoisted_12, 8
     /* PROPS */
-    , _hoisted_9)), [[_directive_tooltip, 'Resend Mail']]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$filters.DateTimeFormat(audit.created_at)), 1
+    , _hoisted_10)), [[_directive_tooltip, 'Resend Mail']]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$filters.DateTimeFormat(audit.created_at)), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
       role: "button",
       onClick: function onClick($event) {
         return $options.auditDetails(audit);
       },
       "class": "px-2 text-primary"
-    }, _hoisted_16, 8
+    }, _hoisted_17, 8
     /* PROPS */
-    , _hoisted_14)), [[_directive_tooltip, 'View Audit Details']]), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    , _hoisted_15)), [[_directive_tooltip, 'View Audit Details']]), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
       role: "button",
       onClick: function onClick($event) {
         return $options.editItem(audit);
       },
       "class": "px-2 text-primary"
-    }, _hoisted_20, 8
+    }, _hoisted_21, 8
     /* PROPS */
-    , _hoisted_18)), [[_directive_tooltip, 'Edit Audit']])]), _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    , _hoisted_19)), [[_directive_tooltip, 'Edit Audit']])]), _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
       role: "button",
       onClick: function onClick($event) {
         return $options.deleteItem(audit);
       },
       "class": "px-2 text-danger"
-    }, _hoisted_25, 8
+    }, _hoisted_26, 8
     /* PROPS */
-    , _hoisted_23)), [[_directive_tooltip, 'Delete Audit']])])])])]);
+    , _hoisted_24)), [[_directive_tooltip, 'Delete Audit']])])])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_table_footer, {
@@ -976,7 +996,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onEditItem: _cache[0] || (_cache[0] = function ($event) {
       return $options.editItem($event);
     }),
-    onDeleteItem: _cache[1] || (_cache[1] = function ($event) {
+    onResendMail: _cache[1] || (_cache[1] = function ($event) {
+      return $options.resendMail($event);
+    }),
+    onDeleteItem: _cache[2] || (_cache[2] = function ($event) {
       return $options.deleteItem($event);
     })
   }, null, 8
@@ -984,25 +1007,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   , ["audits", "getaudits"]))])])])]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end row"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a class=\"dropdown-toggle text-reset\" href=\"#\" id=\"dropdownMenuButton5\"\n                                                    data-bs-toggle=\"dropdown\" aria-haspopup=\"true\"\n                                                    aria-expanded=\"false\">\n                                                    <span class=\"fw-semibold\">Sort By:</span> <span class=\"text-muted\">{{date_range}}<i class=\"mdi mdi-chevron-down ms-1\"></i></span>\n                                                </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "dropdown-item",
     role: "button",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
       return $options.getDateRange('Monthly');
     })
   }, "Monthly"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "dropdown-item",
     role: "button",
-    onClick: _cache[3] || (_cache[3] = function ($event) {
+    onClick: _cache[4] || (_cache[4] = function ($event) {
       return $options.getDateRange('Yearly');
     })
   }, "Yearly"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "dropdown-item",
     role: "button",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
+    onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.getDateRange('Weekly');
     })
   }, "Weekly"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "dropdown-item",
     role: "button",
-    onClick: _cache[5] || (_cache[5] = function ($event) {
+    onClick: _cache[6] || (_cache[6] = function ($event) {
       return $options.getDateRange('Daily');
     })
   }, "Daily")])])]), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Dates: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.startDateWithEndDate().first_date) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.startDateWithEndDate().last_date), 1
