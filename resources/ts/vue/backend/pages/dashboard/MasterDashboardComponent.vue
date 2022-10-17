@@ -116,7 +116,7 @@
 
 <script>
 import AuditTable from "../audit/AuditTable.vue";
-    import LoaderBox from "../../components/LoaderBoxComponent.vue";
+import LoaderBox from "../../components/LoaderBoxComponent.vue";
 export default {
     components:{AuditTable,LoaderBox},
 data(){
@@ -256,8 +256,11 @@ this.$router.push({
             this.total_auditors=response.data.total_auditors;
             this.active_audits=response.data.active_audits;
             this.loadChart();
+
         });
-          this.loading=false;
+
+        this.loading=false;
+
     }
 },
 mounted() {

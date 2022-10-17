@@ -260,19 +260,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         });
         _this4.auditors = _this4.auditors.sort(function (a, b) {
-          if (a === null) {
+          if (a.auditrequests === null) {
             return 1;
           }
 
-          if (b === null) {
+          if (b.auditrequests === null) {
             return -1;
           }
 
-          if (a === b) {
+          if (a.auditrequests === b.auditrequests) {
             return 0;
           }
 
-          return a < b ? 1 : -1;
+          return a.auditrequests < b.auditrequests ? 1 : -1;
         });
         _this4.audit.auditors = collection.auditors.map(function (x) {
           return x.auditor;

@@ -139,7 +139,7 @@ style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, '
                                             {{ $new_auditor['auditor_name'] }}
                                         @endif
                                     </td>
-                                    @foreach (collect($item)->sortBy('audit_date')->values() as $request)
+                                    @foreach ($item as $request)
                                         <td scope="col"  class="header" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; padding: 20px 0; text-align: center;">
                                             @if($request['is_assigned']==1)
                                             <span style="color:rgb(8, 206, 91)">approved</span>
@@ -164,9 +164,13 @@ style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, '
                             <tr>
                                 <td class="content-cell" align="center"
                                     style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; max-width: 100vw; padding: 32px;">
+
                                     <p
                                         style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; line-height: 1.5em; margin-top: 0; color: #b0adc5; font-size: 12px; text-align: center;">
                                         © 2022 Halal CS. All rights reserved.</p>
+                                        <br>
+                                        <hr>
+                                        <h2>Do not reply to this email</h2>
 
                                 </td>
                             </tr>
@@ -201,7 +205,9 @@ View Details
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ config('app.name') }}<br>
+<hr>
+<h2>Do not reply to this email</h2>
 @endcomponent
 
 @endif

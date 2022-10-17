@@ -287,20 +287,20 @@ export default {
 
                 });
    this.auditors= this.auditors.sort((a, b) => {
-                        if (a === null) {
-                            return 1;
-                        }
+                if (a.auditrequests === null) {
+                    return 1;
+                }
 
-                        if (b === null) {
-                            return -1;
-                        }
+                if (b.auditrequests === null) {
+                    return -1;
+                }
 
-                        if (a === b) {
-                            return 0;
-                        }
+                if (a.auditrequests === b.auditrequests) {
+                    return 0;
+                }
 
-                        return a < b ? 1 : -1;
-                        });
+                return a.auditrequests < b.auditrequests ? 1 : -1;
+                });
 
 
               this.audit.auditors=collection.auditors.map(x=>x.auditor);

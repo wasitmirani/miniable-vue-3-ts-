@@ -57,11 +57,23 @@ class AuditController extends Controller
 
         });
 
+
+
+
     $audit_date_requests= $audit_date_requests->groupBy('auditor_id')->values();
+
+    $audit_date_requests=collect($audit_date_requests)->map(function($items){
+
+        return collect($items)->sortBy('audit_date_id')->values()->all();
+    });
+
+
+
 
 
         foreach ($auditors as $key => $auditor) {
             $audit_auditor= AuditAuditor::where(['audit_id'=>$audit->id,'auditor_id'=>$auditor['id']])->first();
+
              $new_auditor = [
                               'token'=>$audit_auditor->token,
                               'audit_id'=>$audit->id,

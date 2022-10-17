@@ -39,7 +39,7 @@ class SendAuditEmailJob implements ShouldQueue
      */
     public function handle()
     {
-       
+     
         Mail::to($this->auditor['email'])->send(new auditNotification($this->data,$this->auditor,$this->audit_date_requests,$this->audit_dates));
     }
 }

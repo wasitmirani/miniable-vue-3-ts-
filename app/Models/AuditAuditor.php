@@ -18,7 +18,7 @@ class AuditAuditor extends Model
     */
    public function auditor()
    {
-       return $this->belongsTo(Auditor::class, 'auditor_id', 'id')->with('auditrequests');
+       return $this->belongsTo(Auditor::class, 'auditor_id', 'id');
    }
 
    public function auditrequests()
