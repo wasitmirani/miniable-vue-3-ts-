@@ -92,6 +92,7 @@
 
                                                                     <th scope="col">Auditor</th>
                                                                     <th scope="col" v-for="item in audit?.auditdates">
+                                                                        <span class="badge bg-dark" v-tooltip="`total availability request `" style="font-size: 14px;">{{ mapAvailabilityDates(item.id)?.total ?? 0 }}</span>
                                                                     {{item.audit_date}}
                                                                     </th>
                                                                     <!-- <th scope="col">Date</th>
@@ -176,6 +177,8 @@ export default {
             approval_loading:false,
             disabled:true,
             isloading:false,
+            availability_dates:{},
+            audit_request_by_date:{},
         };
     },
     methods:{
@@ -271,6 +274,11 @@ export default {
                         break;
                 }
             },
+            mapAvailabilityDates(id){
+               const data= this.availability_dates.filter(el => el.id == id);
+               console.log('data_date',data);
+               return data[0];
+            },
         getAudit(){
              this.loading=true;
             axios.get('/audit/details/'+this.$route.params.id).then((res)=>{
@@ -278,7 +286,7 @@ export default {
                 this.audit=res.data.audit;
                 this.activities=res.data.activities;
                 this.auditors_list=res.data.auditors;
-
+                this.availability_dates=res.data.availability_dates;
                 this.auditors=this.audit.auditors.map((item)=>{
                      let data= item.auditrequests.filter(request=>request.auditor_id==item.auditor_id);
                     return {
@@ -315,6 +323,7 @@ export default {
     },
     mounted(){
         this.getAudit();
+
           console.log("auditor222",  this.audit);
     }
 }

@@ -214,11 +214,21 @@ class AuditController extends Controller
     public function getAuditDetails(Request $request){
         $audit = Audit::where('id',$request->id)->with('user','auditdates','status:id,name','auditors')->first();
         $audit->auditdates = $audit->auditdates()->orderBy('audit_date','ASC')->get();
+     $audit_dates_ids= $audit->auditdates->pluck('id');
+     $audit_dates= AuditDateRequest::whereIn('audit_date_id',$audit_dates_ids)->where('availability',1)->with('auditdate:id,audit_date')->get();
+    $availability_dates=collect($audit_dates)->map(function($item){
+        return ['audit_date_id'=>$item->audit_date_id,'auditdate'=>$item->auditdate->audit_date->format('Y-m-d')];
+    });
 
-        $activities=Activity::where('subject_id', $audit->id)->where('subject_type',get_class($audit))->get();
+    $availability_dates= $availability_dates->groupBy('auditdate');
+    $availability_dates=  collect($availability_dates)->map(function($item){
+        return ['date'=>$item->first()['auditdate'],'id'=>$item->first()['audit_date_id'],'total'=>count($item)];
+    })->values();
+
+        // $activities=Activity::where('subject_id', $audit->id)->where('subject_type',get_class($audit))->get();
         $auditors =Auditor::orderBy('name','ASC')->get();
         // $audit->auditors = $audit->auditors()->orderBy('name','ASC')->get();
-        return response()->json(['auditors'=>$auditors,'audit'=>$audit,'activities'=>$activities]);
+        return response()->json(['auditors'=>$auditors,'audit'=>$audit,'availability_dates'=>$availability_dates,'activities'=>[]]);
     }
     public function store(Request $request){
         $request->validate([
