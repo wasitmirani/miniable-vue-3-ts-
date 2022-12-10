@@ -338,9 +338,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return moment(x.audit_date).format('ddd MMMM D YYYY');
           });
           this.audit.auditors = collection.auditors.map(function (x) {
-            return x.auditor;
+            var _x$auditor;
+
+            return (_x$auditor = x.auditor) !== null && _x$auditor !== void 0 ? _x$auditor : null;
           });
-          console.log("date", dates);
+          this.audit.auditors = this.audit.auditors.filter(function (el) {
+            return el != null;
+          });
           this.audit.dates = dates;
         }
       } else {

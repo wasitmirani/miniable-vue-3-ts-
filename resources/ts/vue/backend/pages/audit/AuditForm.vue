@@ -113,8 +113,10 @@
                         console.log("tr",this.editmode);
                     this.audit = collection
                     const dates=this.audit.auditdates.map(x=> moment(x.audit_date).format('ddd MMMM D YYYY'))
-                    this.audit.auditors=collection.auditors.map(x=>x.auditor);
-                    console.log("date",dates);
+                    this.audit.auditors=collection.auditors.map(x=>x.auditor ?? null);
+                    this.audit.auditors=  this.audit.auditors.filter(function (el) {
+                            return el != null;
+                            });
                     this.audit.dates=dates;
                     }
 
